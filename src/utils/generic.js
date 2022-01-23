@@ -28,6 +28,9 @@ const randomStr = (len = 25) => {
         }).join('')
 }
 
+const isNull = value => value === '' || value === null || value === undefined
+
 module.exports = {
-    randomStr
+    randomStr,
+    isNull
 }
