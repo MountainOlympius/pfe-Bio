@@ -1,6 +1,6 @@
 const { Pool } = require('pg')
 
-require('dotenv').parse()
+require('dotenv').config()
 
 const config = {
     host: process.env.PG_HOST || 'localhost',
