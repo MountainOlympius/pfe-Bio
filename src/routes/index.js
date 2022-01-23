@@ -2,10 +2,10 @@ const express = require('express')
 
 const AuthRouter = require('./auth.routes')
 
-const ApiRouter = () => {
+const ApiRouter = (pool) => {
     const router = express.Router()
 
-    router.use('/auth', AuthRouter())
+    router.use('/auth', AuthRouter(pool))
 
     return router
 }
