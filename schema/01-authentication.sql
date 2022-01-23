@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS account (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR (100) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT false,
+    created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS session (
+    sid VARCHAR PRIMARY KEY,
+    sess JSON NOT NULL,
+    expire TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE INDEX idx_session_expire ON session (expire);
