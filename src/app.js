@@ -5,10 +5,16 @@ const PgConnectStore = require('connect-pg-simple')(expressSession)
 require('dotenv').config()
 
 const ApiRouter = require('./routes')
+const { Authentication } = require('./middlewares/Authentication')
 
 // TODO : Add CORS support in development envirement
 const App = (pool) => {
     const app = express()
+
+    app.use((request, response, next) => {
+        console.log('[REQUEST]')
+        next()
+    })
 
     app.use(express.json())
 
@@ -22,6 +28,7 @@ const App = (pool) => {
         })
     )
 
+    app.use(Authentication(pool))
     app.use('/api', ApiRouter(pool))
 
     return app
