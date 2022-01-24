@@ -29,22 +29,27 @@ const createLoginController = (pool) => {
     }
 }
 
-const createLogoutController = (pool) => {
+const createLogoutController = () => {
     return (request, response) => {
-        response.json({ message: 'This is logout page' })
+        if (request.session) {
+            request.session.destroy()
+        }
+
+        response.json({ ok: true })
     }
 }
 
 const createIsLoggedInController = (pool) => {
     return (request, response) => {
-        response.json({ message: 'This is isLoggedIn page' })
+
+        response.json({ ok: false })
     }
 }
 
 module.exports = (pool) => {
     return {
         loginController: createLoginController(pool),
-        logoutController: createLogoutController(pool),
+        logoutController: createLogoutController(),
         isLoggedInController: createIsLoggedInController(pool),
     }
 }
