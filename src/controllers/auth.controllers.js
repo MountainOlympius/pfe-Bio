@@ -42,7 +42,16 @@ const createLogoutController = () => {
 const createIsLoggedInController = (pool) => {
     return (request, response) => {
 
-        response.json({ ok: false })
+        if (request.account) {
+            const accountData = {...request.account}
+
+            delete accountData.password
+
+            return response.json({ isLoggedIn: true, accountData })
+        }
+
+
+        response.json({ isLoggedIn: false })
     }
 }
 

@@ -11,11 +11,6 @@ const { Authentication } = require('./middlewares/Authentication')
 const App = (pool) => {
     const app = express()
 
-    app.use((request, response, next) => {
-        console.log('[REQUEST]')
-        next()
-    })
-
     app.use(express.json())
 
     app.use(
