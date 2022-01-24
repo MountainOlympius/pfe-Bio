@@ -11,11 +11,11 @@ const createAccount = (pool) => {
     }
 }
 
-const selectByUsername = (pool) => {
-    return async (username) => {
-        const query = 'SELECT id, username, password, is_admin FROM account WHERE username = $1'
-        const response = await pool.query(query, [username])
-        
+const selectBy = (pool, column) => {
+    return async (value) => {
+        const query = `SELECT id, username, password, is_admin FROM account WHERE ${column} = $1`
+        const response = await pool.query(query, [value])
+
         if (response?.rows?.length <= 0) return null
 
         return response.rows[0]
@@ -25,6 +25,7 @@ const selectByUsername = (pool) => {
 module.exports = (pool) => {
     return {
         createAccount: createAccount(pool),
-        selectByUsername: selectByUsername(pool)
+        selectByUsername: selectBy(pool, 'username'),
+        selectById: selectBy(pool, 'id'),
     }
 }
