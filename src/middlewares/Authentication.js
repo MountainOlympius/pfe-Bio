@@ -22,6 +22,18 @@ const Authentication = (pool) => {
     }
 }
 
+// Allow only authenticated request by using this middleware
+
+const AuthenticatedOnly = (request, response, next) => {
+    if (!request.authenticated || !request.account) {
+        // Sending HTTP UNAUTHORIZED status
+        return response.status(401).json({ ok: false, errors: ['authentication_required']})
+    }
+
+    next()
+}
+
 module.exports = {
-    Authentication
+    Authentication,
+    AuthenticatedOnly
 }
