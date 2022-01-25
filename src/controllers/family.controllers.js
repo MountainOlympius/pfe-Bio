@@ -185,8 +185,17 @@ const addFamilyCriteria = (pool) => {
 }
 
 const deleteFamilyCriteria = (pool) => {
-    return async (request, response) => {
+    const { deleteFamilyCriteria } = familyModels(pool)
 
+    return async (request, response) => {
+        const { id:fid, criteriaId:cid } = request.params
+
+        if (!isNumber(fid) || Number(fid) <= 0 || !isNumber(cid) || Number(cid) <= 0) {
+            return response.status(404).json({ ok: false })
+        }
+
+        const deleted = await deleteFamilyCriteria(fid, cid)
+        response.json({ ok: deleted })
     }
 }
 

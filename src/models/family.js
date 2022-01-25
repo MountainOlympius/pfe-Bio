@@ -101,6 +101,13 @@ const createFamilyCriateriaInserter = (pool) => {
     }
 }
 
+const createFamilyCriteriaDeleted = (pool) => {
+    return async (fid, cid) => {
+        const response = await pool.query('DELETE FROM family_criteria WHERE family_id = $1 AND id = $2', [fid, cid])
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
@@ -109,6 +116,7 @@ module.exports = (pool) => {
         insertFamilyCriateria: createFamilyCriateriaInserter(pool),
         selectGenusesOfFamily: createSelectGenusesOfFamily(pool),
         updateFamily: createFamilyUpdater(pool),
-        deleteFamily: createFamilyDeleter(pool)
+        deleteFamily: createFamilyDeleter(pool),
+        deleteFamilyCriteria: createFamilyCriteriaDeleted(pool)
     }
 }
