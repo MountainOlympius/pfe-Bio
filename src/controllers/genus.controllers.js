@@ -1,6 +1,6 @@
 const genusModels = require('../models/genus')
 
-const { isNumber } = require('../utils/validators')
+const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
 const getGenuses = (pool) => {
     const { selectGenuses } = genusModels(pool)
@@ -60,8 +60,34 @@ const getSpeciesOfGenus = (pool) => {
 }
 
 const postGenus = (pool) => {
+    const { insertGenus } = genusModels(pool)
+    
     return async (request, response) => {
-        response.json({ ok: false })
+        const { body } = request
+        const errors = []
+
+        errors.push(...checkAllowedFields(body, ['name', 'description', 'family_id']))
+        errors.push(...checkRequiredFields(body, ['name', 'family_id']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const { id } = await insertGenus(body.family_id, body.name, body.description)
+            response.json({ ok:true, data: { id }})
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'genus_family_id_fkey') {
+                errors.push('unexisting_family')
+            } else if (err.constraint === 'genus_name_key') {
+                errors.push('duplicated_genus_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors })
+        }
+
     }
 }
 
