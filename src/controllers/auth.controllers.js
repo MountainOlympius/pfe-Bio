@@ -2,7 +2,6 @@ const { checkAllowedFields, checkRequiredFields } = require('../utils/validators
 const accountModel = require('../models/account')
 const { checkHash } = require('../utils/crypt')
 
-// TODO : save user session
 const createLoginController = (pool) => {
     const { selectByUsername } = accountModel(pool)
 
@@ -47,7 +46,7 @@ const createIsLoggedInController = (pool) => {
 
             delete accountData.password
 
-            return response.json({ isLoggedIn: true, accountData })
+            return response.json({ isLoggedIn: true, data: accountData })
         }
 
 

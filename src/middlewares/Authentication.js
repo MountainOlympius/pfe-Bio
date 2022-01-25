@@ -33,7 +33,14 @@ const AuthenticatedOnly = (request, response, next) => {
     next()
 }
 
+const AdminOnly = (request, response, next) => {
+    if (request.account.is_admin) return next()
+
+    response.status(401).json({ ok:false, errors: ['admin_only']})
+}
+
 module.exports = {
     Authentication,
-    AuthenticatedOnly
+    AuthenticatedOnly,
+    AdminOnly
 }
