@@ -1,3 +1,5 @@
+const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
+
 const createSelectFamilies = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = `SELECT f.id, f.name, f.created_date, json_agg(json_build_object('id', fc.id, 'content', fc.content)) as criteria 
@@ -16,7 +18,8 @@ const createSelectFamilyWithDetails = (pool) => {
     return async (id, limit = 10) => {
         const query = `SELECT f.id, f.name, f.created_date, f.description, 
             JSON_AGG(json_build_object('id', fc.id, 'content', fc.content)) as criteria , 
-            JSON_AGG(json_build_object('id', genuses.id, 'name', genuses.name, 'criteria', genuses.criteria)) as genuses
+            JSON_AGG(json_build_object('id', genuses.id, 'name', genuses.name, 'criteria', genuses.criteria)) as genuses,
+            json_build_object('id', p.id, 'name', p.name) as phylum
         FROM family AS f
         LEFT JOIN LATERAL (
             select g.id, g.name, JSON_AGG(json_build_object('id', gc.id, 'content', gc.content)) as criteria
@@ -28,8 +31,9 @@ const createSelectFamilyWithDetails = (pool) => {
             LIMIT $2
         ) AS genuses ON  1 = 1
         LEFT JOIN family_criteria AS fc ON fc.family_id = f.id
+        LEFT JOIN phylum AS p ON f.phylum_id = p.id
         WHERE f.id = $1
-        GROUP BY f.id, f.name, f.created_date;`
+        GROUP BY f.id, f.name, f.created_date, p.id, p.name;`
 
         const response = await pool.query(query, [id, limit])
 
@@ -66,11 +70,25 @@ const createFamilyInserter = (pool) => {
     }
 }
 
+const createFamilyUpdater = (pool) => {
+    const allowedFields = ['name', 'description', 'phylum_id']
+
+    return async (id, data) => {
+        const query = buildUpdateQuery('family', allowedFields, data)
+        const values = getUpdateValues(allowedFields, data)
+
+        const response = await pool.query(query, [...id, ...values])
+
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
         selectFamilyWithDetails: createSelectFamilyWithDetails(pool),
         insertFamily: createFamilyInserter(pool),
-        selectGenusesOfFamily: createSelectGenusesOfFamily(pool)
+        selectGenusesOfFamily: createSelectGenusesOfFamily(pool),
+        updateFamily: createFamilyUpdater(pool)
     }
 }

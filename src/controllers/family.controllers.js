@@ -108,8 +108,37 @@ const postFamily = (pool) => {
 }
 
 const editFamily = (pool) => {
+    const { updateFamily } = familyModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+
+        if (!isNumber(id) || Number(id) <= 0) {
+            return response.status(404).json({ ok: false })
+        }
+
+        errors.push(...checkAllowedFields(body, ['name', 'phylum_id', 'description']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })    
+        
+        try {
+            const updated = await updateFamily(id, body)
+            response.json({ ok: updated })
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'family_phylum_id_fkey') {
+                errors.push('unexiting_phylum')
+            } else if (err.constraint === 'family_name_key') {
+                errors.push('duplicated_family_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors })
+        }
     }
 }
 
