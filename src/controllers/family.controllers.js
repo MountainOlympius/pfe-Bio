@@ -36,6 +36,8 @@ const getFamilyDetails = (pool) => {
 
         let family = await selectFamilyWithDetails(id)
 
+        if (!family) return response.status(404).json({ ok: false })
+
         // Clean data : remove [{id : null}]
         family.criteria = (family.criteria || []).filter(cr => cr.id)
         family.genuses = (family.genuses || []).filter(genus => genus.id)

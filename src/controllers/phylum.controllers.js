@@ -23,9 +23,7 @@ const getPhylumDetails = (pool) => {
 
         const phylum = await selectPhylumWithDetails(Number(id))
 
-        if (!phylum) {
-            return response.status(404).json({ ok: false })
-        }
+        if (!phylum) return response.status(404).json({ ok: false })
 
         response.json({ ok: true, data: phylum })
     }
