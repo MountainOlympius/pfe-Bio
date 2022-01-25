@@ -3,6 +3,8 @@ const express = require('express')
 const phylumControllers = require('../controllers/phylum.controllers')
 const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication')
 
+// TODO : May add endpoint for searching
+
 const PhylumRouter = (pool) => {
     const router = express.Router()
     const { getAllPhylums, getPhylumDetails, postPhylum, editPhylum, deletePhylum, getPhylumFamilies } = phylumControllers(pool)
