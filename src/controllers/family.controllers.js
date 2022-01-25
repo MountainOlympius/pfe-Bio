@@ -10,7 +10,7 @@ const getFamilies = (pool) => {
 
         page = !isNumber(page) || page <= 0 ? 1 : page
 
-        const families = await selectFamilies(itemsPerPage * page, (page - 1) * itemsPerPage)
+        const families = await selectFamilies(itemsPerPage, (page - 1) * itemsPerPage)
 
         response.json({
             ok: true,
