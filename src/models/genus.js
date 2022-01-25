@@ -1,3 +1,5 @@
+const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
+
 const selectGenuses = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = `SELECT g.id, g.name, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria
@@ -15,14 +17,18 @@ const selectGenuses = (pool) => {
 
 const selectGenusesWithDetails = (pool) => {
     return async (id, limit = 10) => {
-        const query = `SELECT g.id, g.name, g.created_date, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria, JSON_AGG(json_build_object ('id', sp.id, 'name', sp.name, 'description', sp.description)) as species
+        const query = `SELECT g.id, g.name, g.created_date, g.description, 
+            JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria, JSON_AGG(json_build_object ('id', sp.id, 'name', sp.name, 'description', sp.description)) as species,
+            JSON_BUILD_OBJECT('id', f.id, 'name', f.name, 'phylum', json_build_object('id', p.id, 'name', p.name)) as family
         FROM genus As g
         LEFT JOIN LATERAL (
         SELECT * FROM species WHERE species.genus_id = $1 ORDER BY created_date LIMIT $2
         ) AS sp ON 1 = 1
+        JOIN family as f ON f.id = g.family_id
+        JOIN phylum as p ON p.id = f.phylum_id
         LEFT JOIN genus_criteria AS gc ON gc.genus_id = g.id
         WHERE g.id = $1
-        GROUP BY g.id, g.name;`
+        GROUP BY g.id, g.name, g.created_date, g.description, f.id, f.name, p.id, p.name;`
 
         const response = await pool.query(query, [id, limit])
 
@@ -74,6 +80,21 @@ const insertGenusCriteria = (pool) => {
     }
 }
 
+const updateGenus = (pool) => {
+    const allowedFields = ['name', 'description']
+
+    return async (id, data)  => {
+        const query = buildUpdateQuery('genus', allowedFields, data)
+        const values = getUpdateValues(allowedFields, data)
+
+        if (values.length <= 0) return false
+
+        const response = await pool.query(query, [id, ...values])
+
+        return response.rowCount > 0
+    } 
+}
+
 
 module.exports = (pool) => {
     return {
@@ -82,6 +103,7 @@ module.exports = (pool) => {
         selectSpeciesOfGenus: selectSpeciesOfGenus(pool),
         insertGenus: insertGenus(pool),
         insertSpecies: insertSpecies(pool),
-        insertGenusCriteria: insertGenusCriteria(pool)
+        insertGenusCriteria: insertGenusCriteria(pool),
+        updateGenus: updateGenus(pool)
     }
 }

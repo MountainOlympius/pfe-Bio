@@ -159,8 +159,33 @@ const postGenusCriteria = (pool) => {
 }
 
 const editGenus = (pool) => {
+    const { updateGenus } = genusModels(pool)
+    
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+        const { body } = request
+        const errors = []
+
+        if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkAllowedFields(body, ['name', 'description']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const updated = await updateGenus(id, body)
+            response.json({ ok: updated })
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'genus_name_key') {
+                errors.push('duplicated_genus_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors })
+        }
     }
 }
 
