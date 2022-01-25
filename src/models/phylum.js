@@ -1,3 +1,5 @@
+const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
+
 const createGetPhylums = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = 'SELECT * FROM phylum ORDER BY created_date LIMIT $1 OFFSET $2'
@@ -53,12 +55,26 @@ const createDeleter = (pool) => {
     }
 }
 
+const createUpdater = (pool) => {
+    const allowedFields = ['name', 'description']
+
+    return async (id, data) => {
+        const values = getUpdateValues(allowedFields, data)
+        const query = buildUpdateQuery('phylum', allowedFields, data)
+
+        const response = await pool.query(query, [id, ...values])
+
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectPhylums : createGetPhylums(pool),
         selectPhylumWithDetails: createSelectPhylumWithDetails(pool),
         selectFamiliesOfPhylum: createSelectFamiliesOfPhylum(pool),
         insertPhylum: createInserter(pool),
-        deletePhylum: createDeleter(pool)
+        deletePhylum: createDeleter(pool),
+        updatePhylum: createUpdater(pool)
     }
 }

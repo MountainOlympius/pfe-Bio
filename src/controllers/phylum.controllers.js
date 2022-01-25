@@ -79,10 +79,35 @@ const postPhylum = (pool) => {
 }
 
 const editPhylum = (pool) => {
-    const { } = phylumModel(pool)
+    const { updatePhylum } = phylumModel(pool)
 
     return async (request, response) => {
-        response.json({ ok: false, message: 'This feature hasn\'t been implemented yet.'})
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+
+        if (!isNumber(id) || Number(id) <= 0) {
+            return response.status(404).json({ ok: false, errors: ['invalid_id'] })
+        }
+
+        errors.push(...checkAllowedFields(body, ['name', 'description']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const updated = await updatePhylum(id, body)
+            response.json({ ok: updated })
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint == 'phylum_name_key') {
+                errors.push('duplicated_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors})
+        } 
     }
 }
 
