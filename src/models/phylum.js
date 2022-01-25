@@ -3,12 +3,12 @@ const createGetPhylums = (pool) => {
         const query = 'SELECT * FROM phylum ORDER BY created_date DESC LIMIT $1 OFFSET $2'
         const response = await pool.query(query, [limit, offset])
 
-        return response.rows
+        return response.rows || []
     }
 }
 
 module.exports = (pool) => {
     return {
-        getPhylums : createGetPhylums(pool)
+        selectPhylums : createGetPhylums(pool)
     }
 }

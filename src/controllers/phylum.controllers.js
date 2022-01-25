@@ -1,6 +1,12 @@
+const phylumModel = require('../models/phylum')
+
 const getAllPhylums = (pool) => {
+    const { selectPhylums } = phylumModel(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This feature hasn\'t been implemented yet.'})
+        const phylumsList = await selectPhylums()
+
+        response.json({ ok: false, data: phylumsList})
     }
 }
 
