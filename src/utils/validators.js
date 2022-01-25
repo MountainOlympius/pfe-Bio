@@ -20,7 +20,10 @@ const checkAllowedFields = (form, allowedFields) => {
     return errors
 }
 
+const isNumber = value => !isNaN(Number(value))
+
 module.exports = {
     checkRequiredFields,
-    checkAllowedFields
+    checkAllowedFields,
+    isNumber
 }
