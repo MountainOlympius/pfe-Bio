@@ -4,7 +4,6 @@ const { isNumber } = require('../utils/validators')
 const getFamilies = (pool) => {
     const { selectFamilies } = familyModels(pool)
     const itemsPerPage = 10
-    
 
     return async (request, response) => {
         let { page = 1 } = request.query
@@ -26,8 +25,23 @@ const getFamilies = (pool) => {
 }
 
 const getFamilyDetails = (pool) => {
+    const { selectFamilyWithDetails } = familyModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        const { id } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0) {
+            return response.status(404).json({ ok: false })
+        }
+
+        let family = await selectFamilyWithDetails(id)
+
+        // Clean data : remove [{id : null}]
+        family.criteria = (family.criteria || []).filter(cr => cr.id)
+        family.genuses = (family.genuses || []).filter(genus => genus.id)
+        family.genuses.criteria = (family.genuses.criteria || []).filter(cr => cr.id)
+
+        response.json({ ok: true, data: family})
     }
 }
 
