@@ -190,8 +190,18 @@ const editGenus = (pool) => {
 }
 
 const deleteGenus = (pool) => {
+    const { deleteGenus } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0) {
+            return response.json({ ok: false })
+        }
+
+        const deleted = await deleteGenus(id)
+
+        response.json({ ok: deleted })
     }
 }
 
