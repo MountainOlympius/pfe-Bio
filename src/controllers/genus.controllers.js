@@ -26,8 +26,21 @@ const getGenuses = (pool) => {
 }
 
 const getGenusWithDetails = (pool) => {
+    const { selectGenusesWithDetails } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        const genus = await selectGenusesWithDetails(id)
+
+        if (!genus) return response.status(404).json({ ok: false }) 
+
+        genus.criteria = genus.criteria.filter((cr) => cr.id)
+        genus.species = genus.species.filter((sp) => sp.id)
+
+        response.json({ ok: false, data: genus })
     }
 }
 
