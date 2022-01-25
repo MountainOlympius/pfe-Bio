@@ -23,8 +23,8 @@ const App = (pool) => {
             store: new PgConnectStore({ pool }),
             resave: false,
             saveUninitialized: false,
-            cookie: { maxAge: 30 * 24 * 3600 },
-            secret: process.env.session_secrect || '123456'
+            cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+            secret: process.env.session_secrect || '123456',
         })
     )
 

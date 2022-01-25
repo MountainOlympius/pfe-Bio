@@ -1,5 +1,5 @@
 const familyModels = require('../models/family')
-const { isNumber } = require('../utils/validators')
+const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
 const getFamilies = (pool) => {
     const { selectFamilies } = familyModels(pool)
@@ -52,8 +52,34 @@ const getFamilyGenuses = (pool) => {
 }
 
 const postFamily = (pool) => {
+    const { insertFamily } = familyModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        const { body } = request
+        const errors = []
+
+        errors.push(...checkRequiredFields(body, ['name', 'phylum_id']))
+        errors.push(...checkAllowedFields(body, ['name', 'phylum_id', 'description']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const { id } = await insertFamily(body.name, body.description, body.phylum_id)
+            response.json({ ok: true, data: { id }})
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'family_phylum_id_fkey') {
+                errors.push('unexiting_phylum')
+            } else if (err.constraint === 'family_name_key') {
+                errors.push('duplicated_family_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors })
+        }
+
     }
 }
 

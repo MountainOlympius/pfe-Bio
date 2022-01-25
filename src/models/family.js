@@ -38,9 +38,21 @@ const createSelectFamilyWithDetails = (pool) => {
     }
 }
 
+const createFamilyInserter = (pool) => {
+    return async (name, description, phylumId) => {
+        const query = 'INSERT INTO family (name, description, phylum_id) VALUES ($1, $2, $3) RETURNING id'
+        const response = await pool.query(query, [name, description, phylumId])
+
+        if (response.rows?.length <= 0) return null
+
+        return response.rows[0]
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
         selectFamilyWithDetails: createSelectFamilyWithDetails(pool),
+        insertFamily: createFamilyInserter(pool)
     }
 }
