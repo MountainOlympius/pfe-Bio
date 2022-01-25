@@ -79,14 +79,26 @@ const postPhylum = (pool) => {
 }
 
 const editPhylum = (pool) => {
+    const { } = phylumModel(pool)
+
     return async (request, response) => {
         response.json({ ok: false, message: 'This feature hasn\'t been implemented yet.'})
     }
 }
 
 const deletePhylum = (pool) => {
+    const { deletePhylum } = phylumModel(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This feature hasn\'t been implemented yet.'})
+        const { id } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0) {
+            return response.status(404).json({ ok: false })
+        }
+
+        const deleted = await deletePhylum(id)
+
+        response.json({ ok: deleted })
     }
 }
 

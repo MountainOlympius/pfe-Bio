@@ -44,11 +44,21 @@ const createInserter = (pool) => {
     }
 }
 
+const createDeleter = (pool) => {
+    return async (id) => {
+        const query = 'DELETE FROM phylum WHERE id = $1'
+        const response = await pool.query(query, [id])
+
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectPhylums : createGetPhylums(pool),
         selectPhylumWithDetails: createSelectPhylumWithDetails(pool),
         selectFamiliesOfPhylum: createSelectFamiliesOfPhylum(pool),
-        insertPhylum: createInserter(pool)
+        insertPhylum: createInserter(pool),
+        deletePhylum: createDeleter(pool)
     }
 }
