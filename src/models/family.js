@@ -21,9 +21,10 @@ const createSelectFamilyWithDetails = (pool) => {
         LEFT JOIN LATERAL (
             select g.id, g.name, JSON_AGG(json_build_object('id', gc.id, 'content', gc.content)) as criteria
             FROM genus as g
-            JOIN genus_criteria as gc on g.id = gc.genus_id
+            LEFT JOIN genus_criteria as gc on g.id = gc.genus_id
             where family_id = $1
             group by g.name, g.id
+            ORDER BY g.created_date
             LIMIT $2
         ) AS genuses ON  1 = 1
         LEFT JOIN family_criteria AS fc ON fc.family_id = f.id
@@ -35,6 +36,22 @@ const createSelectFamilyWithDetails = (pool) => {
         if (response.rows?.length <= 0) return null
 
         return response.rows[0]
+    }
+}
+
+const createSelectGenusesOfFamily = (pool) => {
+    return async (id, last) => {
+        const query = `select g.id, g.name, JSON_AGG(json_build_object('id', gc.id, 'content', gc.content)) as criteria
+            FROM genus as g
+            LEFT JOIN genus_criteria as gc on g.id = gc.genus_id
+            where family_id = $1 AND g.id > $2
+            group by g.name, g.id
+            ORDER BY g.created_date
+            LIMIT 10`
+
+        const response = await pool.query (query, [id, last])
+
+        return response.rows || []
     }
 }
 
@@ -53,6 +70,7 @@ module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
         selectFamilyWithDetails: createSelectFamilyWithDetails(pool),
-        insertFamily: createFamilyInserter(pool)
+        insertFamily: createFamilyInserter(pool),
+        selectGenusesOfFamily: createSelectGenusesOfFamily(pool)
     }
 }

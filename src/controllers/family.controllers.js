@@ -39,15 +39,39 @@ const getFamilyDetails = (pool) => {
         // Clean data : remove [{id : null}]
         family.criteria = (family.criteria || []).filter(cr => cr.id)
         family.genuses = (family.genuses || []).filter(genus => genus.id)
-        family.genuses.criteria = (family.genuses.criteria || []).filter(cr => cr.id)
+        family.genuses = (family.genuses || []).map(genus => {
+            return {
+                ...genus,
+                criteria: (genus.criteria || []).filter(cr => cr.id)
+            }
+        })
 
         response.json({ ok: true, data: family})
     }
 }
 
 const getFamilyGenuses = (pool) => {
+    const { selectGenusesOfFamily } = familyModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        const { id } = request.params
+        const { last = 0 } = request.query
+
+        if (!isNumber(id) || Number(id) <= 0 || !isNumber(last)) {
+            return response.status(404).json({ ok: false })
+        }
+
+        let genuses = await selectGenusesOfFamily(id, last)
+
+        response.json({
+            ok: true,
+            data: genuses.map((genus) => {
+                return {
+                    ...genus,
+                    criteria: (genus.criteria || []).filter((cr) => cr.id),
+                }
+            }),
+        })
     }
 }
 
