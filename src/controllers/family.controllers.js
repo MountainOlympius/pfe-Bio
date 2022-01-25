@@ -1,6 +1,27 @@
+const familyModels = require('../models/family')
+const { isNumber } = require('../utils/validators')
+
 const getFamilies = (pool) => {
+    const { selectFamilies } = familyModels(pool)
+    const itemsPerPage = 10
+    
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        let { page = 1 } = request.query
+
+        page = !isNumber(page) || page <= 0 ? 1 : page
+
+        const families = await selectFamilies(itemsPerPage * page, (page - 1) * itemsPerPage)
+
+        response.json({
+            ok: true,
+            data: families.map((family) => {
+                return {
+                    ...family,
+                    criteria: (family.criteria || []).filter((cr) => cr.id),
+                }
+            }),
+        })
     }
 }
 
