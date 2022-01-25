@@ -45,9 +45,31 @@ const insertGenus = (pool) => {
     return async (id, name, description) => {
         const query = 'INSERT INTO genus (family_id, name, description) VALUES ($1, $2, $3) RETURNING id'
         const response = await pool.query(query, [id, name, description])
-
+        
         if (response.rows?.length <= 0) return null
+        
+        return response.rows[0]
+    }
+}
 
+const insertSpecies = (pool) => {
+    return async (id, name, description) => {
+        const query = 'INSERT INTO species (genus_id, name, description) VALUES ($1, $2, $3) RETURNING id'
+        const response = await pool.query(query, [id, name, description])
+        
+        if (response.rows?.length <= 0) return null
+        
+        return response.rows[0]
+    }
+}
+
+const insertGenusCriteria = (pool) => {
+    return async (id, content) => {
+        const query = 'INSERT INTO genus_criteria (genus_id, content) VALUES ($1, $2) RETURNING id'
+        const response = await pool.query(query, [id, content])
+        
+        if (response.rows?.length <= 0) return null
+        
         return response.rows[0]
     }
 }
@@ -58,6 +80,8 @@ module.exports = (pool) => {
         selectGenuses: selectGenuses(pool),
         selectGenusesWithDetails: selectGenusesWithDetails(pool),
         selectSpeciesOfGenus: selectSpeciesOfGenus(pool),
-        insertGenus: insertGenus(pool)
+        insertGenus: insertGenus(pool),
+        insertSpecies: insertSpecies(pool),
+        insertGenusCriteria: insertGenusCriteria(pool)
     }
 }

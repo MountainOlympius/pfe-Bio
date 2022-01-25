@@ -92,8 +92,37 @@ const postGenus = (pool) => {
 }
 
 const postSpecies = (pool) => {
+    const { insertSpecies } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+        const { body } = request
+        const errors = []
+
+        if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkAllowedFields(body, ['name', 'description']))
+        errors.push(...checkRequiredFields(body, ['name']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const { id:sid } = await insertSpecies(id, body.name, body.description)
+            response.json({ ok:true, data: { id:sid }})
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'species_genus_id_fkey') {
+                errors.push('unexisting_genus')
+            } else if (err.constraint === 'species_name_key') {
+                errors.push('duplicated_species_name')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            console.log(err)
+            response.json({ ok: false, errors })
+        }
     }
 }
 
