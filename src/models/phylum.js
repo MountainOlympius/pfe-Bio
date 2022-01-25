@@ -1,6 +1,6 @@
 const createGetPhylums = (pool) => {
     return async (limit = 10, offset = 0) => {
-        const query = 'SELECT * FROM phylum ORDER BY created_date DESC LIMIT $1 OFFSET $2'
+        const query = 'SELECT * FROM phylum ORDER BY created_date LIMIT $1 OFFSET $2'
         const response = await pool.query(query, [limit, offset])
 
         return response.rows || []
@@ -8,15 +8,15 @@ const createGetPhylums = (pool) => {
 }
 
 const createSelectPhylumWithDetails = (pool) => {
-    return async (id, limit = 10, offset = 0) => {
+    return async (id, limit = 10) => {
         const query = `SELECT p.id, p.name, p.description, json_agg(json_build_object('id', f.id, 'name', f.name)) As families
         From phylum as p
         LEFT JOIN LATERAL (
-         SELECT * FROM family WHERE phylum_id = $1 LIMIT $2 OFFSET $3
+         SELECT * FROM family WHERE phylum_id = $1 ORDER BY created_date LIMIT $2
         ) AS f ON 1 = 1
         where p.id = $1
         GROUP BY p.id, p.name, p.description`
-        const response = await pool.query(query, [id, limit, offset])
+        const response = await pool.query(query, [id, limit])
 
         if (response.rows?.length <= 0) return null
 
@@ -24,9 +24,19 @@ const createSelectPhylumWithDetails = (pool) => {
     }
 }
 
+const createSelectFamiliesOfPhylum = (pool) => {
+    return async (id, lastId = 0) => {
+        const query = 'SELECT id, name FROM family WHERE phylum_id = $1 AND id > $2 ORDER BY created_date'
+        const response = await pool.query(query, [id, lastId])
+
+        return response.rows || []
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectPhylums : createGetPhylums(pool),
-        selectPhylumWithDetails: createSelectPhylumWithDetails(pool)
+        selectPhylumWithDetails: createSelectPhylumWithDetails(pool),
+        selectFamiliesOfPhylum: createSelectFamiliesOfPhylum(pool)
     }
 }

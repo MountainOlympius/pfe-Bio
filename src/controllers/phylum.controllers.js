@@ -21,13 +21,30 @@ const getPhylumDetails = (pool) => {
             return response.status(404).json({ ok: false })
         }
 
-        const phylum = await selectPhylumWithDetails(Number(id))
+        const phylum = await selectPhylumWithDetails(Number(id), 1)
 
         if (!phylum) {
             return response.status(404).json({ ok: false })
         }
 
         response.json({ ok: true, data: phylum })
+    }
+}
+
+const getPhylumFamilies = (pool) => {
+    const { selectFamiliesOfPhylum } = phylumModel(pool)
+
+    return async (request, response) => {
+        const { id } = request.params
+        const { last = 0 } = request.query
+
+        if (!isNumber(id) || Number(id) <= 0 || !isNumber(last)) {
+            return response.status(404).json({ ok: false })
+        }
+
+        const families = await selectFamiliesOfPhylum(Number(id), last || 0)
+
+        response.json({ ok: true, data: families })
     }
 }
 
@@ -55,6 +72,7 @@ module.exports = (pool) => {
         getPhylumDetails: getPhylumDetails(pool),
         postPhylum: postPhylum(pool),
         editPhylum: editPhylum(pool),
-        deletePhylum: deletePhylum(pool)
+        deletePhylum: deletePhylum(pool),
+        getPhylumFamilies: getPhylumFamilies(pool)
     }
 }
