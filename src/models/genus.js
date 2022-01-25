@@ -95,6 +95,26 @@ const updateGenus = (pool) => {
     } 
 }
 
+const deleteGenus = (pool) => {
+    return async (id) => {
+        const response = await pool.query('DELETE FROM genus WHERE id = $1', [id])
+        return response.rowCount > 0
+    }
+}
+
+const deleteSpecies = (pool) => {
+    return async (id, sid) => {
+        const response = await pool.query('DELETE FROM species WHERE id = $2 AND genus_id = $1', [id, sid])
+        return response.rowCount > 0
+    }
+}
+
+const deleteGenusCriteria = (pool) => {
+    return async (id, cid) => {
+        const response = await pool.query('DELETE FROM genus_criteria WHERE id = $2 AND genus_id = $1', [id, cid])
+        return response.rowCount > 0
+    }
+}
 
 module.exports = (pool) => {
     return {
@@ -104,6 +124,9 @@ module.exports = (pool) => {
         insertGenus: insertGenus(pool),
         insertSpecies: insertSpecies(pool),
         insertGenusCriteria: insertGenusCriteria(pool),
-        updateGenus: updateGenus(pool)
+        updateGenus: updateGenus(pool),
+        deleteGenus: deleteGenus(pool),
+        deleteSpecies: deleteSpecies(pool),
+        deleteGenusCriteria: deleteGenusCriteria(pool)
     }
 }

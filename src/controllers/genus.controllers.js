@@ -160,7 +160,7 @@ const postGenusCriteria = (pool) => {
 
 const editGenus = (pool) => {
     const { updateGenus } = genusModels(pool)
-    
+
     return async (request, response) => {
         const { id } = request.params
         const { body } = request
@@ -196,14 +196,34 @@ const deleteGenus = (pool) => {
 }
 
 const deleteGenusCriteria = (pool) => {
+    const { deleteGenusCriteria } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id, criteriaId:cid } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0 || !isNumber(cid) || Number(cid) <= 0) {
+            return response.json({ ok: false })
+        }
+
+        const deleted = await deleteGenusCriteria(id, cid)
+        
+        response.json({ ok: deleted })
     }
 }
 
 const deleteSpecies = (pool) => {
+    const { deleteSpecies } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id, speciesId:sid } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0 || !isNumber(sid) || Number(sid) <= 0) {
+            return response.json({ ok: false })
+        }
+
+        const deleted = await deleteSpecies(id, sid)
+
+        response.json({ ok: deleted })
     }
 }
 
