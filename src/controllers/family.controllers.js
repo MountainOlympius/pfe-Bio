@@ -143,8 +143,16 @@ const editFamily = (pool) => {
 }
 
 const deleteFamily = (pool) => {
+    const { deleteFamily } = familyModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This endpoint hasn\'t been implemented yet.'})
+        const { id } = request.params
+
+        if (!isNumber(id) || Number(id) <= 0) return response.status(404).json({ ok: false })
+
+        const deleted = await deleteFamily(id)
+
+        response.json({ ok: deleted })
     }
 }
 

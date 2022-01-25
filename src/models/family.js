@@ -83,12 +83,20 @@ const createFamilyUpdater = (pool) => {
     }
 }
 
+const createFamilyDeleter = (pool) => {
+    return async (id) => {
+        const response = await pool.query('DELETE FROM family WHERE id = $1', [id])
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
         selectFamilyWithDetails: createSelectFamilyWithDetails(pool),
         insertFamily: createFamilyInserter(pool),
         selectGenusesOfFamily: createSelectGenusesOfFamily(pool),
-        updateFamily: createFamilyUpdater(pool)
+        updateFamily: createFamilyUpdater(pool),
+        deleteFamily: createFamilyDeleter(pool)
     }
 }
