@@ -5,6 +5,7 @@ import AdminPages from './pages/Admin.pages'
 import MainPages from './pages/Main.pages'
 import AuthenticatedOnly from './components/AuthenticatedOnly'
 import AdminOnly from './components/AdminOnly'
+import LoginPage from './pages/Login.page'
 
 import './App.css'
 
@@ -12,7 +13,7 @@ function App() {
     return (
         <Routes>
             <Route
-                path="/admin"
+                path="/admin/*"
                 element={
                     <AuthenticatedOnly>
                         <AdminOnly>
@@ -21,7 +22,8 @@ function App() {
                     </AuthenticatedOnly>
                 }
             />
-            <Route path="" element={<MainPages />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/*" element={<MainPages />} />
         </Routes>
     )
 }

@@ -8,8 +8,8 @@ const AuthenticatedOnly = ({ children }) => {
     const { account } = useContext(AuthContext)
     const location = useLocation()
 
-
     if (account === undefined) {
+        // TODO : Must display loading page
         return (<></>)
     } else if (account === null) {
         return <Navigate to='/login' state={{ from: location.pathname }} />
