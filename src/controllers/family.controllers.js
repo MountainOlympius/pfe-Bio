@@ -156,6 +156,40 @@ const deleteFamily = (pool) => {
     }
 }
 
+const addFamilyCriteria = (pool) => {
+    const { insertFamilyCriateria } = familyModels(pool)
+
+    return async (request, response) => {
+        const { id:fid } = request.params
+        const { body } = request
+        const errors = []
+
+        if (!isNumber(fid) || Number(fid) <= 0) return response.status(404).json({ ok: false })
+
+        errors.push(...checkRequiredFields(body, ['content']))
+        errors.push(...checkAllowedFields(body, ['content']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })    
+
+        try {
+            const { id } = await insertFamilyCriateria(fid, body.content)
+            response.json({ ok: true, data: { id }})
+        } catch (err) {
+            if (err.constraint === 'family_criteria_family_id_fkey') {
+                return response.status(404).json({ ok: false })
+            } 
+
+            response.json({ ok: false, errors: ['unknown_error'] })
+        }
+    }
+}
+
+const deleteFamilyCriteria = (pool) => {
+    return async (request, response) => {
+
+    }
+}
+
 module.exports = (pool) => {
     return {
         getFamilies: getFamilies(pool),
@@ -163,6 +197,8 @@ module.exports = (pool) => {
         getFamilyGenuses: getFamilyGenuses(pool),
         postFamily: postFamily(pool),
         editFamily: editFamily(pool),
-        deleteFamily: deleteFamily(pool)
+        deleteFamily: deleteFamily(pool),
+        addFamilyCriateria: addFamilyCriteria(pool),
+        deleteFamilyCriateria: deleteFamilyCriteria(pool)
     }
 }

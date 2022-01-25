@@ -90,11 +90,23 @@ const createFamilyDeleter = (pool) => {
     }
 }
 
+const createFamilyCriateriaInserter = (pool) => {
+    return async (id, content) => {
+        const query = `INSERT INTO family_criteria (family_id, content) VALUES ($1, $2) RETURNING id`
+        const response = await pool.query(query, [id, content])
+
+        if (response.rows?.length <= 0) return null
+
+        return response.rows[0]
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectFamilies: createSelectFamilies(pool),
         selectFamilyWithDetails: createSelectFamilyWithDetails(pool),
         insertFamily: createFamilyInserter(pool),
+        insertFamilyCriateria: createFamilyCriateriaInserter(pool),
         selectGenusesOfFamily: createSelectGenusesOfFamily(pool),
         updateFamily: createFamilyUpdater(pool),
         deleteFamily: createFamilyDeleter(pool)

@@ -8,7 +8,7 @@ const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication'
 
 const FamilyRouter = (pool) => {
     const router = express.Router()
-    const { getFamilies, getFamilyDetails, getFamilyGenuses, postFamily, editFamily, deleteFamily } = familyControllers(pool)
+    const { getFamilies, getFamilyDetails, getFamilyGenuses, postFamily, editFamily, deleteFamily, addFamilyCriateria, deleteFamilyCriateria } = familyControllers(pool)
 
     router.get('/', getFamilies)
     router.get('/:id', getFamilyDetails)
@@ -17,6 +17,9 @@ const FamilyRouter = (pool) => {
     router.post('/', AuthenticatedOnly, AdminOnly, postFamily)
     router.put('/:id', AuthenticatedOnly, AdminOnly, editFamily)
     router.delete('/:id', AuthenticatedOnly, AdminOnly, deleteFamily)
+
+    router.post('/:id/criteria', AuthenticatedOnly, AdminOnly, addFamilyCriateria)
+    router.delete('/:id/criteria/:criteriaId', AuthenticatedOnly, AdminOnly, deleteFamilyCriateria)
 
     return router
 }
