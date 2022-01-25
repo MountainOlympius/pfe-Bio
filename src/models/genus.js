@@ -32,10 +32,21 @@ const selectGenusesWithDetails = (pool) => {
     }
 }
 
+const selectSpeciesOfGenus = (pool) => {
+    return async (id, last = 0, limit = 10) => {
+        const query = 'select * from species WHERE genus_id = $1 AND id > $2 ORDER BY created_date LIMIT $3'
+
+        const response = await pool.query(query, [id, last, limit])
+
+        return response.rows || []
+    }
+}
+
 
 module.exports = (pool) => {
     return {
         selectGenuses: selectGenuses(pool),
-        selectGenusesWithDetails: selectGenusesWithDetails(pool)
+        selectGenusesWithDetails: selectGenusesWithDetails(pool),
+        selectSpeciesOfGenus: selectSpeciesOfGenus(pool)
     }
 }

@@ -45,8 +45,17 @@ const getGenusWithDetails = (pool) => {
 }
 
 const getSpeciesOfGenus = (pool) => {
+    const { selectSpeciesOfGenus } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+        const { last = 0} = request.query
+
+        if (!isNumber(id) || Number(id) <= 0 || !isNumber(last)) return response.json({ ok: false })
+
+        const species = await selectSpeciesOfGenus(id, last)
+
+        response.json({ ok: true, data: species })
     }
 }
 
