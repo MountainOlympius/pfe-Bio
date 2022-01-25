@@ -120,15 +120,41 @@ const postSpecies = (pool) => {
                 errors.push('unknown_error')
             }
 
-            console.log(err)
             response.json({ ok: false, errors })
         }
     }
 }
 
 const postGenusCriteria = (pool) => {
+    const { insertGenusCriteria } = genusModels(pool)
+
     return async (request, response) => {
-        response.json({ ok: false })
+        const { id } = request.params
+        const { body } = request
+        const errors = []
+
+        if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkAllowedFields(body, ['content']))
+        errors.push(...checkRequiredFields(body, ['content']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const { id:cid } = await insertGenusCriteria(id, body.content)
+            response.json({ ok:true, data: { id:cid }})
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint === 'genus_criteria_genus_id_fkey') {
+                errors.push('unexisting_genus')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            console.log(err)
+            response.json({ ok: false, errors })
+        }
     }
 }
 
