@@ -1,17 +1,22 @@
 const express = require('express')
 const expressSession = require('express-session')
 const PgConnectStore = require('connect-pg-simple')(expressSession)
+const cors = require('cors')
 
 require('dotenv').config()
 
 const ApiRouter = require('./routes')
 const { Authentication } = require('./middlewares/Authentication')
 
-// TODO : Add CORS support in development envirement
 const App = (pool) => {
     const app = express()
 
     app.use(express.json())
+
+    app.use(cors({
+        credentials: true,
+        origin: process.env.CORS_ALLOW_ORIGIN?.split(',') || '*'
+    }))
 
     app.use(
         expressSession({
