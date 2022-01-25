@@ -33,10 +33,22 @@ const createSelectFamiliesOfPhylum = (pool) => {
     }
 }
 
+const createInserter = (pool) => {
+    return async (name, description) => {
+        const query = 'INSERT INTO phylum (name, description) VALUES ($1, $2) RETURNING id'
+        const response = await pool.query(query, [name, description])
+
+        if (response.rows?.length <= 0) return null
+
+        return response.rows[0]
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectPhylums : createGetPhylums(pool),
         selectPhylumWithDetails: createSelectPhylumWithDetails(pool),
-        selectFamiliesOfPhylum: createSelectFamiliesOfPhylum(pool)
+        selectFamiliesOfPhylum: createSelectFamiliesOfPhylum(pool),
+        insertPhylum: createInserter(pool)
     }
 }

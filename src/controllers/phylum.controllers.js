@@ -1,5 +1,5 @@
 const phylumModel = require('../models/phylum')
-const { isNumber } = require('../utils/validators')
+const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
 const getAllPhylums = (pool) => {
     const { selectPhylums } = phylumModel(pool)
@@ -21,7 +21,7 @@ const getPhylumDetails = (pool) => {
             return response.status(404).json({ ok: false })
         }
 
-        const phylum = await selectPhylumWithDetails(Number(id), 1)
+        const phylum = await selectPhylumWithDetails(Number(id))
 
         if (!phylum) {
             return response.status(404).json({ ok: false })
@@ -49,8 +49,32 @@ const getPhylumFamilies = (pool) => {
 }
 
 const postPhylum = (pool) => {
+    const { insertPhylum } = phylumModel(pool)
+
     return async (request, response) => {
-        response.json({ ok: false, message: 'This feature hasn\'t been implemented yet.'})
+        const { body } = request
+        const errors = []
+
+        errors.push(...checkAllowedFields(body, ['name', 'description']))
+        errors.push(...checkRequiredFields(body, ['name']))
+
+        if (errors.length > 0) return response.json({ ok: false, errors })
+
+        try {
+            const { id } = await insertPhylum(body.name, body.description)
+            response.json({ ok: true, data: { id }})
+        } catch (err) {
+            const errors = []
+
+            if (err.constraint == 'phylum_name_key') {
+                errors.push('phylum_already_exist')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok: false, errors})
+        } 
+
     }
 }
 
