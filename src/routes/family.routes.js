@@ -3,8 +3,6 @@ const express = require('express')
 const familyControllers = require('../controllers/family.controllers')
 const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication')
 
-// TODO : implement adding family images (figures)
-
 const FamilyRouter = (pool) => {
     const router = express.Router()
     const { getFamilies, getFamilyDetails, getFamilyGenuses, postFamily, editFamily, deleteFamily, addFamilyCriateria, deleteFamilyCriateria } = familyControllers(pool)

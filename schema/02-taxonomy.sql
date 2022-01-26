@@ -24,13 +24,6 @@ CREATE TABLE IF NOT EXISTS family_criteria (
     created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS family_image (
-    id SERIAL PRIMARY KEY,
-    url TEXT NOT NULL,
-    family_id INTEGER NOT NULL REFERENCES family (id) ON DELETE CASCADE,
-    created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
-);
-
 -- Genus related tables
 -- Genus => "genre"
 
@@ -49,13 +42,6 @@ CREATE TABLE IF NOT EXISTS genus_criteria (
     created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS genus_image (
-    id SERIAL PRIMARY KEY,
-    url TEXT NOT NULL,
-    genus_id INTEGER NOT NULL REFERENCES genus (id) ON DELETE CASCADE,
-    created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
-);
-
 -- species 
 
 CREATE TABLE IF NOT EXISTS species (
@@ -64,4 +50,10 @@ CREATE TABLE IF NOT EXISTS species (
     description TEXT,
     genus_id INTEGER NOT NULL REFERENCES genus (id) ON DELETE CASCADE,
     created_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS species_image (
+    id SERIAL PRIMARY KEY,
+    url TEXT NOT NULL,
+    species_id INTEGER NOT NULL REFERENCES species (id) ON DELETE CASCADE
 );

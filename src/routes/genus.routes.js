@@ -3,7 +3,6 @@ const express = require('express')
 const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication')
 const genusControllers = require('../controllers/genus.controllers')
 
-// TODO : Implement add & delete images (figures)
 // TODO : Maybe implement search
 
 const GenusRouter = (pool) => {

@@ -4,6 +4,7 @@ const phylumControllers = require('../controllers/phylum.controllers')
 const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication')
 
 // TODO : May add endpoint for searching
+// TODO : Implement species images (Add/delete)
 
 const PhylumRouter = (pool) => {
     const router = express.Router()
