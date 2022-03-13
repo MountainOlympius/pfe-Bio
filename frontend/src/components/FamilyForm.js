@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { getPhylums } from '../utils/api'
 
-const FamilyForm = ({ data = {}, submitCallback}) => {
+const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 	const [phylums, setPhylums] = useState([])
 	const [criteria, setCriteria] = useState(data.criteria || [{}])
 
@@ -56,9 +56,11 @@ const FamilyForm = ({ data = {}, submitCallback}) => {
 		}
 
 		submitCallback(data, () => {
-            e.target.reset()
-            setCriteria([])
-            setTimeout(() => setCriteria([{}]), 0)
+            if (shouldReset) {
+                e.target.reset()
+                setCriteria([])
+                setTimeout(() => setCriteria([{}]), 0)
+            }
         })
 
 		e.preventDefault()

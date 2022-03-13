@@ -31,7 +31,7 @@ const NewFamilyPage = () => {
 
     return (
         <div className='NewFamilyPage'>
-            <FamilyForm submitCallback={submitCallback} />
+            <FamilyForm submitCallback={submitCallback} shouldReset />
 
             <div className='errors-div'>
                 {errors.map((error, i) => <p key={i}>{error}</p>)}
