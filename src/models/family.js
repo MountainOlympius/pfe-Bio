@@ -1,5 +1,20 @@
 const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
 
+const createSearchFamily = (pool) => {
+    return async (q) => {
+        const query = `SELECT f.id, f.name, f.created_date, json_agg(json_build_object('id', fc.id, 'content', fc.content)) as criteria 
+        FROM family AS f
+        LEFT JOIN family_criteria AS fc ON fc.family_id = f.id
+        WHERE lower(name) ~  $1
+        GROUP BY f.id, f.name, f.created_date
+        ORDER BY f.created_date`
+
+        const response = await pool.query(query, [q])
+
+        return response.rows || []
+    }
+}
+
 const createSelectFamilies = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = `SELECT f.id, f.name, f.created_date, json_agg(json_build_object('id', fc.id, 'content', fc.content)) as criteria 
@@ -119,6 +134,7 @@ module.exports = (pool) => {
         selectGenusesOfFamily: createSelectGenusesOfFamily(pool),
         updateFamily: createFamilyUpdater(pool),
         deleteFamily: createFamilyDeleter(pool),
-        deleteFamilyCriteria: createFamilyCriteriaDeleted(pool)
+        deleteFamilyCriteria: createFamilyCriteriaDeleted(pool),
+        searchFamily: createSearchFamily(pool)
     }
 }

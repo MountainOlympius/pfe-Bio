@@ -201,6 +201,26 @@ const deleteFamilyCriteria = (pool) => {
     }
 }
 
+const searchFamily = (pool) => {
+    const { searchFamily } = familyModels(pool)
+
+    return async (request, response) => {
+        let { query } = request.query
+
+        const families = await searchFamily(query)
+
+        response.json({
+            ok: true,
+            data: families.map((family) => {
+                return {
+                    ...family,
+                    criteria: (family.criteria || []).filter((cr) => cr.id),
+                }
+            }),
+        })
+    }
+}
+
 module.exports = (pool) => {
     return {
         getFamilies: getFamilies(pool),
@@ -210,6 +230,7 @@ module.exports = (pool) => {
         editFamily: editFamily(pool),
         deleteFamily: deleteFamily(pool),
         addFamilyCriateria: addFamilyCriteria(pool),
-        deleteFamilyCriateria: deleteFamilyCriteria(pool)
+        deleteFamilyCriateria: deleteFamilyCriteria(pool),
+        searchFamily: searchFamily(pool)
     }
 }
