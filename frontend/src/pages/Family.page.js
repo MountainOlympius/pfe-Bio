@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import FamilyTable from '../components/FamilyTable'
 import { getFamilies, searchFamily } from '../utils/api'
 
+import '../styles/familyPage.scss'
+
 const FamilyPage = () => {
 	const [familiesList, setFamiliesList] = useState([])
 	const [currentPage, setPage] = useState(1)

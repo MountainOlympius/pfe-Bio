@@ -3,7 +3,9 @@ body {
     background: #1D4350;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #A43931, #1D4350);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #A43931, #1D4350); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    display: flex;
+    text-align: center;
+    justify-content: center;
     
 }
 
@@ -11,16 +13,31 @@ body {
     display: flex;
     text-align: center;
     justify-content: center;
+    padding: 30px;
 }
 
 form {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    padding: 80px 30px;
     background: #D3CCE3;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
+    */
+    
+    .form-div input {
+        padding: .5em 3em; 
+        margin-top: 2em;
+    }
+
+    .form-div label {
+        font-weight: 700;
+        margin-right: 1.2em;
+    }
 }
+
+
 
 
 
@@ -39,6 +56,7 @@ form {
     display: block;
     background-color: aliceblue;
     padding: 5px 50px;
+    margin: 5%;
     align-self:center;
     // margin: 2em;
     margin-left: auto;
