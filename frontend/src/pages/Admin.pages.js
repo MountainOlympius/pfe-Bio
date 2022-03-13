@@ -7,15 +7,18 @@ import NewPhylumPage from './NewPhylum.page'
 
 import '../styles/AdminPages.scss'
 import PhylumsEditPage from './PhylumEdit.page'
+import FamilyPage from './Family.page'
 
 const AdminPages = () => {
     return (
         <div className='AdminPages'>
             <AdminNavBar />
             <Routes>
-                <Route path='phylum' element={<PhylumsPage />} ></Route>
-                <Route path='phylum/new' element={<NewPhylumPage />} ></Route>
-                <Route path='phylum/edit/:id' element={<PhylumsEditPage />} ></Route>
+                <Route path='phylum' element={<PhylumsPage />} />
+                <Route path='phylum/new' element={<NewPhylumPage />} />
+                <Route path='phylum/edit/:id' element={<PhylumsEditPage />} />
+
+                <Route path='family' element={<FamilyPage />} />
             </Routes>
         </div>
     )

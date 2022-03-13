@@ -78,3 +78,23 @@ export const updatePhylum = async (id, data) => {
 
     return null
 }
+
+export const getFamilies = async (page) => {
+    try {
+        const response = await getRequest(getApiHref('/api/family') + `?page=${page}`)
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const searchFamily = async (query) => {
+    try {
+        const response = await getRequest(getApiHref('/api/family/search') + `?query=${query}`)
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
