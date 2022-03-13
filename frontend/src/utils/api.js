@@ -28,3 +28,13 @@ export const accountLogin = async (data) => {
 
     return null
 }
+
+export const getPhylums = async () => {
+    try {
+        const response = await getRequest(getApiHref('/api/phylum'))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
