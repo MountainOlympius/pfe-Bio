@@ -94,7 +94,7 @@ const createFamilyUpdater = (pool) => {
 
         if (values.length <= 0) return false
 
-        const response = await pool.query(query, [...id, ...values])
+        const response = await pool.query(query, [id, ...values])
 
         return response.rowCount > 0
     }
