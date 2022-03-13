@@ -118,3 +118,33 @@ export const addFamilyCriteria = async (id, content) => {
 
     return null
 }
+
+export const getFamily = async (id) => {
+    try {
+        const response = await getRequest(getApiHref(`/api/family/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const updateFamily = async (id, data) => {
+    try {
+        const response = await putRequest(getApiHref(`/api/family/${id}`), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const deleteFamilyCriteria = async (familyId, criteriaId) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/family/${familyId}/criteria/${criteriaId}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

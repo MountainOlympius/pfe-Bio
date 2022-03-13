@@ -22,3 +22,41 @@ export const formatDate = (date) => {
 
     return date.toLocaleDateString() + `, ${hours}:${minutes}`
 }
+
+export const getObjectDiff = (obj1, obj2) => {
+    const result = {}
+
+    Object.entries(obj1).forEach(entity => {
+        if (obj2[entity[0]] != entity[1]) {
+            result[entity[0]] = obj2[entity[0]] 
+        }
+    })
+
+    return result
+}
+
+export const getCriteriaDiff = (arr1, arr2) => {
+    const deleted = []
+    const added = []
+
+    arr1.forEach(elt => {
+        const found = arr2.find(e => e.id == elt.id)
+
+        if (!found) {
+            deleted.push(elt)
+        } else if (found.content != elt.content) {
+            deleted.push(elt)
+            added.push(found)
+        }
+    })
+
+    arr2.forEach(elt => {
+        const found = arr1.find(e => e.content == elt.content)
+
+        if (!found) {
+            added.push(elt)
+        }
+    })
+
+    return [deleted, added]
+}

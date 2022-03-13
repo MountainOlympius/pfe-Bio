@@ -51,7 +51,7 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 			criteria: criteria
 				.filter((cr) => Boolean(cr.content))
 				.map((cr) => {
-					return { content: cr.content }
+					return { id: cr.id, content: cr.content }
 				}),
 		}
 
