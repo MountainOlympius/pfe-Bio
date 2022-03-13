@@ -3,6 +3,10 @@ export const translateError = (error) => {
         return 'l\'embranchement existe déjà'
     } else if (error === 'duplicated_name') {
         return 'Le nom est dupliqué'
+    } else if (error === 'unexiting_phylum') {
+        return 'l\'embranchement n\'existe pas'
+    } else if (error === 'duplicated_family_name') {
+        return 'Le nom de famille est dupliqué'
     }
 
     return error

@@ -98,3 +98,23 @@ export const searchFamily = async (query) => {
 
     return null
 }
+
+export const createFamily = async (data) => {
+    try {
+        const response = await postRequest(getApiHref('/api/family'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const addFamilyCriteria = async (id, content) => {
+    try {
+        const response = await postRequest(getApiHref(`/api/family/${id}/criteria`), JSON.stringify({ content }))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
