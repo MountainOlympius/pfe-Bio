@@ -8,10 +8,7 @@ body {
 }
 
 .form-container {
-    background: #D3CCE3;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    display: block;
+    display: flex;
     text-align: center;
     justify-content: center;
 }
@@ -20,6 +17,9 @@ form {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 
@@ -36,10 +36,12 @@ form {
 }
 
 .submit {
+    display: block;
     background-color: aliceblue;
     padding: 5px 50px;
     align-self:center;
-    margin: 2em;
+    // margin: 2em;
+    margin-left: auto;
 
     &:hover{
         background-color: #f35c87;
