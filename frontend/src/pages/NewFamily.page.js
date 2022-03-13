@@ -8,7 +8,7 @@ const NewFamilyPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
 
-    const submitCallback = async (data) => {
+    const submitCallback = async (data, onSuccessCallback) => {
         const familyData = {...data}
         delete familyData['criteria']
 
@@ -23,6 +23,7 @@ const NewFamilyPage = () => {
 
             setMessages(['La famille a été créé avec succès'])
             setTimeout(() => setMessages([]), 2000)
+            onSuccessCallback()
         } else if (response.errors) {
             setErrors(translateErrors(response.errors))
         }

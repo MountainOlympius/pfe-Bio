@@ -55,7 +55,11 @@ const FamilyForm = ({ data = {}, submitCallback}) => {
 				}),
 		}
 
-		submitCallback(data)
+		submitCallback(data, () => {
+            e.target.reset()
+            setCriteria([])
+            setTimeout(() => setCriteria([{}]), 0)
+        })
 
 		e.preventDefault()
 	}
