@@ -1,0 +1,57 @@
+body {
+    /*align-items: center;*/
+    background: #1D4350;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #A43931, #1D4350);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #A43931, #1D4350); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    
+}
+
+.form-container {
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: block;
+    text-align: center;
+    justify-content: center;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
+
+
+.global-errors-div p {
+    background: #f35c87;
+    padding: 5px 10px;
+    border-radius: 0;
+    position:relative; 
+    display: inline-block;
+    box-shadow: 1px 1px 1px #aaaaaa;
+    margin-top: 15px;
+}
+
+.submit {
+    background-color: aliceblue;
+    padding: 5px 50px;
+    align-self:center;
+    margin: 2em;
+
+    &:hover{
+        background-color: #f35c87;
+    }
+}
+
+.errors-div-username-errors {
+    margin-top: .3em;
+    color: red;
+}
+
+.errors-div-password-errors {
+    margin-top: .3em;
+    color: red;
+}

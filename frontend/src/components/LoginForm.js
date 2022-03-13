@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import '../styles/LoginForm.scss'
 
+
 // Note : I used ref just because there just two fields
 // Other form must automated
 
@@ -53,6 +54,7 @@ const LoginForm = ({ submitCallback }) => {
     }
 
     return (
+        <div className="form-container">
         <form onSubmit={submitForm}>
             <div className="form-div">
                 <label>Username : </label>
@@ -64,7 +66,7 @@ const LoginForm = ({ submitCallback }) => {
                     ref={usernameInputRef}
                     onChange={() => clearFieldErrors('username')}
                 />
-                <div className="errors-div username-errors">
+                <div className="errors-div-username-errors">
                     {errors
                         .filter((error) => error?.field === 'username')
                         .map((error, i) => (
@@ -82,7 +84,7 @@ const LoginForm = ({ submitCallback }) => {
                     ref={passwordInputRef}
                     onChange={() => clearFieldErrors('password')}
                 />
-                <div className="errors-div password-errors">
+                <div className="errors-div-password-errors">
                     {errors
                         .filter((error) => error?.field === 'password')
                         .map((error, i) => (
@@ -95,8 +97,9 @@ const LoginForm = ({ submitCallback }) => {
                 {errors.filter((error) => !error.field).map((error, i) => (<p key={i}>{error.message}</p>))}
             </div>
 
-            <button type="submit">Log in</button>
+            <button className="submit" type="submit">Log in</button>
         </form>
+        </div>
     )
 }
 
