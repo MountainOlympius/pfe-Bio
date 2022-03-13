@@ -48,3 +48,14 @@ export const deletePhylum = async (id) => {
 
     return null
 }
+
+export const createPhylum = async (data) => {
+    console.log(data)
+    try {
+        const response = await postRequest(getApiHref('/api/phylum'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
