@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import PhylumsPage from './Phylums.page'
 import AdminNavBar from '../components/AdminNavBar'
@@ -14,11 +14,13 @@ const AdminPages = () => {
         <div className='AdminPages'>
             <AdminNavBar />
             <Routes>
+                <Route path='' element={<Navigate to='phylum' /> } />
                 <Route path='phylum' element={<PhylumsPage />} />
                 <Route path='phylum/new' element={<NewPhylumPage />} />
                 <Route path='phylum/edit/:id' element={<PhylumsEditPage />} />
 
                 <Route path='family' element={<FamilyPage />} />
+
             </Routes>
         </div>
     )
