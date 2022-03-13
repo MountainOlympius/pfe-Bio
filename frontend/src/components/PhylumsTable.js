@@ -9,9 +9,9 @@ const PhylumsTable = ({ data, deleteCallback }) => {
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>name</th>
-					<th>description</th>
-					<th>created</th>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Ajoute le</th>
 					<th></th>
 					<th></th>
 				</tr>
