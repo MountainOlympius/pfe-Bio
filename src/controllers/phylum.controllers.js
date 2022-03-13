@@ -7,7 +7,7 @@ const getAllPhylums = (pool) => {
     return async (request, response) => {
         const phylumsList = await selectPhylums()
 
-        response.json({ ok: false, data: phylumsList})
+        response.json({ ok: true, data: phylumsList})
     }
 }
 
