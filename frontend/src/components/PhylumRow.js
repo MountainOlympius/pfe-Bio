@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { formatDate } from '../utils/Generic'
 
@@ -12,7 +13,7 @@ const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
 			<td className="description">{description.length > 50 ? description.slice(0, 50) + '...' : description}</td>
 			<td className="created-date">{formatDate(new Date(created_date))}</td>
 			<td className="edit">
-				<button className="edit-btn">edit</button>
+				<Link to={`/admin/phylum/edit/${id}`} >edit</Link>
 			</td>
 			<td className="delete">
 				<button onClick={onDeleteBtn} className="delete-btn">

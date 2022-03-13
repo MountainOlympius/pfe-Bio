@@ -18,8 +18,8 @@ const NewPhylumPage = () => {
         createPhylum(data).then(response => {
             if (response && response.ok) {
                 e.target.reset()
+                
                 setErrors([])
-
                 setMessages(["Embranchement a été créé avec succès"])
 
                 setTimeout(() => setMessages([]), 2000)

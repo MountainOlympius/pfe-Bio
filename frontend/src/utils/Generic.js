@@ -1,6 +1,8 @@
 export const translateError = (error) => {
     if (error === 'phylum_already_exist') {
         return 'l\'embranchement existe déjà'
+    } else if (error === 'duplicated_name') {
+        return 'Le nom est dupliqué'
     }
 
     return error

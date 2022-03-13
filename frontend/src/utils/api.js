@@ -1,4 +1,4 @@
-import { deleteRequest, getRequest, postRequest } from './http'
+import { deleteRequest, getRequest, postRequest, putRequest } from './http'
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || window.location.origin
 
@@ -50,9 +50,28 @@ export const deletePhylum = async (id) => {
 }
 
 export const createPhylum = async (data) => {
-    console.log(data)
     try {
         const response = await postRequest(getApiHref('/api/phylum'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const getPhylum = async (id) => {
+    try {
+        const response = await getRequest(getApiHref(`/api/phylum/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const updatePhylum = async (id, data) => {
+    try {
+        const response = await putRequest(getApiHref(`/api/phylum/${id}`), JSON.stringify(data))
 
         if (response) return response
     } catch {}
