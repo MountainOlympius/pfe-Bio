@@ -8,6 +8,7 @@ import NewPhylumPage from './NewPhylum.page'
 import '../styles/AdminPages.scss'
 import PhylumsEditPage from './PhylumEdit.page'
 import FamilyPage from './Family.page'
+import NewFamilyPage from './NewFamily.page'
 
 const AdminPages = () => {
     return (
@@ -20,6 +21,7 @@ const AdminPages = () => {
                 <Route path='phylum/edit/:id' element={<PhylumsEditPage />} />
 
                 <Route path='family' element={<FamilyPage />} />
+                <Route path='family/new' element={<NewFamilyPage />} />
 
             </Routes>
         </div>
