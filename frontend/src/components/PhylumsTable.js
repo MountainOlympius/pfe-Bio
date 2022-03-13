@@ -1,6 +1,8 @@
 import React from 'react'
 import PhylumRow from './PhylumRow'
 
+import '../styles/PhylumsTable.scss'
+
 const PhylumsTable = ({ data, deleteCallback }) => {
 	return (
 		<table className="phylums-table">

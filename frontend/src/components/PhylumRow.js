@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../styles/PhylumRow.scss'
+
 const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
     return (
         <tr className='phylum-row'>

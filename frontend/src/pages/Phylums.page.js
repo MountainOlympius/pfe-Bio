@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import PhylumsTable from '../components/PhylumsTable'
 import { deletePhylum, getPhylums } from '../utils/api'
 
+import '../styles/PhylumsPage.scss'
+
 const PhylumsPage = () => {
     const [phylumsList, setPhylumsList] = useState([])
 
