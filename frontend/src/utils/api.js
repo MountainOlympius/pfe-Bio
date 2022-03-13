@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from './http'
+import { deleteRequest, getRequest, postRequest } from './http'
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || window.location.origin
 
@@ -32,6 +32,16 @@ export const accountLogin = async (data) => {
 export const getPhylums = async () => {
     try {
         const response = await getRequest(getApiHref('/api/phylum'))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const deletePhylum = async (id) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/phylum/${id}`))
 
         if (response) return response
     } catch {}

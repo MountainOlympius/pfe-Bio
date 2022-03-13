@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PhylumsTable from '../components/PhylumsTable'
-import { getPhylums } from '../utils/api'
+import { deletePhylum, getPhylums } from '../utils/api'
 
 const PhylumsPage = () => {
     const [phylumsList, setPhylumsList] = useState([])
@@ -13,11 +13,16 @@ const PhylumsPage = () => {
         }
     }, [])
 
-    console.log(phylumsList)
+    const deletePhylumCallback = useCallback((id) => {
+        deletePhylum(id).then(response => {
+            if (response && response.ok) 
+                setPhylumsList(phylumsList.filter(phylum => phylum.id !== id))
+        })
+    }, [phylumsList])
 
     return (
         <div className='PhylumsPage'>
-            <PhylumsTable data={phylumsList} />
+            <PhylumsTable data={phylumsList} deleteCallback={deletePhylumCallback} />
         </div>
     )    
 }

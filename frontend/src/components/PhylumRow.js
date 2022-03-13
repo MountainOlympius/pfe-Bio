@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PhylumRow = ({ id, name, description, created_date}) => {
+const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
     return (
         <tr className='phylum-row'>
             <td className='id'>{id}</td>
@@ -11,7 +11,7 @@ const PhylumRow = ({ id, name, description, created_date}) => {
                 <button className='edit-btn'>edit</button>
             </td>
             <td className='delete'>
-                <button className='delete-btn'>delete</button>
+                <button onClick={onDeleteBtn} className='delete-btn'>delete</button>
             </td>
         </tr>
     )
