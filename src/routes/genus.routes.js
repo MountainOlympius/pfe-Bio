@@ -17,10 +17,12 @@ const GenusRouter = (pool) => {
         editGenus,
         deleteGenus,
         deleteGenusCriteria,
-        deleteSpecies
+        deleteSpecies,
+        searchForGenuses
     } = genusControllers(pool)
 
     router.get('/', getGenuses) 
+    router.get('/search', searchForGenuses) 
     router.get('/:id', getGenusWithDetails) 
     router.get('/:id/species', getSpeciesOfGenus)
 

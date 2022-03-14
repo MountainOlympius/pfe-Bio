@@ -1,5 +1,20 @@
 const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
 
+const createSearchGenuses = (pool) => {
+    return async (q) => {
+        const query = `SELECT g.id, g.name, g.description, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria
+        FROM genus As g
+        LEFT JOIN genus_criteria AS gc ON gc.genus_id = g.id
+        WHERE lower(name) ~  $1
+        GROUP BY g.id, g.name
+        ORDER BY g.created_date, g.id`
+
+        const response = await pool.query(query, [`^${q.toLowerCase()}`])
+
+        return response.rows || []
+    }
+}
+
 const selectGenuses = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = `SELECT g.id, g.name, g.description, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria
@@ -127,6 +142,7 @@ module.exports = (pool) => {
         updateGenus: updateGenus(pool),
         deleteGenus: deleteGenus(pool),
         deleteSpecies: deleteSpecies(pool),
-        deleteGenusCriteria: deleteGenusCriteria(pool)
+        deleteGenusCriteria: deleteGenusCriteria(pool),
+        searchGenuses: createSearchGenuses(pool)
     }
 }

@@ -25,6 +25,26 @@ const getGenuses = (pool) => {
     }
 }
 
+const searchForGenuses = (pool) => {
+    const { searchGenuses } = genusModels(pool)
+
+    return async (request, response) => {
+        let { query } = request.query
+
+        const genuses = await searchGenuses(query)
+
+        response.json({
+            ok: true,
+            data: genuses.map((genus) => {
+                return {
+                    ...genus,
+                    criteria: genus.criteria.filter((cr) => cr.id),
+                }
+            }),
+        })
+    }
+}
+
 const getGenusWithDetails = (pool) => {
     const { selectGenusesWithDetails } = genusModels(pool)
 
@@ -248,6 +268,7 @@ module.exports = (pool) => {
         editGenus: editGenus(pool),
         deleteGenus: deleteGenus(pool),
         deleteGenusCriteria: deleteGenusCriteria(pool),
-        deleteSpecies: deleteSpecies(pool)
+        deleteSpecies: deleteSpecies(pool),
+        searchForGenuses: searchForGenuses(pool)
     }
 }
