@@ -2,7 +2,7 @@
     background-color: rebeccapurple;
   
 
-    .PhylumForm {
+    .form {
         background-color: bisque;
         display: flex;
         flex-direction: column;
@@ -23,10 +23,17 @@
             input {
                 padding: 10px 30px;
                 margin: 1.2em;
+                font-family: poppins;
+                font-weight: 600;
+                font-size: 15px;
             }
             textarea {
-                padding: 50px 30px;
+                min-height: 10em;
+                padding: 1em 4em;
+                font-size: 16px;
                 margin: 1.2em;
+                resize: none;
+                font-family: poppins;
             }
 
             label {

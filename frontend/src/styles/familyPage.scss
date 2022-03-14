@@ -1,0 +1,16 @@
+.FamilyPage {
+    background-color: aquamarine;
+
+    .search-container {
+        input {
+            padding: 1.2em 6em;
+            margin: 2em;
+        }
+        label {
+            font-weight: 700;
+            font-size: 15px;
+            margin: 1em;
+            font-family: poppins;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.FamilyRow {
+    td {
+        text-align: center;
+        font-weight: 500;
+        font-family: poppins;
+    }
+}
+
+.edilete {
+    background-color: bisque;
+    padding: 25px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+
+    .delete-btn, .edit-btn {
+        padding: 1em 3em;
+        margin-left: 2em;
+        font-family: poppins;
+    }
+
+}
