@@ -1,6 +1,8 @@
 import React from 'react'
 import FamilyRow from './FamilyRow'
 
+import '../styles/FamilyTable.scss'
+
 const FamilyTable = ({ data, deleteCallback }) => {
     return (
         <table className='FamilyTable'>

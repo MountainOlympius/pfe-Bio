@@ -5,6 +5,8 @@ import PhylumForm from '../components/PhylumForm'
 import { getPhylum, updatePhylum } from '../utils/api'
 import { translateErrors } from '../utils/Generic'
 
+import  "../styles/PhylumEditPage.scss"
+
 const PhylumsEditPage = () => {
 	const { id } = useParams()
 	const [data, setData] = useState({})
