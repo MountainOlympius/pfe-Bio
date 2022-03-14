@@ -4,6 +4,8 @@ import GenusTable from '../components/GenusTable'
 import { getGenuses, searchGenus } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 
+import '../styles/familyPage.scss'
+
 const GenusPage = () => {
     const [genusList, setGenusList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
@@ -48,7 +50,7 @@ const GenusPage = () => {
             </div>
 
             <GenusTable data={searchValue && searchValue.length > 0 ? (searchResult[searchValue] || []).slice(0, searchDisplayCount) : genusList} />
-
+            <div className='more-container'>
             {searchValue.length > 0 ? (
 					searchDisplayCount <
 					(searchResult[searchValue] || []).length ? (
@@ -69,6 +71,7 @@ const GenusPage = () => {
 						More
 					</button>
 				) : null}
+                </div>
         </div>
     )
 }

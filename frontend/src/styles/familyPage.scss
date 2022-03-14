@@ -1,16 +1,48 @@
-.FamilyPage {
+.FamilyPage, .GenusPage {
     background-color: aquamarine;
 
-    .search-container {
+    .search-container, .search-div {
         input {
-            padding: 1.2em 6em;
+            width: 350px;
+            height: 35px;
+            padding: .5em 2em;
             margin: 2em;
         }
         label {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 18px;
             margin: 1em;
             font-family: poppins;
         }
     }
+
+    
+    .more-container {
+        background-color: white;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .more-btn {
+            padding: .5em 2em;
+            margin: 1em;
+            font-family: poppins;
+            font-size: 25px ;
+            background-color: transparent;
+            border: transparent ;
+            font-weight: 700;
+    }
+
+    .more-btn::before {
+        content: url(../assets/chain.png);
+        vertical-align: -80%;
+
+    }
+
+    .more-btn:hover {
+        background-color: aqua;
+        opacity: 50%;
+    }
+}
 }
