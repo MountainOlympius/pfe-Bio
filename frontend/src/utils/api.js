@@ -168,3 +168,13 @@ export const getGenuses = async (page) => {
 
     return null
 }
+
+export const searchGenus = async (query) => {
+    try {
+        const response = await getRequest(getApiHref('/api/genus/search') + `?query=${query}`)
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

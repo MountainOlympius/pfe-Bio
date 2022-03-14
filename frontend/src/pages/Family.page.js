@@ -25,7 +25,9 @@ const FamilyPage = () => {
 	}, [currentPage])
 
 	useEffect(async () => {
-		if (searchValue.length <= 0 || searchValue in searchResult) return
+		if (searchValue.length <= 0) return
+
+		if (searchValue in searchResult && searchResult[searchValue].length > 0) return
 
 		const response = await searchFamily(searchValue)
 
