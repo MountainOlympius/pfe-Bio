@@ -148,3 +148,13 @@ export const deleteFamilyCriteria = async (familyId, criteriaId) => {
 
     return null
 }
+
+export const deleteFamily = async (id) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/family/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

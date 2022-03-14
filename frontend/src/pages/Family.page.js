@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+
 import FamilyTable from '../components/FamilyTable'
-import { getFamilies, searchFamily } from '../utils/api'
+import { deleteFamily, getFamilies, searchFamily } from '../utils/api'
+import { cloneObject } from '../utils/Generic'
 
 import '../styles/familyPage.scss'
 
@@ -28,18 +30,30 @@ const FamilyPage = () => {
 		const response = await searchFamily(searchValue)
 
 		if (response && response.ok && response.data) {
-			const result = {...searchResult}
+			const result = { ...searchResult }
 			result[searchValue] = response.data
 
-			setSearchResult({...result})
-
-			console.log(result)
+			setSearchResult({ ...result })
 		}
 	}, [searchValue])
 
 	const onChangeSearch = (e) => {
 		setDisplayCount(10)
 		setSearch(e.target.value)
+	}
+
+	const deleteCallback = async (id) => {
+		const response = await deleteFamily(id)
+
+		if (response && response.ok) {
+			setFamiliesList(familiesList.filter((family) => family.id !== id))
+
+			setSearchResult(Object.fromEntries(
+				Object.entries(cloneObject(searchResult)).map((result) => {
+					return [result[0], cloneObject(result[1]).filter(family => family.id != id)]
+				})
+			))
+		}
 	}
 
 	return (
@@ -64,13 +78,27 @@ const FamilyPage = () => {
 									searchDisplayCount
 							  )
 					}
+					deleteCallback={deleteCallback}
 				/>
 				{searchValue.length > 0 ? (
-					searchDisplayCount < (searchResult[searchValue] || []).length ? (
-						<button className="more-btn" onClick={() => setDisplayCount(searchDisplayCount + 10)}>More</button>
+					searchDisplayCount <
+					(searchResult[searchValue] || []).length ? (
+						<button
+							className="more-btn"
+							onClick={() =>
+								setDisplayCount(searchDisplayCount + 10)
+							}
+						>
+							More
+						</button>
 					) : null
 				) : !isLastPage ? (
-					<button className="more-btn" onClick={() => setPage(currentPage + 1)}>More</button>
+					<button
+						className="more-btn"
+						onClick={() => setPage(currentPage + 1)}
+					>
+						More
+					</button>
 				) : null}
 			</div>
 		</div>
