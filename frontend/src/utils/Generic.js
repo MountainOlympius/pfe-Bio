@@ -51,7 +51,7 @@ export const getCriteriaDiff = (arr1, arr2) => {
     })
 
     arr2.forEach(elt => {
-        const found = arr1.find(e => e.content == elt.content)
+        const found = arr1.find(e => e.id == elt.id)
 
         if (!found) {
             added.push(elt)
@@ -59,4 +59,9 @@ export const getCriteriaDiff = (arr1, arr2) => {
     })
 
     return [deleted, added]
+}
+
+export const cloneObject = (obj) => {
+    const str = JSON.stringify(obj)
+    return JSON.parse(str)
 }

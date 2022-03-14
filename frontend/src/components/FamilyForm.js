@@ -82,7 +82,7 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 				<label>Embranchement</label>
 				<select defaultValue={data.phylum_id} name="phylum_id">
 					{phylums.map((phylum, i) => (
-						<option key={i} value={phylum.id}>
+						<option key={i} value={phylum.id} selected={Number(phylum.id) === Number(data.phylum_id)} >
 							{phylum.name}
 						</option>
 					))}
