@@ -10,7 +10,7 @@ const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
 		<tr className="phylum-row">
 			<td className="id">{id}</td>
 			<td className="name">{name}</td>
-			<td className="description">{description.length > 50 ? description.slice(0, 50) + '...' : description}</td>
+			<td className="description">{description && description.length > 50 ? description.slice(0, 50) + '...' : description}</td>
 			<td className="created-date">{formatDate(new Date(created_date))}</td>
 			<td className="edit">
 				<Link to={`/admin/phylum/edit/${id}`} >edit</Link>

@@ -158,3 +158,13 @@ export const deleteFamily = async (id) => {
 
     return null
 }
+
+export const getGenuses = async (page) => {
+    try {
+        const response = await getRequest(getApiHref('/api/genus') + `?page=${page}`)
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
