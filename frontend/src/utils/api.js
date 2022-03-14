@@ -98,3 +98,63 @@ export const searchFamily = async (query) => {
 
     return null
 }
+
+export const createFamily = async (data) => {
+    try {
+        const response = await postRequest(getApiHref('/api/family'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const addFamilyCriteria = async (id, content) => {
+    try {
+        const response = await postRequest(getApiHref(`/api/family/${id}/criteria`), JSON.stringify({ content }))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const getFamily = async (id) => {
+    try {
+        const response = await getRequest(getApiHref(`/api/family/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const updateFamily = async (id, data) => {
+    try {
+        const response = await putRequest(getApiHref(`/api/family/${id}`), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const deleteFamilyCriteria = async (familyId, criteriaId) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/family/${familyId}/criteria/${criteriaId}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const deleteFamily = async (id) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/family/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

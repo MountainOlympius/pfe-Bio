@@ -9,7 +9,7 @@ const createSearchFamily = (pool) => {
         GROUP BY f.id, f.name, f.created_date
         ORDER BY f.created_date`
 
-        const response = await pool.query(query, [q])
+        const response = await pool.query(query, [q.toLowerCase()])
 
         return response.rows || []
     }
@@ -94,7 +94,7 @@ const createFamilyUpdater = (pool) => {
 
         if (values.length <= 0) return false
 
-        const response = await pool.query(query, [...id, ...values])
+        const response = await pool.query(query, [id, ...values])
 
         return response.rowCount > 0
     }

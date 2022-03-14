@@ -1,7 +1,7 @@
 import React from 'react'
 import FamilyRow from './FamilyRow'
 
-const FamilyTable = ({ data }) => {
+const FamilyTable = ({ data, deleteCallback }) => {
     return (
         <table className='FamilyTable'>
             <thead>
@@ -15,7 +15,7 @@ const FamilyTable = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((family, i) => <FamilyRow key={i} {...family} />)}
+                {data.map((family, i) => <FamilyRow deleteCallback={() => deleteCallback(family.id)} key={i} {...family} />)}
             </tbody>
         </table>
     )
