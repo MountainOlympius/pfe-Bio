@@ -9,7 +9,7 @@ const createSearchGenuses = (pool) => {
         GROUP BY g.id, g.name
         ORDER BY g.created_date, g.id`
 
-        const response = await pool.query(query, [`^${q.toLowerCase()}`])
+        const response = await pool.query(query, [`^${q.toLowerCase()}.*`])
 
         return response.rows || []
     }
