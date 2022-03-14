@@ -1,0 +1,37 @@
+.phylumform-container {
+    background-color: rebeccapurple;
+  
+
+    .PhylumForm {
+        background-color: bisque;
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding: 2em;
+        margin: 2em;
+
+        button {
+            padding: 10px 30px;
+            font-size: 15px;
+            margin: 1.2em;
+        }
+
+        .form-div {
+            display: flex;
+            flex-direction: column;
+
+            input {
+                padding: 10px 30px;
+                margin: 1.2em;
+            }
+            textarea {
+                padding: 50px 30px;
+                margin: 1.2em;
+            }
+
+            label {
+                font-weight: 700;
+            }
+        }
+    }
+}

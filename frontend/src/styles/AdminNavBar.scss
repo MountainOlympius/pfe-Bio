@@ -1,13 +1,17 @@
-.admin-navbar li {
-    list-style-type: none;
-    justify-content: space-between;
-    background-color: rgb(245, 239, 239);
-    padding: 25% 50px;
+.admin-navbar {
+    ul {
+        display: flex;
+        justify-content: space-around;
+        background-color: aqua;
+        padding: 40px;
+    }
+    li {
+        text-decoration: none;
+        list-style: none;
+    }
 
     a {
         text-decoration: none;
-        color: rgb(0, 0, 0);
         font-weight: 700;
-        
     }
-  }
+}

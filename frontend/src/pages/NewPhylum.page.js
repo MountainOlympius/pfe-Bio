@@ -4,6 +4,8 @@ import PhylumForm from '../components/PhylumForm'
 import { createPhylum } from '../utils/api'
 import { translateErrors } from '../utils/Generic'
 
+import '../styles/NewPhylumPage.scss'
+
 const NewPhylumPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])

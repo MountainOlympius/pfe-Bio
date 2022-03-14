@@ -1,7 +1,11 @@
 import React from 'react'
 
+import '../styles/PhylumForm.scss'
+
+
 const PhylumForm = ({ onSubmitCallback, buttonText, data = {} }) => {
 	return (
+		<div className="phylumform-container">
 		<form className='PhylumForm form' onSubmit={onSubmitCallback}>
 			<div className='form-div'>
 				<label>Nom d'embranchements :</label>
@@ -15,6 +19,7 @@ const PhylumForm = ({ onSubmitCallback, buttonText, data = {} }) => {
 
             <button className='submitBtn' type='submit'>{buttonText}</button>
 		</form>
+		</div>
 	)
 }
 

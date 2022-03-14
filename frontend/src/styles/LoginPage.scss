@@ -1,6 +1,14 @@
-h2 {
-    color: white;
-    display: block;
-    align-self: center;
-    margin-top: 3em;
+.LoginPage {
+  background-color: blue;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-size: 2em;
+    position: relative;
+    font-family: poppins;
+  }
 }
