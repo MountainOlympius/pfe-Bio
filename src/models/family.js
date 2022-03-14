@@ -9,7 +9,7 @@ const createSearchFamily = (pool) => {
         GROUP BY f.id, f.name, f.created_date
         ORDER BY f.created_date`
 
-        const response = await pool.query(query, [q])
+        const response = await pool.query(query, [q.toLowerCase()])
 
         return response.rows || []
     }
