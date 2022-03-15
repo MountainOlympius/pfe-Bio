@@ -188,3 +188,13 @@ export const createGenus = async (data) => {
 
     return null
 }
+
+export const addGenusCriteria = async (id, content) => {
+    try {
+        const response = await postRequest(getApiHref(`/api/genus/${id}/criteria`), JSON.stringify({ content }))
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}

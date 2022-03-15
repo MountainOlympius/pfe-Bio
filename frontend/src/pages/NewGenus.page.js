@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { cloneObject, translateErrors } from '../utils/Generic'
-import { createGenus } from '../utils/api'
+import { addGenusCriteria, createGenus } from '../utils/api'
 import GenusForm from '../components/GenusForm'
 
 const NewGenusPage = () => {
@@ -10,9 +10,12 @@ const NewGenusPage = () => {
 
     const onSaveCallback = async (data, onSuccessCallback) => {
         const localErrors = []
+        const genusData = cloneObject(data)
 
         setErrors([])
         setMessages([])
+
+        delete genusData['criteria']
 
         if (!('name' in data) || data.name === '') localErrors.push('Le champ du nom est obligatoire')
         if (!('description' in data) || data.description === '') localErrors.push('Le champ du description est obligatoire')
@@ -20,20 +23,24 @@ const NewGenusPage = () => {
 
         if (localErrors.length > 0) return setErrors(cloneObject(localErrors))
 
-        const response = await createGenus(data)
+        const response = await createGenus(genusData)
 
-        if (response && response.ok) {
-            onSuccessCallback()
+        if (response && response.ok && response.data && response.data.id) {
             setMessages(['Le genre a été créé avec succès'])
-            setTimeout(() => setMessages([]), 2000)
         } else if (response && response.errors) {
-            setErrors(translateErrors(response.errors))
-        }
+            return setErrors(translateErrors(response.errors))
+        } else return
+        
+        await Promise.all(data.criteria.map(cr => addGenusCriteria(response.data.id, cr.content)))
+        
+        setMessages([...messages, 'Les critères du genre ont été créé avec succès'])
+        onSuccessCallback()
+        setTimeout(() => setMessages([]), 2000)
     }
 
     return (
         <div className='NewGenusPage'>
-            <GenusForm onSaveCallback={onSaveCallback} />
+            <GenusForm onSaveCallback={onSaveCallback} shouldReset />
 
             <div className='errors-div'>
                 {errors.map((error, i) => <p key={i}>{error}</p>)}
