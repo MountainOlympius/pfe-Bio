@@ -8,13 +8,13 @@ const AdminNavBar = () => {
         <nav className='admin-navbar'>
             <ul>
                 <li>
-                    <NavLink className="active" to='/admin/phylum'>Embranchements</NavLink>
+                    <NavLink to='/admin/phylum'>Embranchements</NavLink>
                 </li>
                 <li>
                     <NavLink to='/admin/family'>Familles</NavLink>
                 </li>
                 <li>
-                    <NavLink to='#'>Genres</NavLink>
+                    <NavLink to='/admin/genus'>Genres</NavLink>
                 </li>
                 <li>
                     <NavLink to='#'>Especes</NavLink>

@@ -178,3 +178,13 @@ export const searchGenus = async (query) => {
 
     return null
 }
+
+export const createGenus = async (data) => {
+    try {
+        const response = await postRequest(getApiHref('/api/genus'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
