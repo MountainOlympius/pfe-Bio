@@ -1,0 +1,26 @@
+.InputDropdown {
+    width: fit-content;
+    position: relative;
+
+    .dropdown {
+        background-color: whitesmoke;
+        position: absolute;
+        top: calc(100% - 2em);
+        width: 100%;
+        z-index: 1;
+        overflow-y: scroll;
+
+        .dropdown-elt {
+            padding: .75em 1em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: white;
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+}
