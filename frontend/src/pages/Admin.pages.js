@@ -10,6 +10,7 @@ import FamilyPage from './Family.page'
 import NewFamilyPage from './NewFamily.page'
 import FamilyEditPage from './FamilyEdit.page'
 import GenusPage from './Genus.page'
+import NewGenusPage from './NewGenus.page'
 
 import '../styles/AdminPages.scss'
 
@@ -27,6 +28,7 @@ const AdminPages = () => {
                 <Route path='family/:id/edit' element={<FamilyEditPage />} />
 
                 <Route path='genus' element={<GenusPage />} />
+                <Route path='genus/new' element={<NewGenusPage />} />
             </Routes>
         </div>
     )

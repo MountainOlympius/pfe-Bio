@@ -41,9 +41,6 @@ const FamilyEditPage = () => {
 
         const updatedData = getObjectDiff(originalDataClone, dataClone)
 
-        console.log(data)
-        console.log(originData)
-
         setErrors([])
         setMessages([])
 

@@ -29,6 +29,7 @@ const createSelectFamilies = (pool) => {
     }
 }
 
+// FIXME : CRITERIA HAS BEEN duplicated
 const createSelectFamilyWithDetails = (pool) => {
     return async (id, limit = 10) => {
         const query = `SELECT f.id, f.name, f.created_date, f.description, 
@@ -48,7 +49,7 @@ const createSelectFamilyWithDetails = (pool) => {
         LEFT JOIN family_criteria AS fc ON fc.family_id = f.id
         LEFT JOIN phylum AS p ON f.phylum_id = p.id
         WHERE f.id = $1
-        GROUP BY f.id, f.name, f.created_date, p.id, p.name;`
+        GROUP BY f.id, f.name, f.created_date, p.id, p.name, f.description;`
 
         const response = await pool.query(query, [id, limit])
 

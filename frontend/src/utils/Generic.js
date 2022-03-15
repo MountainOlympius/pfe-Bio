@@ -7,6 +7,10 @@ export const translateError = (error) => {
         return 'l\'embranchement n\'existe pas'
     } else if (error === 'duplicated_family_name') {
         return 'Le nom de famille est dupliqué'
+    } else if (error === 'unexisting_family') {
+        return 'la famille n\'existe pas'
+    } else if (error === 'duplicated_genus_name') {
+        return 'Le nom du genre est dupliqué'
     }
 
     return error
