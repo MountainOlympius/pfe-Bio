@@ -4,6 +4,8 @@ import FamilyForm from '../components/FamilyForm'
 import { addFamilyCriteria, deleteFamilyCriteria, getFamily, updateFamily } from '../utils/api'
 import { cloneObject, getCriteriaDiff, getObjectDiff, translateErrors } from '../utils/Generic'
 
+import '../styles/FamilyEditPage.scss'
+
 const FamilyEditPage = () => {
     const { id } = useParams()
     const [familyData, setFamilyData] = useState(undefined)

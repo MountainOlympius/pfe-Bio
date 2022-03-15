@@ -7,7 +7,6 @@
 }
 
 .edilete {
-  background-color: bisque;
   padding: 2px;
   display: flex;
   text-align: center;
@@ -17,18 +16,30 @@
   height: 100%;
 
   .delete-btn {
-    padding: 15px 3em;
-    margin-left: 2em;
+    padding: .2em;
+    margin-left: .2em;
     font-family: poppins;
-    font-size: 15px;
+    background: none;
+    border: none;
   }
+
+  .delete-btn::before {
+    content: url(../assets/close.png);
+    text-align: center;
+    float: center;
+    margin: 0 auto;
+    display: block;
+    padding: 0;
+    top: 50%;
+
+  }
+
+
 
   .edit {
     border: 1px solid black;
-    background-color: antiquewhite;
     justify-content: center;
-    padding: 19px 1em;
-
+    
     a {
       text-decoration: none;
       font-family: poppins;

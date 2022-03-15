@@ -1,5 +1,5 @@
 .FamilyPage, .GenusPage {
-    background-color: aquamarine;
+    background-color: #56BBF1;
 
     .search-container, .search-div {
         input {
@@ -18,30 +18,34 @@
 
     
     .more-container {
-        background-color: white;
         width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .more-btn {
-            padding: .5em 2em;
+            padding: .2em 1.3em;
             margin: 1em;
             font-family: poppins;
             font-size: 25px ;
             background-color: transparent;
             border: transparent ;
             font-weight: 700;
+            padding-right: 2.2em;
+            padding-top: .5em;
+            transition: background-color .7s ease-out 100ms;
+            border-radius: 2em;
+            cursor: pointer;
     }
 
     .more-btn::before {
+        display: inline-block;
         content: url(../assets/chain.png);
         vertical-align: -80%;
 
     }
 
     .more-btn:hover {
-        background-color: aqua;
         opacity: 50%;
     }
 }

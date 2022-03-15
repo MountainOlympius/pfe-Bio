@@ -2,16 +2,28 @@
     ul {
         display: flex;
         justify-content: space-around;
-        background-color: aqua;
+        background-color: #56BBF1;
         padding: 40px;
+        opacity: 80%;
     }
     li {
         text-decoration: none;
         list-style: none;
+        position: relative;
     }
-
+    
     a {
+        background-color: rgb(148, 225, 245);
+        padding: 1em 2em;
         text-decoration: none;
         font-weight: 700;
+
+    }
+
+    a:hover {
+        background-color: rgb(113, 188, 207);
+        height: 100%;
+        opacity: 60%;
+        color: white;
     }
 }
