@@ -97,6 +97,8 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 
 			</div>
 
+			<div className="title"><h1>Ajouter ou modifier un critère</h1><hr /></div>
+
 			<div className="form-div">
 				<label>Les critères :</label>
 

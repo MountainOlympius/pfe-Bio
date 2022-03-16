@@ -1,10 +1,17 @@
-.phylums-table  {
-    background-color: aqua;
+.phylums-table {
+    background-color: #eef4f8;
     width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+
+
     th {
         height: 50px;
         font-family: poppins;
         text-align: center;
-        background-color: rgb(182, 110, 110);
+        background-color: rgb(255, 255, 255);
+        border-color: #7ea4c4;
+        border-bottom-style: solid;
+        border-bottom-width: 5px;
     }
 }

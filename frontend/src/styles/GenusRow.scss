@@ -1,39 +1,61 @@
 .GenusRow {
-    td {
-      text-align: center;
-      font-weight: 500;
-      font-family: poppins;
+  td {
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Heebo', sans-serif;
+  }
+}
+
+.edilete {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .delete-btn {
+    padding: 2px 5px;
+    padding-right: 35px;
+    background: none;
+    border: none;
+    font-family: poppins;
+    font-weight: 700;
+
+    &:hover {
+      opacity: 50%;
     }
   }
-  
-  .edilete {
-    background-color: bisque;
-    padding: 2px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+
+  .delete-btn::before {
+    content: url(../assets/delete.png);
+    display: inline-block;
     height: 100%;
-  
-    .delete-btn {
-      padding: 15px 3em;
-      margin-left: 2em;
+    width: 48%;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+    .edit a {
+      text-decoration: none;
       font-family: poppins;
-      font-size: 15px;
-    }
-  
-    .edit {
-      border: 1px solid black;
-      background-color: antiquewhite;
-      justify-content: center;
-      padding: 19px 1em;
-  
-      a {
-        text-decoration: none;
-        font-family: poppins;
-        font-size: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      color: black;
+      font-weight: 700;
+
+      &::before {
+        content: url("../assets/edit.png");
+        display: inline-block;
+        height: 100%;
+        width: 110%;
+        padding-right: .3em;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        opacity: 50%;
       }
     }
   }
-  
+

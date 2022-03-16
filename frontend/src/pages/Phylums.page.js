@@ -24,7 +24,9 @@ const PhylumsPage = () => {
 
     return (
         <div className='PhylumsPage'>
+            <div className="data-container">
             <PhylumsTable data={phylumsList} deleteCallback={deletePhylumCallback} />
+            </div>
         </div>
     )    
 }

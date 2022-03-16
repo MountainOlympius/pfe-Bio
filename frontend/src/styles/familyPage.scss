@@ -1,5 +1,5 @@
-.FamilyPage, .GenusPage {
-    background-color: #56BBF1;
+.FamilyPage, .PhylumPage {
+    background-color: #ffffff;
 
     .search-container, .search-div {
         input {
@@ -7,11 +7,16 @@
             height: 35px;
             padding: .5em 2em;
             margin: 2em;
+            border-radius: .5em;
+
+            
         }
+
         label {
+            margin-left: 6em;
             font-weight: 700;
             font-size: 18px;
-            margin: 1em;
+            margin-right: 1em;
             font-family: poppins;
         }
     }
@@ -40,8 +45,10 @@
 
     .more-btn::before {
         display: inline-block;
-        content: url(../assets/chain.png);
-        vertical-align: -80%;
+        content: url(../assets/plus.png);
+        vertical-align: middle;
+        margin-right: .5em;
+        margin-top: .3em;
 
     }
 

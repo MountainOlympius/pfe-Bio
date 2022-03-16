@@ -80,7 +80,6 @@ const FamilyEditPage = () => {
         return (
             <div className='FamilyEditPage'>
                 <FamilyForm data={familyData} submitCallback={saveFamily} />
-
                 <div className='errors-div'>
                     {errors.map((error, i) => <p key={i}>{error}</p>)}
                 </div>
