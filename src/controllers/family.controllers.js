@@ -25,7 +25,7 @@ const getFamilies = (pool) => {
 }
 
 const getFamilyDetails = (pool) => {
-    const { selectFamilyWithDetails } = familyModels(pool)
+    const { selectFamilyWithDetails, selectGenusesOfFamily } = familyModels(pool)
 
     return async (request, response) => {
         const { id } = request.params
@@ -35,6 +35,7 @@ const getFamilyDetails = (pool) => {
         }
 
         let family = await selectFamilyWithDetails(id)
+        family.genuses = await selectGenusesOfFamily(id, 0)
 
         if (!family) return response.status(404).json({ ok: false })
 

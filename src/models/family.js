@@ -29,29 +29,18 @@ const createSelectFamilies = (pool) => {
     }
 }
 
-// FIXME : CRITERIA HAS BEEN duplicated
 const createSelectFamilyWithDetails = (pool) => {
-    return async (id, limit = 10) => {
+    return async (id) => {
         const query = `SELECT f.id, f.name, f.created_date, f.description, 
             JSON_AGG(json_build_object('id', fc.id, 'content', fc.content)) as criteria , 
-            JSON_AGG(json_build_object('id', genuses.id, 'name', genuses.name, 'criteria', genuses.criteria)) as genuses,
             json_build_object('id', p.id, 'name', p.name) as phylum
         FROM family AS f
-        LEFT JOIN LATERAL (
-            select g.id, g.name, JSON_AGG(json_build_object('id', gc.id, 'content', gc.content)) as criteria
-            FROM genus as g
-            LEFT JOIN genus_criteria as gc on g.id = gc.genus_id
-            where family_id = $1
-            group by g.name, g.id
-            ORDER BY g.created_date
-            LIMIT $2
-        ) AS genuses ON  1 = 1
         LEFT JOIN family_criteria AS fc ON fc.family_id = f.id
         LEFT JOIN phylum AS p ON f.phylum_id = p.id
         WHERE f.id = $1
         GROUP BY f.id, f.name, f.created_date, p.id, p.name, f.description;`
 
-        const response = await pool.query(query, [id, limit])
+        const response = await pool.query(query, [id])
 
         if (response.rows?.length <= 0) return null
 
@@ -60,7 +49,7 @@ const createSelectFamilyWithDetails = (pool) => {
 }
 
 const createSelectGenusesOfFamily = (pool) => {
-    return async (id, last) => {
+    return async (id, last = 0) => {
         const query = `select g.id, g.name, JSON_AGG(json_build_object('id', gc.id, 'content', gc.content)) as criteria
             FROM genus as g
             LEFT JOIN genus_criteria as gc on g.id = gc.genus_id
