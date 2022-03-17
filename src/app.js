@@ -2,6 +2,8 @@ const express = require('express')
 const expressSession = require('express-session')
 const PgConnectStore = require('connect-pg-simple')(expressSession)
 const cors = require('cors')
+const path = require('path')
+const fs = require('fs')
 
 require('dotenv').config()
 
@@ -30,6 +32,16 @@ const App = (pool) => {
 
     app.use(Authentication(pool))
     app.use('/api', ApiRouter(pool))
+    app.use('/static', express.static(path.resolve(__dirname, '../frontend/build/static')))
+    app.get('*', (request, response) => {
+        const pathToFile = path.join(__dirname, '../frontend/build', request.path)
+
+        if (fs.existsSync(pathToFile) && fs.statSync(pathToFile).isFile()) {
+            return response.sendFile(pathToFile)
+        }
+
+        response.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
+    })
 
     return app
 }

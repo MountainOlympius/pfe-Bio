@@ -60,7 +60,7 @@ const getGenusWithDetails = (pool) => {
         genus.criteria = genus.criteria.filter((cr) => cr.id)
         genus.species = genus.species.filter((sp) => sp.id)
 
-        response.json({ ok: false, data: genus })
+        response.json({ ok: true, data: genus })
     }
 }
 
