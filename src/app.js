@@ -4,13 +4,15 @@ const PgConnectStore = require('connect-pg-simple')(expressSession)
 const cors = require('cors')
 const path = require('path')
 const fs = require('fs')
+const { default: helmet } = require('helmet')
+const compression = require('compression')
 
 require('dotenv').config()
 
 const ApiRouter = require('./routes')
 const { Authentication } = require('./middlewares/Authentication')
-const compression = require('compression')
-const { default: helmet } = require('helmet')
+
+// TODO : Check security files
 
 const App = (pool) => {
     const app = express()
