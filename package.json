@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "cd frontend && npm run build && cd .. && node index.js",
     "start:dev": "nodemon index.js"
   },
   "keywords": [],
