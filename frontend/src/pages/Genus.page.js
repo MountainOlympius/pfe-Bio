@@ -4,7 +4,7 @@ import GenusTable from '../components/GenusTable'
 import { getGenuses, searchGenus } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 
-import '../styles/familyPage.scss'
+import '../styles/Genus.page.scss'
 
 const GenusPage = () => {
     const [genusList, setGenusList] = useState([])

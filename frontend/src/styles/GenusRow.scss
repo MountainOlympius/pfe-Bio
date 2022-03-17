@@ -2,7 +2,7 @@
   td {
     text-align: center;
     font-weight: 700;
-    font-family: 'Heebo', sans-serif;
+    font-family: "Heebo", sans-serif;
   }
 }
 
@@ -35,8 +35,9 @@
     vertical-align: middle;
     cursor: pointer;
   }
-
-    .edit a {
+  .edit {
+    justify-content: center;
+    a {
       text-decoration: none;
       font-family: poppins;
       font-size: 14px;
@@ -49,7 +50,7 @@
         display: inline-block;
         height: 100%;
         width: 110%;
-        padding-right: .3em;
+        padding-right: 0.3em;
         vertical-align: middle;
       }
 
@@ -58,4 +59,4 @@
       }
     }
   }
-
+}
