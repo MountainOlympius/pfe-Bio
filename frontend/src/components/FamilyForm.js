@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { getPhylums } from '../utils/api'
+import { cloneObject } from '../utils/Generic'
 
 const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 	const [phylums, setPhylums] = useState([])
@@ -32,14 +33,10 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 		[criteria]
 	)
 
-	const deleteCriteriaCallback = useCallback(
-		(i) => {
-			const criteriaClone = [...criteria]
-			criteriaClone.pop(i)
-			setCriteria(criteriaClone)
-		},
-		[criteria]
-	)
+	const deleteCriteriaCallback = useCallback((i) => {
+		const criteriaClone = cloneObject(criteria)
+		setCriteria(criteriaClone.filter((elt, index) => index !== i))
+	}, [criteria])
 
 	const saveFamily = (e) => {
 		const elements = e.target.elements
@@ -97,10 +94,10 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 						<textarea
 							onChange={(e) => onChangeCriteriaCallback(i, e)}
 							className="criteria"
-							defaultValue={cr.content}
+							value={cr.content}
 						/>
 						<button
-							onClick={deleteCriteriaCallback}
+							onClick={() => deleteCriteriaCallback(i)}
 							type="button"
 							className="delete-criteria"
 						>

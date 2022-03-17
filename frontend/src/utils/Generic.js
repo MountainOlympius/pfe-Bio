@@ -65,7 +65,4 @@ export const getCriteriaDiff = (arr1, arr2) => {
     return [deleted, added]
 }
 
-export const cloneObject = (obj) => {
-    const str = JSON.stringify(obj)
-    return JSON.parse(str)
-}
+export const cloneObject = (obj) => JSON.parse(JSON.stringify(obj))
