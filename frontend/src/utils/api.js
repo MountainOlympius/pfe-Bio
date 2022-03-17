@@ -198,3 +198,13 @@ export const addGenusCriteria = async (id, content) => {
 
     return null
 }
+
+export const getGenusDetails = async (id) => {
+    try {
+        const response = await getRequest(getApiHref(`/api/genus/${id}`))
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}

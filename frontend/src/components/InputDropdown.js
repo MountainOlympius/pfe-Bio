@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../styles/InputDropdown.scss'
 
 const InputDropdown = ({ labelText, fieldName, defaultValue, onChangeInput, onChoiceChange }) => {
     const [searchValue, setSearchValue] = useState(defaultValue || "")
     const [dropdownElts, setDropdownElts] = useState([])
+
+    useEffect(() => {
+        if (defaultValue && defaultValue !== searchValue) setSearchValue(defaultValue)
+    }, [defaultValue])
 
     const onChangeCallback = async (e) => {
         setSearchValue(e.target.value)

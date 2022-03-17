@@ -13,6 +13,7 @@ import GenusPage from './Genus.page'
 import NewGenusPage from './NewGenus.page'
 
 import '../styles/AdminPages.scss'
+import GenusEditPage from './GenusEdit.page'
 
 const AdminPages = () => {
     return (
@@ -29,6 +30,7 @@ const AdminPages = () => {
 
                 <Route path='genus' element={<GenusPage />} />
                 <Route path='genus/new' element={<NewGenusPage />} />
+                <Route path='genus/:id/edit' element={<GenusEditPage />} />
             </Routes>
         </div>
     )

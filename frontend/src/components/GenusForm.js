@@ -69,7 +69,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
                 <input name='name' defaultValue={data.name} type='text' className='input-elt' />
             </div>
 
-            <InputDropdown fieldName='family' labelText='Famille : ' onChangeInput={searchFamilyForGenus} onChoiceChange={onChangeCallback} />
+            <InputDropdown fieldName='family' labelText='Famille : ' defaultValue={data?.family?.name} onChangeInput={searchFamilyForGenus} onChoiceChange={onChangeCallback} />
 
             <div className='form-div'>
                 <label>Description : </label>
