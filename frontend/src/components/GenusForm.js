@@ -3,6 +3,8 @@ import { searchFamily } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 import InputDropdown from './InputDropdown'
 
+import '../styles/GenusForm.scss'
+
 const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
     const [familyId, setFamilyId] = useState(data.family_id || undefined)
     const [criteria, setCriteria] = useState(data.criteria || [{}])
@@ -65,6 +67,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
 
     return (
         <form className='GenusForm form' onSubmit={saveGenus}>
+            <div className="name-fam-desc">
             <div className='form-div'>
                 <label>Le nom : </label>
                 <input name='name' defaultValue={data.name} type='text' className='input-elt' />
@@ -76,8 +79,9 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
                 <label>Description : </label>
                 <textarea name='description' className='input-elt' defaultValue={data.description} />
             </div>
+            </div>
 
-            <div className='form-div'>
+            <div className='form-div criteria-container'>
                 <label>Les critères :</label>
 
                 {criteria.map((cr, i) => (

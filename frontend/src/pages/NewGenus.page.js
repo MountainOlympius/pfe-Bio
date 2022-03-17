@@ -4,6 +4,8 @@ import { cloneObject, translateErrors } from '../utils/Generic'
 import { addGenusCriteria, createGenus } from '../utils/api'
 import GenusForm from '../components/GenusForm'
 
+import '../styles/NewGenus.page.scss'
+
 const NewGenusPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
