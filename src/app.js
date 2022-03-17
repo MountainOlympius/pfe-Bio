@@ -9,6 +9,8 @@ require('dotenv').config()
 
 const ApiRouter = require('./routes')
 const { Authentication } = require('./middlewares/Authentication')
+const compression = require('compression')
+const { default: helmet } = require('helmet')
 
 const App = (pool) => {
     const app = express()
@@ -29,17 +31,20 @@ const App = (pool) => {
             secret: process.env.session_secrect || '123456',
         })
     )
-
+    
+    app.use(helmet())
+    app.use(compression())
     app.use(Authentication(pool))
     app.use('/api', ApiRouter(pool))
     app.use('/static', express.static(path.resolve(__dirname, '../frontend/build/static')))
     app.get('*', (request, response) => {
+        const date = new Date()
         const pathToFile = path.join(__dirname, '../frontend/build', request.path)
 
         if (fs.existsSync(pathToFile) && fs.statSync(pathToFile).isFile()) {
             return response.sendFile(pathToFile)
         }
-
+        
         response.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
     })
 
