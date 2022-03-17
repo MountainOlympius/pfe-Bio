@@ -2,6 +2,7 @@ const App = require('./src/app')
 
 const pool = require('./db')
 
+const PORT = process.env.PORT || 8000
 
 // Check if the database has been connected successfully
 const testDbConnection = async (pool) => {
@@ -27,4 +28,4 @@ const startApplication = async (port = 8000) => {
     })
 }
 
-startApplication()
+startApplication(PORT)
