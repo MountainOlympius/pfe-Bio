@@ -12,6 +12,7 @@ const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
 			<td className="name">{name}</td>
 			<td className="description">{description && description.length > 50 ? description.slice(0, 50) + '...' : description}</td>
 			<td className="created-date">{formatDate(new Date(created_date))}</td>
+			<div className='edilete'>
 			<td className="edit">
 				<Link to={`/admin/phylum/edit/${id}`} >edit</Link>
 			</td>
@@ -20,6 +21,7 @@ const PhylumRow = ({ id, name, description, created_date, onDeleteBtn }) => {
 					delete
 				</button>
 			</td>
+			</div>
 		</tr>
 	)
 }

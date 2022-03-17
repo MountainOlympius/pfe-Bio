@@ -1,8 +1,8 @@
-.phylum-row {
+.GenusRow {
   td {
     text-align: center;
     font-weight: 700;
-    font-family: 'Heebo', sans-serif;
+    font-family: "Heebo", sans-serif;
   }
 }
 
@@ -35,10 +35,8 @@
     vertical-align: middle;
     cursor: pointer;
   }
-
   .edit {
     justify-content: center;
-
     a {
       text-decoration: none;
       font-family: poppins;
@@ -52,7 +50,7 @@
         display: inline-block;
         height: 100%;
         width: 110%;
-        padding-right: .3em;
+        padding-right: 0.3em;
         vertical-align: middle;
       }
 

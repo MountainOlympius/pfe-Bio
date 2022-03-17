@@ -1,0 +1,165 @@
+.family-form-container {
+  background-color: rgb(255, 255, 255);
+
+  .title {
+    font-family: poppins, sans-serif;
+    hr {
+      border: 1px black solid;
+      margin-bottom: 3em;
+    }
+  }
+
+  .form-div label {
+    font-weight: 700;
+    font-family: poppins;
+    font-size: 18px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .name-desc-embr {
+      background-color: #56bbf1;
+      width: 100vw;
+      padding-bottom: 5em;
+      flex-direction: row;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+      .name-embr {
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+      }
+
+      .form-div {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2em;
+
+        label {
+          margin: 0.5em;
+          font-family: poppins;
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        input {
+          height: 35px;
+          padding-left: 2em;
+          font-size: 16px;
+          font-family: poppins;
+          margin-top: 0.5em;
+        }
+
+        select {
+          font-family: poppins;
+          height: 45px;
+          padding-left: 2em;
+          font-size: 16px;
+          margin-top: 0.5em;
+        }
+
+        textarea {
+          min-height: 150px;
+          width: 700px;
+          padding: 1em 2em;
+          font-size: 17px;
+          font-family: poppins;
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+
+  .criteria-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3em;
+
+    button {
+      padding-left: 3em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: poppins, sans-serif;
+      font-size: 14px;
+
+
+      &::before {
+        content: url("../assets/delete.png");
+        display: inline-block;
+        height: 100%;
+        width: 50%;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        opacity: 60%;
+      }
+    }
+  }
+  .criteria {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    min-width: 500px;
+    width: 100%;
+    resize: none;
+    margin-right: 3em;
+    margin-bottom: 2em;
+    margin-top: 1em;
+
+    font-family: 'Heebo', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 1em;
+    border: 1px #56bbf1 solid;
+    border-bottom: #56bbf1;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+  }
+
+  .add-criteria-btn {
+    padding: 0.8em 1.5em;
+    cursor: pointer;
+    margin: 2em;
+    border: 1px #56bbf1 solid;
+    border-bottom: #56bbf1;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    font-weight: 700;
+    font-family: poppins;
+    font-size: 14px;
+
+    &:hover {
+      background-color: white;
+      border-bottom-width: 8px;
+    } 
+  }
+
+  .save-btn {
+    padding: 1em 2em;
+    cursor: pointer;
+    margin: 2em;
+    border: 1px #56bbf1 solid;
+    border-bottom: #56bbf1;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    font-weight: 700;
+    font-family: poppins;
+    font-size: 14px;
+    
+    &:hover {
+      background-color: white;
+      border-bottom-width: 8px;
+    }
+  }
+}

@@ -1,6 +1,11 @@
 .AdminPages {
-    background-color: red;
+    background: #ffffff; 
+    /*background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);  
+    background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);*/ 
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    max-width: 100%;
+    overflow-x: hidden;
 }

@@ -82,6 +82,7 @@ const FamilyPage = () => {
 					}
 					deleteCallback={deleteCallback}
 				/>
+				<div className='more-container'>
 				{searchValue.length > 0 ? (
 					searchDisplayCount <
 					(searchResult[searchValue] || []).length ? (
@@ -102,6 +103,7 @@ const FamilyPage = () => {
 						More
 					</button>
 				) : null}
+				</div>
 			</div>
 		</div>
 	)

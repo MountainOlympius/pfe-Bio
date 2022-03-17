@@ -1,17 +1,97 @@
-.admin-navbar {
-    ul {
-        display: flex;
-        justify-content: space-around;
-        background-color: aqua;
-        padding: 40px;
-    }
-    li {
-        text-decoration: none;
-        list-style: none;
-    }
+.nav-logo-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100%;
 
-    a {
-        text-decoration: none;
-        font-weight: 700;
+  .title-img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.admin-navbar {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: /*#2fa4ff**/ #eef4f8;
+    padding: 40px;
+    opacity: 80%;
+    width: 100vw;
+    flex-wrap: wrap;
+
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+  }
+  li {
+    margin: 2em;
+    text-decoration: none;
+    list-style: none;
+    position: relative;
+  }
+
+  a {
+    background-color: #ffffff;
+    padding: 1em 2em;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Heebo", sans-serif;
+    border: 5px #caf0f8 solid;
+    border-radius: 2em;
+  }
+
+  .embranchement {
+    &::before {
+      content: url(..//assets/phylum.png);
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: 1em;
     }
+  }
+
+  .famille {
+    &::before {
+      content: url(..//assets/famille.png);
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+  }
+
+  .genre {
+    &::before {
+      content: url(..//assets/genre.png);
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+  }
+
+  .espece {
+    &::before {
+      content: url(..//assets/espece.png);
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+  }
+
+  a:hover {
+    background-color: #b0d9f8;
+    height: 100%;
+    color: white;
+    font-weight: 900;
+    border-color: white;
+
+    -webkit-box-shadow: 0 10px 6px -6px #1b5acf;
+    -moz-box-shadow: 0 10px 6px -6px #1b5acf;
+    box-shadow: 0 10px 6px -6px #1b5acf;
+  }
 }

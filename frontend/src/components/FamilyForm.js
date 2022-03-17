@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { getPhylums } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 
+import '../styles/FamilyForm.scss'
+
 const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 	const [phylums, setPhylums] = useState([])
 	const [criteria, setCriteria] = useState(data.criteria || [{}])
@@ -64,15 +66,13 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 	}
 
 	return (
+		<div className="family-form-container">
 		<form className="FamilyForm" onSubmit={saveFamily}>
+			<div className="name-desc-embr">
+			<div className="name-embr">
 			<div className="form-div">
 				<label>Nom de famille</label>
 				<input type="text" name="name" defaultValue={data.name} />
-			</div>
-
-			<div className="form-div">
-				<label>Description</label>
-				<textarea name="description" defaultValue={data.description} />
 			</div>
 
 			<div className="form-div">
@@ -85,6 +85,16 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 					))}
 				</select>
 			</div>
+			</div>
+
+			<div className="form-div">
+				<label>Description</label>
+				<textarea name="description" defaultValue={data.description} />
+			</div>
+
+			</div>
+
+			<div className="title"><h1>Ajouter ou modifier un critère</h1><hr /></div>
 
 			<div className="form-div">
 				<label>Les critères :</label>
@@ -117,6 +127,7 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 
 			<button className="save-btn">Enregistrer</button>
 		</form>
+		</div>
 	)
 }
 
