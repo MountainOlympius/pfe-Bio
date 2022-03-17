@@ -2,7 +2,6 @@ import React from 'react'
 import GenusRow from './GenusRow'
 
 const GenusTable = ({ data }) => {
-    console.log(data)
     return (
         <table className='GenusTable'>
             <thead>

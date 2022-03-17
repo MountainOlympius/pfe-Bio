@@ -59,8 +59,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
 
     const deleteCriteria = (i) => {
         const criteriaData = cloneObject(criteria)
-        criteriaData.pop(i)
-        setCriteria(criteriaData)
+        setCriteria(criteriaData.filter((elt, index) => index !== i))
     }
 
     return (
@@ -82,7 +81,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
 
                 {criteria.map((cr, i) => (
                     <div key={i} className='criteria-div'>
-                        <textarea onChange={(e) => onCriteriaChange(e, i)} defaultValue={cr.content} className='criteria' />
+                        <textarea onChange={(e) => onCriteriaChange(e, i)} value={cr.content} className='criteria' />
                         <button onClick={() => deleteCriteria(i)} className='delete-criteria' type='button'>supprimer</button>
                     </div>                        
                 ))}
