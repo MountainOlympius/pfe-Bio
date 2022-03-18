@@ -188,7 +188,7 @@ const editGenus = (pool) => {
 
         if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
 
-        errors.push(...checkAllowedFields(body, ['name', 'description']))
+        errors.push(...checkAllowedFields(body, ['name', 'description', 'family_id']))
 
         if (errors.length > 0) return response.json({ ok: false, errors })
 

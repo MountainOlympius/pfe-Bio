@@ -96,7 +96,7 @@ const insertGenusCriteria = (pool) => {
 }
 
 const updateGenus = (pool) => {
-    const allowedFields = ['name', 'description']
+    const allowedFields = ['name', 'description', 'family_id']
 
     return async (id, data)  => {
         const query = buildUpdateQuery('genus', allowedFields, data)

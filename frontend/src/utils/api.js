@@ -208,3 +208,23 @@ export const getGenusDetails = async (id) => {
 
     return null
 }
+
+export const updateGenus = async (id, data) => {
+    try {
+        const response = await putRequest(getApiHref(`/api/genus/${id}`), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const deleteGenusCriteria = async (genusId, criteriaId) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/genus/${genusId}/criteria/${criteriaId}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

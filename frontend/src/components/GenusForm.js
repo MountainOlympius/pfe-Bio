@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { searchFamily } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 import InputDropdown from './InputDropdown'
@@ -6,8 +6,13 @@ import InputDropdown from './InputDropdown'
 import '../styles/GenusForm.scss'
 
 const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
-    const [familyId, setFamilyId] = useState(data.family_id || undefined)
-    const [criteria, setCriteria] = useState(data.criteria || [{}])
+    const [familyId, setFamilyId] = useState(data?.family?.id || undefined)
+    const [criteria, setCriteria] = useState(data?.criteria || [{}])
+
+    useEffect(() => {
+        if (data?.criteria) setCriteria(data?.criteria || [{}])
+        if (data?.family?.id) setFamilyId(data?.family?.id)
+    }, [data])
 
     const saveGenus = (e) => {
         const elements = e.target.elements
@@ -43,7 +48,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
     }
 
     const onChangeCallback = (fid) => {
-        if (!fid) setFamilyId(data.family_id || undefined)
+        if (!fid) setFamilyId(data?.family?.id || undefined)
         else setFamilyId(fid)
     }
 
