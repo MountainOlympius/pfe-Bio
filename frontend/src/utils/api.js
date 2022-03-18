@@ -228,3 +228,13 @@ export const deleteGenusCriteria = async (genusId, criteriaId) => {
 
     return null
 }
+
+export const deleteGenus = async (id) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/genus/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

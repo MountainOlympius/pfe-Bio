@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import GenusTable from '../components/GenusTable'
 
-import { getGenuses, searchGenus } from '../utils/api'
+import { deleteGenus, getGenuses, searchGenus } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 
 import '../styles/Genus.page.scss'
@@ -42,6 +42,20 @@ const GenusPage = () => {
         setDisplayCount(2)
     }
 
+    const deleteGenusCallback = async (id) => {
+        const response = await deleteGenus(id)
+
+        if (response && response.ok) {
+            setGenusList(genusList.filter(genus => genus.id !== id))
+        }
+        
+        setSearchResults(Object.fromEntries(
+            Object.entries(cloneObject(searchResult)).map((result) => {
+                return [result[0], cloneObject(result[1]).filter(family => family.id != id)]
+            })
+        ))
+    }
+
     return (
         <div className='GenusPage'>
             <div className='search-div'>
@@ -49,7 +63,7 @@ const GenusPage = () => {
                 <input type='text' name='search' onChange={onSearchChangeCallback} />
             </div>
 
-            <GenusTable data={searchValue && searchValue.length > 0 ? (searchResult[searchValue] || []).slice(0, searchDisplayCount) : genusList} />
+            <GenusTable onDeleteCallback={deleteGenusCallback} data={searchValue && searchValue.length > 0 ? (searchResult[searchValue] || []).slice(0, searchDisplayCount) : genusList} />
             <div className='more-container'>
             {searchValue.length > 0 ? (
 					searchDisplayCount <

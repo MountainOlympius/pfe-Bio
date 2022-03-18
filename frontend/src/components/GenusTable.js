@@ -1,7 +1,7 @@
 import React from 'react'
 import GenusRow from './GenusRow'
 
-const GenusTable = ({ data }) => {
+const GenusTable = ({ data, onDeleteCallback }) => {
     return (
         <table className='GenusTable'>
             <thead>
@@ -16,7 +16,7 @@ const GenusTable = ({ data }) => {
             </thead>
 
             <tbody>
-                {data.map(genus => <GenusRow key={genus.id} {...genus} />)}
+                {data.map(genus => <GenusRow key={genus.id} deleteCallback={onDeleteCallback} {...genus} />)}
             </tbody>
         </table>
     )
