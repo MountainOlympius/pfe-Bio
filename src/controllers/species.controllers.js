@@ -1,13 +1,14 @@
+const { response } = require('express')
 const SpeciesModels = require('../models/species')
 const { isNull } = require('../utils/generic')
-const { isNumber } = require('../utils/validators')
+const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
-// Get a species with details
-// Add Species
-// Edit Species
-// Delete Species 
-// Add delete images
-// delete images
+// TODO : Edit Species
+// TODO : Delete Species 
+// TODO : Add Species criteria
+// TODO : delete Species criteria
+// TODO : Add delete images
+// TODO : delete images
 
 const getSpecies = (pool) => {
     const itemsPerPage = 10
@@ -36,7 +37,7 @@ const searchSpecies = (pool) => {
     }
 }
 
-// Add species images to response
+// TODO : Add species images to response 
 const getSpeciesWithDetails = (pool) => {
     const { selectSpeciesWithDetails } = SpeciesModels(pool)
 
@@ -53,10 +54,45 @@ const getSpeciesWithDetails = (pool) => {
     }
 }
 
+const createSpecies = (pool) => {
+    const { insertSpecies } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        let { body } = request
+        
+        const errors = []
+
+        errors.push(...checkAllowedFields(body, ['name', 'description', 'genus_id']))
+        errors.push(...checkRequiredFields(body, ['name', 'genus_id']))
+
+        if (errors.length > 0) return response.json({ ok : false, errors })
+
+        try { 
+            const data = await insertSpecies(body)
+            response.json({ ok: true , data })
+        } catch (err) {
+            const { constraint } = err
+            const errors = []
+
+            if (constraint === 'species_name_key') {
+                errors.push('duplicated_species_name')
+            } else if (constraint === 'species_genus_id_fkey') {
+                errors.push('unexisting_genus')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok:false, errors })
+        }
+
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
         searchSpecies: searchSpecies(pool),
-        getSpeciesWithDetails: getSpeciesWithDetails(pool)
+        getSpeciesWithDetails: getSpeciesWithDetails(pool),
+        createSpecies: createSpecies(pool)
     }
 }

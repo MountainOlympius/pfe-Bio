@@ -49,10 +49,21 @@ const createSelectSpeciesWithDetails = (pool) => {
     }
 }
 
+const createSpeciesInserter = (pool) => {
+    return async ({ name, description, genus_id }) => {
+        const query = `INSERT INTO species (name, description, genus_id) VALUES ($1, $2, $3) RETURNING id`
+
+        const response = await pool.query(query, [name, description, genus_id])
+
+        return response.rows && response.rows.length > 0 ? response.rows[0] : null
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
         searchFromSpecies: createSearchFromSpecies(pool),
         selectSpeciesWithDetails: createSelectSpeciesWithDetails(pool),
+        insertSpecies: createSpeciesInserter(pool)
     }
 }
