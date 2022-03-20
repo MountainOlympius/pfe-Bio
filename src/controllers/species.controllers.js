@@ -84,7 +84,42 @@ const createSpecies = (pool) => {
 
             response.json({ ok:false, errors })
         }
+    }
+}
 
+const editSpecies = (pool) => {
+    const { updateSpecies } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkAllowedFields(body, ['name', 'description', 'genus_id']))
+
+        if (errors.length > 0 || Object.keys(body).length <= 0) {
+            return response.json({ ok : false, errors: errors.length > 0 ? errors: ['empty_body']})
+        }
+
+        try { 
+            const updated = await updateSpecies(id, body)
+            response.json({ ok: updated })
+        } catch (err) {
+            const { constraint } = err
+            const errors = []
+
+            if (constraint === 'species_name_key') {
+                errors.push('duplicated_species_name')
+            } else if (constraint === 'species_genus_id_fkey') {
+                errors.push('unexisting_genus')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok:false, errors })
+        }        
     }
 }
 
@@ -93,6 +128,7 @@ module.exports = (pool) => {
         getSpecies: getSpecies(pool),
         searchSpecies: searchSpecies(pool),
         getSpeciesWithDetails: getSpeciesWithDetails(pool),
-        createSpecies: createSpecies(pool)
+        createSpecies: createSpecies(pool),
+        editSpecies: editSpecies(pool)
     }
 }

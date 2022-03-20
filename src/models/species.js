@@ -1,3 +1,5 @@
+const { buildUpdateQuery, getUpdateValues } = require("../utils/sql")
+
 const createSelectSpecies = (pool) => {
     return async (limit = 10, offset = 0) => {
         const query = `SELECT s.id, s.name, s.description, s.created_date,
@@ -59,11 +61,25 @@ const createSpeciesInserter = (pool) => {
     }
 }
 
+const createSpeciesUpdater = (pool) => {
+    const allowedFields = ['name', 'description', 'genus_id']
+
+    return async (id , data) => {
+        const query = buildUpdateQuery('species', allowedFields, data)
+        const values = getUpdateValues(allowedFields, data)
+
+        const response = await pool.query(query, [id, ...values])
+
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
         searchFromSpecies: createSearchFromSpecies(pool),
         selectSpeciesWithDetails: createSelectSpeciesWithDetails(pool),
-        insertSpecies: createSpeciesInserter(pool)
+        insertSpecies: createSpeciesInserter(pool),
+        updateSpecies: createSpeciesUpdater(pool)
     }
 }
