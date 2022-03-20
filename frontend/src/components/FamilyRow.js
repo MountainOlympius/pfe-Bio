@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import '../styles/FamilyRow.scss'
+import { formatDate } from '../utils/Generic'
 
 const FamilyRow = ({ id, name, criteria, created_date, deleteCallback }) => {
 	return (
@@ -9,16 +10,16 @@ const FamilyRow = ({ id, name, criteria, created_date, deleteCallback }) => {
 			<td>{id}</td>
             <td>{name}</td>
             <td>{criteria.length}</td>
-            <td>{created_date}</td>
+            <td>{formatDate(new Date(created_date))}</td>
 
-            <div className="edilete">
-            <td className="edit">
-				<Link className='edit-btn' to={`/admin/family/${id}/edit`} >edit</Link>
-			</td>
-            <td>
-                <button className='delete-btn' onClick={deleteCallback}>delete</button>
-            </td>
+            <td className="edilete">
+            <div className="edit">
+				<Link className='edit-btn' to={`/admin/family/${id}/edit`} >modifier</Link>
+			</div>
+            <div>
+                <button className='delete-btn' onClick={deleteCallback}>supprimer</button>
             </div>
+            </td>
 		</tr>
 	)
 }
