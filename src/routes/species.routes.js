@@ -5,7 +5,16 @@ const SpeciesControllers = require('../controllers/species.controllers')
 
 const SpeciesRouter = (pool) => {
     const router = express.Router()
-    const { getSpecies, searchSpecies, getSpeciesWithDetails, createSpecies, editSpecies, deleteSpecies, addSpeciesCriteria } = SpeciesControllers(pool)
+    const {
+		getSpecies,
+		searchSpecies,
+		getSpeciesWithDetails,
+		createSpecies,
+		editSpecies,
+		deleteSpecies,
+		addSpeciesCriteria,
+		deleteSpeciesCriteria,
+	} = SpeciesControllers(pool)
 
     router.get('/', getSpecies)
     router.get('/search', searchSpecies)
@@ -16,6 +25,7 @@ const SpeciesRouter = (pool) => {
     router.delete('/:id', AuthenticatedOnly, AdminOnly, deleteSpecies)
 
     router.post('/:id/criteria', AuthenticatedOnly, AdminOnly, addSpeciesCriteria)
+    router.delete('/:id/criteria', AuthenticatedOnly, AdminOnly, deleteSpeciesCriteria)
 
     return router
 }

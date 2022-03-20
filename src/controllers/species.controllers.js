@@ -3,8 +3,6 @@ const SpeciesModels = require('../models/species')
 const { isNull } = require('../utils/generic')
 const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
-// TODO : Add Species criteria
-// TODO : delete Species criteria
 // TODO : Add delete images
 // TODO : delete images
 
@@ -170,6 +168,26 @@ const addSpeciesCriteria = (pool) => {
     } 
 }
 
+const deleteSpeciesCriteria = (pool) => {
+    const { deleteFromCriteriaSpecies } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkRequiredFields(body, ['ids']))
+
+        if (errors.length > 0) return response.json({ ok : false, errors: errors })
+
+        const deleted = await deleteFromCriteriaSpecies(id, body.ids)
+
+        response.json({ ok: deleted })
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
@@ -178,6 +196,7 @@ module.exports = (pool) => {
         createSpecies: createSpecies(pool),
         editSpecies: editSpecies(pool),
         deleteSpecies: deleteSpecies(pool),
-        addSpeciesCriteria: addSpeciesCriteria(pool)
+        addSpeciesCriteria: addSpeciesCriteria(pool),
+        deleteSpeciesCriteria: deleteSpeciesCriteria(pool),
     }
 }
