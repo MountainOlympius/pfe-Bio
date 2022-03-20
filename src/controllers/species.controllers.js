@@ -135,6 +135,41 @@ const deleteSpecies = (pool) => {
     }
 }
 
+const addSpeciesCriteria = (pool) => {
+    const { insertSpeciesCriteria } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+        
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkAllowedFields(body, ['content']))
+        errors.push(...checkRequiredFields(body, ['content']))
+
+        if ('content' in body && !Array.isArray(body.content)) errors.push('Content field must be an array')
+
+        if (errors.length > 0) return response.json({ ok : false, errors: errors })
+
+        try {
+            const data = await insertSpeciesCriteria(id, body.content)
+            response.json({ ok: true, data })
+        } catch (err) {
+            const { constraint } = err
+            const errors = []
+
+            if (constraint === 'species_criteria_species_id_fkey') {
+                errors.push('unexisting_species')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            response.json({ ok:false, errors })
+        }
+    } 
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
@@ -142,6 +177,7 @@ module.exports = (pool) => {
         getSpeciesWithDetails: getSpeciesWithDetails(pool),
         createSpecies: createSpecies(pool),
         editSpecies: editSpecies(pool),
-        deleteSpecies: deleteSpecies(pool)
+        deleteSpecies: deleteSpecies(pool),
+        addSpeciesCriteria: addSpeciesCriteria(pool)
     }
 }

@@ -83,6 +83,19 @@ const createSpeciesDelete = (pool) => {
     }
 }
 
+const createSpeciesCriteriaInserter = (pool) => {
+    return async (id, contents) => {
+        if (contents.length <= 0) return false
+
+        const query = `INSERT INTO species_criteria (species_id, content) VALUES 
+        ${contents.map((content, i) => `($1, $${i + 2})`)} RETURNING id,content`;
+
+        const response = await pool.query(query, [id, ...contents])
+
+        return response.rows || []
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
@@ -90,6 +103,7 @@ module.exports = (pool) => {
         selectSpeciesWithDetails: createSelectSpeciesWithDetails(pool),
         insertSpecies: createSpeciesInserter(pool),
         updateSpecies: createSpeciesUpdater(pool),
-        deleteFromSpecies: createSpeciesDelete(pool)
+        deleteFromSpecies: createSpeciesDelete(pool),
+        insertSpeciesCriteria: createSpeciesCriteriaInserter(pool)
     }
 }
