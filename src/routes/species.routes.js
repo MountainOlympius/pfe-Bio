@@ -3,9 +3,10 @@ const SpeciesControllers = require('../controllers/species.controllers')
 
 const SpeciesRouter = (pool) => {
     const router = express.Router()
-    const { getSpecies } = SpeciesControllers(pool)
+    const { getSpecies, searchSpecies } = SpeciesControllers(pool)
 
     router.get('/', getSpecies)
+    router.get('/search', searchSpecies)
 
     // Get List of species
     // Search for species

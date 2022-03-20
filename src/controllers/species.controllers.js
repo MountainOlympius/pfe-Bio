@@ -1,7 +1,6 @@
 const SpeciesModels = require('../models/species')
 const { isNumber } = require('../utils/validators')
 
-// Get List of species
 // Search for species
 // Get a species with details
 // Add Species
@@ -25,8 +24,21 @@ const getSpecies = (pool) => {
     }
 }
 
+const searchSpecies = (pool) => {
+    const { searchFromSpecies } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        let { query } = request.query
+
+        const species = await searchFromSpecies(query)
+
+        return response.json({ ok:false , data: species })
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
+        searchSpecies: searchSpecies(pool),
     }
 }
