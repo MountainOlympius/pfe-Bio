@@ -1,7 +1,7 @@
 const SpeciesModels = require('../models/species')
+const { isNull } = require('../utils/generic')
 const { isNumber } = require('../utils/validators')
 
-// Search for species
 // Get a species with details
 // Add Species
 // Edit Species
@@ -36,9 +36,27 @@ const searchSpecies = (pool) => {
     }
 }
 
+// Add species images to response
+const getSpeciesWithDetails = (pool) => {
+    const { selectSpeciesWithDetails } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        let { id } = request.params
+
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        const species = await selectSpeciesWithDetails(id)
+        const responseBody = { ok: species ? true : false }
+        if (species) responseBody.data = species
+
+        return response.json(responseBody)
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
         searchSpecies: searchSpecies(pool),
+        getSpeciesWithDetails: getSpeciesWithDetails(pool)
     }
 }
