@@ -248,3 +248,13 @@ export const addSpecies = async (data) => {
 
     return null
 }
+
+export const addSpeciesCriteria = async (id, content) => {
+    try {
+        const response = await postRequest(getApiHref(`/api/species/${id}/criteria`), JSON.stringify({ content }))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
