@@ -1,7 +1,7 @@
 import React from 'react'
 import SpeciesRow from './SpeciesRow'
 
-const SpeciesTable = ({ data }) => {
+const SpeciesTable = ({ data , onDeleteCallback }) => {
     return (
         <table className='SpeciesTable'>
             <thead>
@@ -15,7 +15,7 @@ const SpeciesTable = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map(species => <SpeciesRow key={species.id} {...species} />)}
+                {data.map(species => <SpeciesRow key={species.id} onDeleteCallback={onDeleteCallback} {...species} />)}
             </tbody>
         </table>
     )

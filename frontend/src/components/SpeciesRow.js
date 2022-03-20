@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { formatDate } from '../utils/Generic'
 
-const SpeciesRow = ({ id, name, description, created_date, criteria}) => {
+const SpeciesRow = ({ id, name, description, created_date, criteria, onDeleteCallback }) => {
     return (
         <tr className='SpeciesRow'>
             <td className='id'>{id}</td>
@@ -17,7 +17,7 @@ const SpeciesRow = ({ id, name, description, created_date, criteria}) => {
                     <Link className='edit-btn' to={`/admin/species/${id}/edit`}>Modifier</Link>
                 </div>
                 <div className='delete'>
-                    <button className='delete-btn'>Supprimer</button>
+                    <button onClick={() => onDeleteCallback(id)} className='delete-btn'>Supprimer</button>
                 </div>
             </td>
         </tr>

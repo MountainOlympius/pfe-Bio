@@ -308,3 +308,13 @@ export const searchSpecies = async (query) => {
 
     return null
 }
+
+export const deleteSpecies = async (id) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/species/${id}`))
+
+        if (response) return response
+    } catch {}
+
+    return null
+} 

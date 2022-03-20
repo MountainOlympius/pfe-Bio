@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react'
 
-import { getSpecies, searchSpecies } from '../utils/api'
+import { deleteSpecies, getSpecies, searchSpecies } from '../utils/api'
 import SpeciesTable from '../components/SpeciesTable'
 import { cloneObject } from '../utils/Generic'
 
@@ -43,6 +43,20 @@ const SpeciesPage = () => {
 
     }, [searchValue])
 
+    const onDeleteCallback = async (id) => {
+        const response = await deleteSpecies(id)
+
+        if (!response || !response.ok) return
+
+        setSpecies(speciesList.filter(sp => sp.id !== id))
+        
+        setSearchResult(Object.fromEntries(
+            Object.entries(cloneObject(searchResult)).map((result) => {
+                return [result[0], cloneObject(result[1]).filter(family => family.id != id)]
+            })
+        ))
+    }
+
     return (
 		<div className="SpeciesPage">
 			<div className="search-div">
@@ -54,9 +68,10 @@ const SpeciesPage = () => {
 				/>
 			</div>
 
-			<SpeciesTable
-				data={searchValue.length <= 0 ? speciesList : (searchResult[searchValue] || []).slice(0,displayCount)}
-			/>
+			<SpeciesTable 
+                onDeleteCallback={onDeleteCallback}
+                data={searchValue.length <= 0 ? speciesList : (searchResult[searchValue] || []).slice(0,displayCount)}
+            />
 
 			{searchValue.length <= 0 ? 
                 (
