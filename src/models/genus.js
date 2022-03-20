@@ -17,7 +17,7 @@ const createSearchGenuses = (pool) => {
 
 const selectGenuses = (pool) => {
     return async (limit = 10, offset = 0) => {
-        const query = `SELECT g.id, g.name, g.description, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria
+        const query = `SELECT g.id, g.name, g.description, JSON_AGG(json_build_object ('id', gc.id, 'content', gc.content)) as criteria, g.created_date
         FROM genus As g
         LEFT JOIN genus_criteria AS gc ON gc.genus_id = g.id
         GROUP BY g.id, g.name

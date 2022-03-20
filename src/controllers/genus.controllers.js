@@ -111,39 +111,39 @@ const postGenus = (pool) => {
     }
 }
 
-const postSpecies = (pool) => {
-    const { insertSpecies } = genusModels(pool)
+// const postSpecies = (pool) => {
+//     const { insertSpecies } = genusModels(pool)
 
-    return async (request, response) => {
-        const { id } = request.params
-        const { body } = request
-        const errors = []
+//     return async (request, response) => {
+//         const { id } = request.params
+//         const { body } = request
+//         const errors = []
 
-        if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+//         if (!isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
 
-        errors.push(...checkAllowedFields(body, ['name', 'description']))
-        errors.push(...checkRequiredFields(body, ['name']))
+//         errors.push(...checkAllowedFields(body, ['name', 'description']))
+//         errors.push(...checkRequiredFields(body, ['name']))
 
-        if (errors.length > 0) return response.json({ ok: false, errors })
+//         if (errors.length > 0) return response.json({ ok: false, errors })
 
-        try {
-            const { id:sid } = await insertSpecies(id, body.name, body.description)
-            response.json({ ok:true, data: { id:sid }})
-        } catch (err) {
-            const errors = []
+//         try {
+//             const { id:sid } = await insertSpecies(id, body.name, body.description)
+//             response.json({ ok:true, data: { id:sid }})
+//         } catch (err) {
+//             const errors = []
 
-            if (err.constraint === 'species_genus_id_fkey') {
-                errors.push('unexisting_genus')
-            } else if (err.constraint === 'species_name_key') {
-                errors.push('duplicated_species_name')
-            } else {
-                errors.push('unknown_error')
-            }
+//             if (err.constraint === 'species_genus_id_fkey') {
+//                 errors.push('unexisting_genus')
+//             } else if (err.constraint === 'species_name_key') {
+//                 errors.push('duplicated_species_name')
+//             } else {
+//                 errors.push('unknown_error')
+//             }
 
-            response.json({ ok: false, errors })
-        }
-    }
-}
+//             response.json({ ok: false, errors })
+//         }
+//     }
+// }
 
 const postGenusCriteria = (pool) => {
     const { insertGenusCriteria } = genusModels(pool)
@@ -241,21 +241,21 @@ const deleteGenusCriteria = (pool) => {
     }
 }
 
-const deleteSpecies = (pool) => {
-    const { deleteSpecies } = genusModels(pool)
+// const deleteSpecies = (pool) => {
+//     const { deleteSpecies } = genusModels(pool)
 
-    return async (request, response) => {
-        const { id, speciesId:sid } = request.params
+//     return async (request, response) => {
+//         const { id, speciesId:sid } = request.params
 
-        if (!isNumber(id) || Number(id) <= 0 || !isNumber(sid) || Number(sid) <= 0) {
-            return response.json({ ok: false })
-        }
+//         if (!isNumber(id) || Number(id) <= 0 || !isNumber(sid) || Number(sid) <= 0) {
+//             return response.json({ ok: false })
+//         }
 
-        const deleted = await deleteSpecies(id, sid)
+//         const deleted = await deleteSpecies(id, sid)
 
-        response.json({ ok: deleted })
-    }
-}
+//         response.json({ ok: deleted })
+//     }
+// }
 
 module.exports = (pool) => {
     return {
@@ -264,11 +264,11 @@ module.exports = (pool) => {
         getSpeciesOfGenus: getSpeciesOfGenus(pool),
         postGenus: postGenus(pool),
         postGenusCriteria: postGenusCriteria(pool),
-        postSpecies: postSpecies(pool),
+        // postSpecies: postSpecies(pool),
         editGenus: editGenus(pool),
         deleteGenus: deleteGenus(pool),
         deleteGenusCriteria: deleteGenusCriteria(pool),
-        deleteSpecies: deleteSpecies(pool),
+        // deleteSpecies: deleteSpecies(pool),
         searchForGenuses: searchForGenuses(pool)
     }
 }

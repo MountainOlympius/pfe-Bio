@@ -13,11 +13,11 @@ const GenusRouter = (pool) => {
         getGenusWithDetails,
         postGenus,
         postGenusCriteria,
-        postSpecies,
+        // postSpecies,
         editGenus,
         deleteGenus,
         deleteGenusCriteria,
-        deleteSpecies,
+        // deleteSpecies,
         searchForGenuses
     } = genusControllers(pool)
 
@@ -33,8 +33,8 @@ const GenusRouter = (pool) => {
     router.post('/:id/criteria', AuthenticatedOnly, AdminOnly, postGenusCriteria)
     router.delete('/:id/criteria/:criteriaId', AuthenticatedOnly, AdminOnly, deleteGenusCriteria)
 
-    router.post('/:id/species', AuthenticatedOnly, AdminOnly, postSpecies)
-    router.delete('/:id/species/:speciesId', AuthenticatedOnly, AdminOnly, deleteSpecies)
+    // router.post('/:id/species', AuthenticatedOnly, AdminOnly, postSpecies)
+    // router.delete('/:id/species/:speciesId', AuthenticatedOnly, AdminOnly, deleteSpecies)
 
     return router
 }
