@@ -74,12 +74,22 @@ const createSpeciesUpdater = (pool) => {
     }
 }
 
+const createSpeciesDelete = (pool) => {
+    return async (id) => {
+        const query = `DELETE FROM species WHERE id = $1`
+        const response = await pool.query(query, [id])
+
+        return response.rowCount > 0
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
         searchFromSpecies: createSearchFromSpecies(pool),
         selectSpeciesWithDetails: createSelectSpeciesWithDetails(pool),
         insertSpecies: createSpeciesInserter(pool),
-        updateSpecies: createSpeciesUpdater(pool)
+        updateSpecies: createSpeciesUpdater(pool),
+        deleteFromSpecies: createSpeciesDelete(pool)
     }
 }
