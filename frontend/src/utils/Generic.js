@@ -11,6 +11,8 @@ export const translateError = (error) => {
         return 'la famille n\'existe pas'
     } else if (error === 'duplicated_genus_name') {
         return 'Le nom du genre est dupliqué'
+    } else if (error === 'duplicated_species_name') {
+        return 'Le nom d\'espèce est dupliqué'
     }
 
     return error

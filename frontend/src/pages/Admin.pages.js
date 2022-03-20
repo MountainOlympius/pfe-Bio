@@ -14,13 +14,15 @@ import NewGenusPage from './NewGenus.page'
 
 import '../styles/AdminPages.scss'
 import GenusEditPage from './GenusEdit.page'
+import NewSpeciesPage from './NewSpecies.page'
 
 const AdminPages = () => {
     return (
         <div className='AdminPages'>
             <AdminNavBar />
             <Routes>
-                <Route path='' element={<Navigate to='phylum' />} /> 
+                <Route path='' element={<Navigate to='phylum' />} />
+
                 <Route path='phylum' element={<PhylumsPage />} />
                 <Route path='phylum/new' element={<NewPhylumPage />} />
                 <Route path='phylum/edit/:id' element={<PhylumsEditPage />} />
@@ -32,6 +34,8 @@ const AdminPages = () => {
                 <Route path='genus' element={<GenusPage />} />
                 <Route path='genus/new' element={<NewGenusPage />} />
                 <Route path='genus/:id/edit' element={<GenusEditPage />} />
+
+                <Route path='species/new' element={<NewSpeciesPage />} />
             </Routes>
         </div>
     )

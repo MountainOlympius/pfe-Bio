@@ -20,7 +20,6 @@ const NewGenusPage = () => {
         delete genusData['criteria']
 
         if (!('name' in data) || data.name === '') localErrors.push('Le champ du nom est obligatoire')
-        if (!('description' in data) || data.description === '') localErrors.push('Le champ du description est obligatoire')
         if (!data.family_id) localErrors.push('Le champ du famille est obligatoire')
 
         if (localErrors.length > 0) return setErrors(cloneObject(localErrors))

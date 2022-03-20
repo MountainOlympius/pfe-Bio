@@ -238,3 +238,13 @@ export const deleteGenus = async (id) => {
 
     return null
 }
+
+export const addSpecies = async (data) => {
+    try {
+        const response = await postRequest(getApiHref('/api/species'), JSON.stringify(data))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
