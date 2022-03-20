@@ -12,7 +12,7 @@ const GenusPage = () => {
     const [searchResult, setSearchResults] = useState({})
     const [searchValue, setSearchValue] = useState('')
     const [isLastPage, setPage] = useState(false)
-    const [searchDisplayCount, setDisplayCount] = useState(2)
+    const [searchDisplayCount, setDisplayCount] = useState(10)
 
     useEffect(async () => {
         const response = await getGenuses(currentPage)
@@ -71,7 +71,7 @@ const GenusPage = () => {
 						<button
 							className="more-btn"
 							onClick={() =>
-								setDisplayCount(searchDisplayCount + 2)
+								setDisplayCount(searchDisplayCount + 10)
 							}
 						>
 							More
@@ -80,7 +80,7 @@ const GenusPage = () => {
 				) : !isLastPage ? (
 					<button
 						className="more-btn"
-						onClick={() => setPage(currentPage + 1)}
+						onClick={() => setCurrentPage(currentPage + 1)}
 					>
 						More
 					</button>

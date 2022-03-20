@@ -14,8 +14,14 @@ const getSpecies = (pool) => {
         let { page } = request.query
 
         page = isNumber(page) && Number(page) >= 1 ? page : 1
-
-        const species = await selectSpecies(itemsPerPage, (page - 1 ) * itemsPerPage)
+        
+        let species = await selectSpecies(itemsPerPage, (page - 1 ) * itemsPerPage)
+        species = species.map(sp => {
+            return {
+                ...sp,
+                criteria: sp.criteria.filter(cr => Boolean(cr.id))
+            }
+        })
 
         return response.json({ ok : true, data: species})
     }
@@ -29,7 +35,7 @@ const searchSpecies = (pool) => {
 
         const species = await searchFromSpecies(query)
 
-        return response.json({ ok:false , data: species })
+        return response.json({ ok:true , data: species })
     }
 }
 

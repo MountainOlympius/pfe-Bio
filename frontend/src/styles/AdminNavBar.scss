@@ -41,6 +41,11 @@
     font-family: "Heebo", sans-serif;
     border: 5px #caf0f8 solid;
     border-radius: 2em;
+    color: #000;
+
+    &.active {
+      background-color: #b0d9f8;
+    }
   }
 
   .embranchement {
@@ -89,7 +94,7 @@
     color: white;
     font-weight: 900;
     border-color: white;
-
+    
     -webkit-box-shadow: 0 10px 6px -6px #1b5acf;
     -moz-box-shadow: 0 10px 6px -6px #1b5acf;
     box-shadow: 0 10px 6px -6px #1b5acf;

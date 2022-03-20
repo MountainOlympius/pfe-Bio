@@ -5,7 +5,7 @@ const createSelectSpecies = (pool) => {
         const query = `SELECT s.id, s.name, s.description, s.created_date,
             JSON_AGG(json_build_object('id', sc.id, 'content', sc.content)) AS criteria
         FROM species AS s
-        JOIN species_criteria AS sc ON s.id = sc.species_id
+        LEFT JOIN species_criteria AS sc ON s.id = sc.species_id
         GROUP BY s.id, s.name, s.description, s.created_date
         ORDER BY created_date,id 
         LIMIT $1 OFFSET $2
@@ -21,12 +21,12 @@ const createSearchFromSpecies = (pool) => {
         const query = `SELECT s.id, s.name, s.description, s.created_date,
             JSON_AGG(json_build_object('id', sc.id, 'content', sc.content)) AS criteria
         FROM species AS s
-        JOIN species_criteria AS sc ON s.id = sc.species_id
+        LEFT JOIN species_criteria AS sc ON s.id = sc.species_id
         WHERE lower(name) ~ $1
         GROUP BY s.id, s.name, s.description, s.created_date
         ORDER BY created_date,id`
 
-        const response = await pool.query(query, [`.*${q.toLowerCase()}.*`])
+        const response = await pool.query(query, [`${q.toLowerCase()}.*$`])
         return response.rows || []
     }
 }

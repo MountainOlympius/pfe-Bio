@@ -288,3 +288,23 @@ export const updateSpecies = async (id, data) => {
 
     return null
 }
+
+export const getSpecies = async (page) => {
+    try {
+        const response = await getRequest(getApiHref('/api/species') + `?page=${page}`)
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const searchSpecies = async (query) => {
+    try {
+        const response = await getRequest(getApiHref('/api/species/search') + `?query=${query}`)
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}
