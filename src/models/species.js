@@ -38,10 +38,10 @@ const createSelectSpeciesWithDetails = (pool) => {
             json_build_object('id', g.id, 'name', g.name, 'family', json_build_object('id', f.id, 'name', f.name, 'phylum', 
             json_build_object('id', p.id, 'name', p.name))) AS genus
         FROM species AS s
-        JOIN species_criteria AS sc ON s.id = sc.species_id
-        JOIN genus AS g ON s.genus_id = g.id
-        JOIN family AS f ON g.family_id = f.id
-        JOIN phylum AS p ON f.phylum_id = p.id
+        LEFT JOIN species_criteria AS sc ON s.id = sc.species_id
+        LEFT JOIN genus AS g ON s.genus_id = g.id
+        LEFT JOIN family AS f ON g.family_id = f.id
+        LEFT JOIN phylum AS p ON f.phylum_id = p.id
         WHERE s.id = $1
         GROUP BY s.id, s.name, s.description, s.created_date, g.id, g.name, f.id, f.name, p.id, p.name
         ORDER BY created_date,id;`

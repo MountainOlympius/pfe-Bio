@@ -1,4 +1,3 @@
-const { response } = require('express')
 const SpeciesModels = require('../models/species')
 const { isNull } = require('../utils/generic')
 const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
