@@ -59,7 +59,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
     }
 
     const addCriteria = () => {
-        if (criteria.length <= 0 || !criteria[criteria.length - 1].content || criteria[criteria.length - 1].content === '') return
+        if (criteria.length > 0 && (!criteria[criteria.length - 1].content || criteria[criteria.length - 1].content === '')) return
 
         setCriteria([...criteria, {}])
     }

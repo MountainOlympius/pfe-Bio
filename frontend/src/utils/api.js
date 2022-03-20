@@ -258,3 +258,33 @@ export const addSpeciesCriteria = async (id, content) => {
 
     return null
 }
+
+export const deleteSpeciesCriteria = async (id, ids) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/species/${id}/criteria`), JSON.stringify({ ids }))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const getSpeciesDetails = async (id) => {
+    try {
+        const response = await getRequest(getApiHref(`/api/species/${id}`))
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}
+
+export const updateSpecies = async (id, data) => {
+    try {
+        const response = await putRequest(getApiHref(`/api/species/${id}`), JSON.stringify(data))
+    
+        if (response) return response
+    } catch {}
+
+    return null
+}

@@ -45,7 +45,7 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
         setCriteria([...criteriaClone, {}])
     }
 
-    const saveGenusData = (e) => {
+    const saveSpeciesData = (e) => {
         const elements = e.target.elements
 
         const data = {
@@ -67,13 +67,13 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
     }
 
     return (
-        <form className='SpeciesForm form' onSubmit={saveGenusData}>
+        <form className='SpeciesForm form' onSubmit={saveSpeciesData}>
             <div className='form-div'>
                 <label>Le nom : </label>
                 <input name='name' defaultValue={data?.name} className='input-elt' />
             </div>
 
-            <InputDropdown onChangeInput={searchForGenus} onChoiceChange={changeGenusId} labelText='Le nom du genre : ' />
+            <InputDropdown defaultValue={data?.genus?.name} onChangeInput={searchForGenus} onChoiceChange={changeGenusId} labelText='Le nom du genre : ' />
 
             <div className='form-div'>
                 <label>Description : </label>

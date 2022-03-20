@@ -15,6 +15,7 @@ import NewGenusPage from './NewGenus.page'
 import '../styles/AdminPages.scss'
 import GenusEditPage from './GenusEdit.page'
 import NewSpeciesPage from './NewSpecies.page'
+import SpeciesEditPage from './SpeciesEdit.page'
 
 const AdminPages = () => {
     return (
@@ -36,6 +37,7 @@ const AdminPages = () => {
                 <Route path='genus/:id/edit' element={<GenusEditPage />} />
 
                 <Route path='species/new' element={<NewSpeciesPage />} />
+                <Route path='species/:id/edit' element={<SpeciesEditPage />} />
             </Routes>
         </div>
     )
