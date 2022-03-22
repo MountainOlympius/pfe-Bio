@@ -121,6 +121,17 @@ const createSpeciesCriteraiDelete = (pool) => {
     }
 }
 
+const createSpeciesImagesDelete = (pool) => {
+    return async (id, ids) => {
+        if (ids.length <= 0) return false
+
+        const query = `DELETE FROM species_image WHERE id in (${ids.map((c, i) => `$${i + 2}`).join(',')})AND species_id = $1 RETURNING local_path`
+        const response = await pool.query(query, [id, ...ids])
+
+        return response.rows || []
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
@@ -131,6 +142,7 @@ module.exports = (pool) => {
         deleteFromSpecies: createSpeciesDelete(pool),
         insertSpeciesCriteria: createSpeciesCriteriaInserter(pool),
         deleteFromCriteriaSpecies: createSpeciesCriteraiDelete(pool),
-        insertSpeciesImages: createSpeciesImagesInserter(pool)
+        insertSpeciesImages: createSpeciesImagesInserter(pool),
+        deleteSpeciesImages: createSpeciesImagesDelete(pool) 
     }
 }

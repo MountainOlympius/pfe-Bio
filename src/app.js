@@ -42,16 +42,6 @@ const App = (pool) => {
     app.use('/api', ApiRouter(pool))
     app.use('/media', express.static(process.env.media_local_path))
     app.use('/static', express.static(path.resolve(__dirname, '../frontend/build/static')))
-    app.get('*', (request, response) => {
-        const date = new Date()
-        const pathToFile = path.join(__dirname, '../frontend/build', request.path)
-
-        if (fs.existsSync(pathToFile) && fs.statSync(pathToFile).isFile()) {
-            return response.sendFile(pathToFile)
-        }
-        
-        response.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
-    })
 
     return app
 }

@@ -16,7 +16,8 @@ const SpeciesRouter = (pool) => {
 		deleteSpecies,
 		addSpeciesCriteria,
 		deleteSpeciesCriteria,
-        uploadSpeciesImage
+        uploadSpeciesImage,
+        deleteSpeciesImages
 	} = SpeciesControllers(pool)
 
     router.get('/', getSpecies)
@@ -30,6 +31,7 @@ const SpeciesRouter = (pool) => {
     router.post('/:id/criteria', AuthenticatedOnly, AdminOnly, addSpeciesCriteria)
     router.delete('/:id/criteria', AuthenticatedOnly, AdminOnly, deleteSpeciesCriteria)
 
+    router.delete('/:id/images', AuthenticatedOnly, AdminOnly, deleteSpeciesImages)
     router.post('/:id/images', AuthenticatedOnly, AdminOnly, formidableMiddleware({
         multiples: true,
         maxFiles: 3

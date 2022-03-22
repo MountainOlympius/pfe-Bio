@@ -233,6 +233,26 @@ const uploadSpeciesImage = (pool) => {
     }
 }
 
+const deleteSpeciesImages = (pool) => {
+    const { deleteSpeciesImages } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        const { body } = request
+        const { id } = request.params
+        const errors = []
+
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
+
+        errors.push(...checkRequiredFields(body, ['ids']))
+
+        const data = await deleteSpeciesImages(id, body.ids)
+
+        if (data) data.forEach(img => deleteFileLocaly(img.local_path))
+
+        return response.json({ ok: data && data.length > 0 })
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
@@ -244,5 +264,6 @@ module.exports = (pool) => {
         addSpeciesCriteria: addSpeciesCriteria(pool),
         deleteSpeciesCriteria: deleteSpeciesCriteria(pool),
         uploadSpeciesImage: uploadSpeciesImage(pool),
+        deleteSpeciesImages: deleteSpeciesImages(pool)
     }
 }
