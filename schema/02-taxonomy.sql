@@ -62,5 +62,6 @@ CREATE TABLE IF NOT EXISTS species_criteria (
 CREATE TABLE IF NOT EXISTS species_image (
     id SERIAL PRIMARY KEY,
     url TEXT NOT NULL,
+    local_path VARCHAR(500),
     species_id INTEGER NOT NULL REFERENCES species (id) ON DELETE CASCADE
 );
