@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { searchGenus } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
+import FormImagesInput from './FormImagesInput'
 import InputDropdown from './InputDropdown'
 
 // TODO : Add images
@@ -9,6 +10,7 @@ import InputDropdown from './InputDropdown'
 const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
     const [genusId, setGenusId] = useState(data?.genus?.id || undefined)
     const [criteria, setCriteria] = useState(data?.criteria || [{}])
+    const [images, setImages] = useState(data?.images || [])
 
     useEffect(() => {
         if (data?.genus?.id && genusId !== data?.genus?.id) setGenusId(data?.genus?.id)
@@ -45,6 +47,8 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
         setCriteria([...criteriaClone, {}])
     }
 
+    const onUpdateImages = (imgs) => setImages(imgs)
+
     const saveSpeciesData = (e) => {
         const elements = e.target.elements
 
@@ -52,7 +56,8 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
             name: elements.name.value,
             description: elements.description.value,
             genus_id: genusId,
-            criteria: criteria.filter(cr => Boolean(cr.content))
+            criteria: criteria.filter(cr => Boolean(cr.content)),
+            images
         }
 
         onSubmitCallback(data, () => {
@@ -92,6 +97,8 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
 
                 <button onClick={onAddCriteria} type='button' className='add-criteria-btn'>Ajouter critère</button>
             </div>
+
+            <FormImagesInput onUpdateCallback={onUpdateImages} max={3} />
 
             <button className='submit-btn'>Enregistrer</button>
         </form>

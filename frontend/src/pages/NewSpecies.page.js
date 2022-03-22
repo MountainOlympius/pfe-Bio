@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SpeciesForm from '../components/SpeciesForm'
-import { addSpecies, addSpeciesCriteria } from '../utils/api'
+import { addSpecies, addSpeciesCriteria, uploadSpeciesImages } from '../utils/api'
 import { cloneObject, translateErrors } from '../utils/Generic'
 
 const NewSpeciesPage = () => {
@@ -9,6 +9,7 @@ const NewSpeciesPage = () => {
 
     const saveSpecies = async (data, onSuccessCallback) => {
         const dataClone = cloneObject(data)
+        const imagesClone = [...data.images]
         const criteriaClone = cloneObject(data.criteria)
         const localErrors = []
 
@@ -16,6 +17,7 @@ const NewSpeciesPage = () => {
         setMessages([])
 
         delete dataClone['criteria']
+        delete dataClone['images']
 
         if (!('name' in data) || data.name === '') localErrors.push('Le champ du nom est obligatoire')
         if (!data.genus_id) localErrors.push('Le champ du genre est obligatoire')
@@ -33,6 +35,10 @@ const NewSpeciesPage = () => {
         
         const createdCriteria = await addSpeciesCriteria(response.data.id, criteriaClone.map(cr => cr.content))
         
+        if (imagesClone.length > 0) {
+            await uploadSpeciesImages(response.data.id, imagesClone.map(img => img.file))
+        }
+
         if (createdCriteria && createdCriteria.ok) {
             setMessages(['L\'espèce a été créé avec succès', 'Les critères d\'espèce ont été créé avec succès'])
         }

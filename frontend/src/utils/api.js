@@ -318,3 +318,22 @@ export const deleteSpecies = async (id) => {
 
     return null
 } 
+
+export const uploadSpeciesImages = async (id, files) => {
+    try {
+        const formData = new FormData()
+        files.forEach(file => formData.append('images', file))
+        const response = await fetch(getApiHref(`/api/species/${id}/images`), {
+            method: 'POST',
+            credentials: 'include',
+            body: formData
+        })
+        const contentType = response.headers.get('Content-Type') || response.headers.get('content-type')
+        const data = /json/.test(contentType) ? await response.json() : await response.text()
+        
+        return data
+
+    } catch {}
+
+    return null
+}

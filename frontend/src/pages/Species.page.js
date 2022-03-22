@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { deleteSpecies, getSpecies, searchSpecies } from '../utils/api'
 import SpeciesTable from '../components/SpeciesTable'
