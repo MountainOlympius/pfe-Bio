@@ -132,6 +132,15 @@ const createSpeciesImagesDelete = (pool) => {
     }
 }
 
+const createSelectSpeciesImages = (pool) => {
+    return async (id) => {
+        const query = `SELECT id, url FROM species_image WHERE species_id = $1`
+        const response = await pool.query(query, [id])
+
+        return response.rows || []
+    }
+}
+
 module.exports = (pool) => {
     return {
         selectSpecies: createSelectSpecies(pool),
@@ -143,6 +152,7 @@ module.exports = (pool) => {
         insertSpeciesCriteria: createSpeciesCriteriaInserter(pool),
         deleteFromCriteriaSpecies: createSpeciesCriteraiDelete(pool),
         insertSpeciesImages: createSpeciesImagesInserter(pool),
-        deleteSpeciesImages: createSpeciesImagesDelete(pool) 
+        deleteSpeciesImages: createSpeciesImagesDelete(pool),
+        selectSpeciesImages: createSelectSpeciesImages(pool),
     }
 }

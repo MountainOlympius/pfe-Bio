@@ -3,9 +3,6 @@ const SpeciesModels = require('../models/species')
 const { isNull } = require('../utils/generic')
 const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
 
-// TODO : Add delete images
-// TODO : delete images
-
 const getSpecies = (pool) => {
     const itemsPerPage = 10
     const { selectSpecies } = SpeciesModels(pool)
@@ -39,9 +36,8 @@ const searchSpecies = (pool) => {
     }
 }
 
-// TODO : Add species images to response 
 const getSpeciesWithDetails = (pool) => {
-    const { selectSpeciesWithDetails } = SpeciesModels(pool)
+    const { selectSpeciesWithDetails, selectSpeciesImages } = SpeciesModels(pool)
 
     return async (request, response) => {
         let { id } = request.params
@@ -49,6 +45,8 @@ const getSpeciesWithDetails = (pool) => {
         if (isNull(id) || !isNumber(id) || Number(id) <= 0) return response.json({ ok: false })
 
         const species = await selectSpeciesWithDetails(id)
+        species.images = await selectSpeciesImages(id)
+
         const responseBody = { ok: species ? true : false }
         if (species) responseBody.data = species
 
