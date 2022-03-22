@@ -17,6 +17,8 @@ const { Authentication } = require('./middlewares/Authentication')
 const App = (pool) => {
     const app = express()
 
+    app.set('trust proxy', process.env.trust_proxy === 'true')
+
     app.use(express.json())
 
     app.use(cors({
@@ -38,6 +40,7 @@ const App = (pool) => {
     app.use(compression())
     app.use(Authentication(pool))
     app.use('/api', ApiRouter(pool))
+    app.use('/media', express.static(process.env.media_local_path))
     app.use('/static', express.static(path.resolve(__dirname, '../frontend/build/static')))
     app.get('*', (request, response) => {
         const date = new Date()

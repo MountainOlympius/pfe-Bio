@@ -1,3 +1,4 @@
+const { uploadFileLocaly, deleteFileLocaly } = require('../helpers/storage')
 const SpeciesModels = require('../models/species')
 const { isNull } = require('../utils/generic')
 const { isNumber, checkAllowedFields, checkRequiredFields } = require('../utils/validators')
@@ -193,6 +194,45 @@ const deleteSpeciesCriteria = (pool) => {
     }
 }
 
+const uploadSpeciesImage = (pool) => {
+    const { insertSpeciesImages } = SpeciesModels(pool)
+
+    return async (request, response) => {
+        const { id } = request.params
+        const { files } = request
+
+        const images = files.images ? Array.isArray(files.images) ? files.images : [files.images] : null
+
+        if (isNull(id) || !isNumber(id) || Number(id) <= 0) {
+            images.forEach(img => deleteFileLocaly(img.path))
+            return response.json({ ok: false })
+        }
+
+        let imagesUrls = await Promise.all(images.map(img => uploadFileLocaly(request, img.path, /image\/.*/)))
+        imagesUrls = imagesUrls.filter(img => Boolean(img))
+
+        if (imagesUrls.length <= 0) return response.json({ ok: false })
+        
+        try {
+            const data = await insertSpeciesImages(id, imagesUrls)
+            
+            response.json({ ok: true, data })
+        } catch (err) {
+            const { constraint } = err
+            const errors = []
+
+            if (constraint === 'species_image_species_id_fkey') {
+                errors.push('unexisting_species')
+            } else {
+                errors.push('unknown_error')
+            }
+
+            images.forEach(img => deleteFileLocaly(img.path))
+            response.json({ ok: false, errors })
+        }
+    }
+}
+
 module.exports = (pool) => {
     return {
         getSpecies: getSpecies(pool),
@@ -203,5 +243,6 @@ module.exports = (pool) => {
         deleteSpecies: deleteSpecies(pool),
         addSpeciesCriteria: addSpeciesCriteria(pool),
         deleteSpeciesCriteria: deleteSpeciesCriteria(pool),
+        uploadSpeciesImage: uploadSpeciesImage(pool),
     }
 }

@@ -96,6 +96,20 @@ const createSpeciesCriteriaInserter = (pool) => {
     }
 }
 
+const createSpeciesImagesInserter = (pool) => {
+    return async (id, images) => {
+        if (images.length <= 0) return false
+
+        const query = `INSERT INTO species_image (species_id, url, local_path) VALUES 
+        ${images.map((img, i) => `($1, $${(i + 1) * 2}, $${(i * 2) + 3})`).join(',')} RETURNING id,url`;
+        const values = images.map(img => Object.values(img)).reduce((p, img) => [...p, ...img], [])
+
+        const response = await pool.query(query, [id, ...values])
+
+        return response.rows || []
+    }
+}
+
 const createSpeciesCriteraiDelete = (pool) => {
     return async (id, ids) => {
         if (ids.length <= 0) return false
@@ -116,6 +130,7 @@ module.exports = (pool) => {
         updateSpecies: createSpeciesUpdater(pool),
         deleteFromSpecies: createSpeciesDelete(pool),
         insertSpeciesCriteria: createSpeciesCriteriaInserter(pool),
-        deleteFromCriteriaSpecies: createSpeciesCriteraiDelete(pool)
+        deleteFromCriteriaSpecies: createSpeciesCriteraiDelete(pool),
+        insertSpeciesImages: createSpeciesImagesInserter(pool)
     }
 }

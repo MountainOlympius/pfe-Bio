@@ -1,9 +1,11 @@
 const express = require('express')
+const formidableMiddleware = require('express-formidable-v2')
 
 const { AuthenticatedOnly, AdminOnly } = require('../middlewares/Authentication')
 const SpeciesControllers = require('../controllers/species.controllers')
 
 const SpeciesRouter = (pool) => {
+
     const router = express.Router()
     const {
 		getSpecies,
@@ -14,6 +16,7 @@ const SpeciesRouter = (pool) => {
 		deleteSpecies,
 		addSpeciesCriteria,
 		deleteSpeciesCriteria,
+        uploadSpeciesImage
 	} = SpeciesControllers(pool)
 
     router.get('/', getSpecies)
@@ -26,6 +29,11 @@ const SpeciesRouter = (pool) => {
 
     router.post('/:id/criteria', AuthenticatedOnly, AdminOnly, addSpeciesCriteria)
     router.delete('/:id/criteria', AuthenticatedOnly, AdminOnly, deleteSpeciesCriteria)
+
+    router.post('/:id/images', AuthenticatedOnly, AdminOnly, formidableMiddleware({
+        multiples: true,
+        maxFiles: 3
+    }), uploadSpeciesImage)
 
     return router
 }
