@@ -5,8 +5,8 @@ const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) =>
     const [images, setImages] = useState(defaultImages || [])
 
     useEffect(() => {
-        onUpdateCallback(images)
-    }, [images])
+        if (defaultImages) setImages(defaultImages || [])
+    }, [defaultImages])
 
     const readFileUrl = (file) => {
         return new Promise((resolve, reject) => {
@@ -33,11 +33,13 @@ const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) =>
         }
 
         setImages(imagesClone)
+        onUpdateCallback(imagesClone)
     }
 
     const onDeleteImage = (i) => {
         const imagesClone = cloneObject(images).filter((img, index) => index !== i)
         setImages(imagesClone)
+        onUpdateCallback(imagesClone)
     }
 
     return (

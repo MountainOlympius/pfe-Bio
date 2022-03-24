@@ -5,8 +5,6 @@ import { cloneObject } from '../utils/Generic'
 import FormImagesInput from './FormImagesInput'
 import InputDropdown from './InputDropdown'
 
-// TODO : Add images
-
 const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
     const [genusId, setGenusId] = useState(data?.genus?.id || undefined)
     const [criteria, setCriteria] = useState(data?.criteria || [{}])
@@ -64,6 +62,7 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
             if (shouldReset) {
                 e.target.reset()
                 setCriteria([])
+                setImages([])
                 setTimeout(() => setCriteria([{}]), 0)
             }
         })
@@ -98,7 +97,7 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
                 <button onClick={onAddCriteria} type='button' className='add-criteria-btn'>Ajouter critère</button>
             </div>
 
-            <FormImagesInput onUpdateCallback={onUpdateImages} max={3} />
+            <FormImagesInput defaultImages={images} onUpdateCallback={onUpdateImages} max={3} />
 
             <button className='submit-btn'>Enregistrer</button>
         </form>
