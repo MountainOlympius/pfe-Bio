@@ -13,6 +13,7 @@ const SpeciesForm = ({ data = {} , onSubmitCallback, shouldReset = false }) => {
     useEffect(() => {
         if (data?.genus?.id && genusId !== data?.genus?.id) setGenusId(data?.genus?.id)
         if (data?.criteria) setCriteria(data.criteria)
+        if (data?.images) setImages(data?.images)
     }, [data])
 
     const searchForGenus = async (query) => {

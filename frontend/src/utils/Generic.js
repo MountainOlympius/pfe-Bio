@@ -68,3 +68,20 @@ export const getCriteriaDiff = (arr1, arr2) => {
 }
 
 export const cloneObject = (obj) => JSON.parse(JSON.stringify(obj))
+
+export const getImagesDiff = (images, currentImages) => {
+    const deleted = []
+    const added = []
+
+    images.forEach(img => {
+        const found = currentImages.find(elt => img.id === elt.id)
+
+        if (!found) deleted.push(img.id)
+    })
+
+    currentImages.forEach(img => {
+        if (img.file) added.push(img.file)
+    })
+
+    return [deleted, added]
+}

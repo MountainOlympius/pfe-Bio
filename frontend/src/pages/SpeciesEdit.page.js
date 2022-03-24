@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SpeciesForm from '../components/SpeciesForm'
-import { addSpeciesCriteria, deleteSpeciesCriteria, getSpeciesDetails, updateSpecies } from '../utils/api'
-import { cloneObject, getCriteriaDiff, getObjectDiff } from '../utils/Generic'
+import { addSpeciesCriteria, deleteSpeciesCriteria, deleteSpeciesImages, getSpeciesDetails, updateSpecies, uploadSpeciesImages } from '../utils/api'
+import { cloneObject, getCriteriaDiff, getImagesDiff, getObjectDiff } from '../utils/Generic'
 
 const SpeciesEditPage = () => {
     const { id } = useParams()
@@ -28,6 +28,8 @@ const SpeciesEditPage = () => {
 
     const saveSpecies = async (data) => {
         const dataClone = cloneObject(data)
+        let imagesClone = [...data.images]
+        let originImages = cloneObject(originalData.images)
         let originalClone = cloneObject(originalData)
         let finalData = cloneObject(speciesData)
         let finalCriteria = cloneObject(originalData.criteria)
@@ -36,7 +38,9 @@ const SpeciesEditPage = () => {
         const localMessages = []
 
         delete dataClone['criteria']
+        delete dataClone['images']
         delete originalClone['criteria']
+        delete originalClone['images']
 
         if (!('name' in data) || data.name === '') localErrors.push('Le champ du nom est obligatoire')
         if (!data.genus_id) localErrors.push('Le champ du genre est obligatoire')
@@ -66,9 +70,27 @@ const SpeciesEditPage = () => {
             const addResponse = await addSpeciesCriteria(id, toAdd)
             if (addResponse && addResponse.ok && addResponse.data) finalCriteria.push(...addResponse.data)
         }
+        
+        const [deletedImages, addedImages] = getImagesDiff(originImages, imagesClone)
+
+        if (deletedImages.length > 0) {
+            const deleted = await deleteSpeciesImages(id, deletedImages)
+            
+            if (deleted && deleted.ok) {
+                originImages = [...originImages].filter(img => !deletedImages.includes(img.id))
+            }
+        }
+
+        if (addedImages.length > 0) {
+            const added = await uploadSpeciesImages(id, addedImages)
+
+            if (added && added.ok && added.data) originImages.push(...added.data)
+        }
 
         originalClone.criteria = cloneObject(finalCriteria)
         finalData.criteria = cloneObject(finalCriteria)
+        finalData.images = cloneObject(originImages)
+        originalClone.images = cloneObject(originImages)
 
         setOriginalData(originalClone)
         setSpeciesData(finalData)

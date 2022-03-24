@@ -337,3 +337,13 @@ export const uploadSpeciesImages = async (id, files) => {
 
     return null
 }
+
+export const deleteSpeciesImages = async (id, ids) => {
+    try {
+        const response = await deleteRequest(getApiHref(`/api/species/${id}/images`), JSON.stringify({ ids }))
+
+        if (response) return response
+    } catch {}
+
+    return null
+}

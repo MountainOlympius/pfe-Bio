@@ -21,7 +21,7 @@ const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) =>
 
     const onAddedImages = async (e) => {
         const files = e.target.files
-        const imagesClone = cloneObject(images)
+        const imagesClone = [...images]
         
         if (files.length + images.length > max) return
         
@@ -37,7 +37,7 @@ const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) =>
     }
 
     const onDeleteImage = (i) => {
-        const imagesClone = cloneObject(images).filter((img, index) => index !== i)
+        const imagesClone = [...images].filter((img, index) => index !== i)
         setImages(imagesClone)
         onUpdateCallback(imagesClone)
     }
