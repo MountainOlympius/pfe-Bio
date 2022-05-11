@@ -1,3 +1,15 @@
 .PhylumsPage {
     background-color: #ffffff;
+
+}
+
+.new-phyl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+
+    label {
+        margin-left: 1em;
+    }
 }

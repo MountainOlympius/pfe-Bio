@@ -1,21 +1,12 @@
 import React from 'react'
 
+import MainNavBar from '../components/MainNavBar'
+import { Button } from '@mantine/core';
+
 const MainPages = () => {
     return (
         <div className="App MainPages">
-            <header className="App-header">
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <MainNavBar />
         </div>
     )
 }

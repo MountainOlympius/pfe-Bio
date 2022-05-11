@@ -1,15 +1,13 @@
-.NewPhylumPage {
-    background-color: white;
+.NewSpeciesPage {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
-
     h3 {
         font-size: 40px;
     }
 
-    .errors-div, .messages-div {
+    .messages-div, .errors-div {
         display: none;
     }
 }

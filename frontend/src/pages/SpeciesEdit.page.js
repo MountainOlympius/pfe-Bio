@@ -4,6 +4,9 @@ import SpeciesForm from '../components/SpeciesForm'
 import { addSpeciesCriteria, deleteSpeciesCriteria, deleteSpeciesImages, getSpeciesDetails, updateSpecies, uploadSpeciesImages } from '../utils/api'
 import { cloneObject, getCriteriaDiff, getImagesDiff, getObjectDiff } from '../utils/Generic'
 
+
+import '../styles/SpeciesEditPage.scss'
+
 const SpeciesEditPage = () => {
     const { id } = useParams()
     const [originalData, setOriginalData] = useState(undefined)
@@ -107,7 +110,7 @@ const SpeciesEditPage = () => {
 
     return (
         <div className='SpeciesEditPage'>
-            <h3>Modier l'espèce</h3>
+            <h3 className='h3'>Modifier l'espèce</h3>
 
             <SpeciesForm onSubmitCallback={saveSpecies} data={speciesData} />
 

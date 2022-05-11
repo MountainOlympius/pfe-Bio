@@ -2,22 +2,32 @@
     background-color: #ffffff;
 
     .search-container, .search-div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+
+        .input-new {
+            display: flex;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        }
+
         input {
             width: 350px;
             height: 35px;
             padding: .5em 2em;
             margin: 2em;
             border-radius: .5em;
-
-            
         }
 
         label {
-            margin-left: 6em;
             font-weight: 700;
             font-size: 18px;
             margin-right: 1em;
             font-family: poppins;
+            color: rgb(119, 119, 119);
         }
     }
 
@@ -56,4 +66,22 @@
         opacity: 50%;
     }
 }
+}
+
+
+@media screen and (max-width: 1005px) {
+    .search-container, .search-div {
+        flex-wrap: wrap;
+
+        .input-new {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-items: flex-start;
+            flex-wrap: nowrap;
+            margin-right: 20px;
+        }
+
+    }
+
 }

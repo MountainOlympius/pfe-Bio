@@ -1,0 +1,35 @@
+.FormImagesInput {
+    label {
+        cursor: pointer;
+        color: rgb(106, 158, 190);
+
+        &:hover {
+            color: rgb(152, 219, 240);
+        }
+    }
+    .form-div {
+        margin: 1em 0em;
+    }
+    .images-container {
+
+         width: 200px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         margin: 2em 2em;
+        .image-div {
+            img {
+
+                object-fit: contain;
+                height: 200px;
+                width: 200px;
+            }
+
+            .delete-btn {
+                margin: 1em;
+            }
+        }
+    }
+
+}

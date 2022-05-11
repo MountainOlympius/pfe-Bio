@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from '@mantine/core'
 
 import '../styles/PhylumForm.scss'
 
@@ -17,7 +18,7 @@ const PhylumForm = ({ onSubmitCallback, buttonText, data = {} }) => {
                 <textarea name='description' defaultValue={data['description']}></textarea>
             </div>
 
-            <button className='submitBtn' type='submit'>{buttonText}</button>
+            <Button className='/submitBtn' type='submit'>{buttonText}</Button>
 		</form>
 		</div>
 	)

@@ -1,0 +1,68 @@
+
+.species-form-container {
+    border-radius: 0px;
+    background: #ffffff;
+    box-shadow:  14px 14px 28px #e0e0e0,
+                 -14px -14px 28px #ffffff;
+    
+    
+    margin: 0em 3em;
+    margin-bottom: 4em;
+
+    .SpeciesForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-items: center;
+      padding: 2em 10em;
+
+      .name, .genre, .description {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+
+          input, textarea {
+              padding-left: 1em;
+          }
+      }
+      .criteria {
+        justify-content: center;
+        min-height: 60px;
+        min-width: 500px;
+        width: 100%;
+        resize: none;
+     
+        margin-bottom: 1em;
+        margin-top: 1em;
+    
+        font-family: 'Heebo', sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: 700;
+        
+       
+      }
+
+    }
+    .add-criteria-btn {
+        margin-top: 2em;
+        margin-left: 25vw;
+    }
+}
+
+label {
+    font-family: poppins, sans-serif;
+    font-weight: 600;
+}
+
+textarea, input {
+    font-size: 15px;
+border-bottom-style: solid;
+border-bottom-width: 5px;
+}
+
+textarea {
+    width: 300px;
+}

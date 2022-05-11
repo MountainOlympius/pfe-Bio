@@ -1,6 +1,6 @@
 import { deleteRequest, getRequest, postRequest, putRequest } from './http'
 
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || window.location.origin
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000' //window.location.origin
 
 const getApiHref = (path) => {
     const reqUrl = new URL(apiBaseUrl)

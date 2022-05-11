@@ -1,0 +1,101 @@
+/*.species-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: red;
+  margin: .2em 3em;
+  margin-bottom: 3em;
+
+  border-radius: 0px;
+  background: #ffffff;
+  box-shadow: 14px 14px 28px #e0e0e0, -14px -14px 28px #ffffff;
+}
+*/
+.SpeciesEditPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .h3 {
+        font-size: 40px;
+    }
+}
+/*
+    .title {
+      font-family: poppins, sans-serif;
+      hr {
+        border: 1px black solid;
+        margin-bottom: 3em;
+      }
+    }
+  
+    .form-div label {
+      font-weight: 700;
+      font-family: poppins;
+      font-size: 18px;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  
+      .name-desc-embr {
+        width: 70vw;
+        padding-bottom: 5em;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-around;
+  
+        .name-embr {
+          display: flex;
+          flex-direction: column;
+          width: 20%;
+          min-width: fit-content;
+        }
+  
+        .form-div {
+          display: flex;
+          flex-direction: column;
+          margin-top: 1em;
+  
+          label {
+            margin: 0.5em;
+            font-family: poppins;
+            font-size: 18px;
+            font-weight: 600;
+          }
+  
+          input {
+            height: 35px;
+            padding-left: 1em;
+            font-size: 16px;
+            font-family: poppins;
+            margin-top: 0.5em;
+          }
+  
+          select {
+            font-family: poppins;
+            height: 45px;
+            padding-left: 1em;
+            font-size: 16px;
+            margin-top: 0.5em;
+          }
+  
+          textarea {
+            min-height: 150px;
+            width: 400px;
+            padding: 1em 2em;
+            font-size: 17px;
+            font-family: poppins;
+            margin-top: 0.5em;
+          }
+        }
+      }
+    }
+}
+*/

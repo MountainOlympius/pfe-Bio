@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { getPhylums } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 
+import { Button } from "@mantine/core";
+
 import '../styles/FamilyForm.scss'
 
 const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
@@ -106,26 +108,27 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 							className="criteria"
 							value={cr.content}
 						/>
-						<button
+						<Button
+							color="red"
 							onClick={() => deleteCriteriaCallback(i)}
 							type="button"
-							className="delete-criteria"
+							className="/delete-criteria"
 						>
 							supprimer critère
-						</button>
+						</Button>
 					</div>
 				))}
-
-				<button
+				<Button
+				variant="outline"
 					type="button"
 					onClick={addCriteriaCallback}
 					className="add-criteria-btn"
 				>
 					Ajouter critère
-				</button>
+				</Button>
 			</div>
 
-			<button className="save-btn">Enregistrer</button>
+			<Button type='submit' className="save-btn">Enregistrer</Button>
 		</form>
 		</div>
 	)

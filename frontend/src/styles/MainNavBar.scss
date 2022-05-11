@@ -1,0 +1,214 @@
+.nav-logo-container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 100vw;
+    border-radius: 0px;
+    background: #ffffff;
+    box-shadow:  14px 14px 28px #e0e0e0,
+                 -14px -14px 28px #ffffff;
+               margin-bottom: 4em;
+  
+    .title-img {
+      width: 10em;
+      height: 4em;
+      margin: 10px;
+      margin-right: 2em;
+    }
+  }
+  .burger {
+    opacity: 0;
+  }
+  .main-navbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+      opacity: 80%;
+      width: 70vw;
+      flex-wrap: nowrap;
+      margin-right: 2em;
+    }
+    li {
+      margin: 2em;
+      text-decoration: none;
+      list-style: none;
+      position: relative;
+    }
+  
+    a {
+      display: inline-block;
+      position: relative;
+      //padding: 1em 2em;
+      text-decoration: none;
+      font-family: "Rubik", sans-serif;
+      color: rgb(61, 61, 61);
+      font-weight: 200;
+  
+      &.active {
+        color: lightskyblue;
+      }
+      &.active:before {
+        opacity: 50%;
+      }
+  
+      
+    }
+  
+}
+  
+  @media screen and (max-width: 1005px) {
+    .admin-navbar {
+      a {
+        color: transparent;
+      }
+      a.active {
+        color: transparent;
+      }
+  
+      ul {
+        display: flex;
+      }
+    }
+  }
+  
+  @media screen and (min-width: 1205px) {
+    .admin-navbar {
+      a {
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: lightskyblue;
+          transform-origin: bottom right;
+          transition: transform 0.25s ease-out;
+        }
+        
+        &:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+  
+      }
+    }
+  }
+
+  @media screen and (min-width: 1205px) {
+    .main-navbar {
+      .Home, .essayer, .apropos {
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: lightskyblue;
+          transform-origin: bottom right;
+          transition: transform 0.25s ease-out;
+        }
+        
+        &:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+  
+      }
+    }
+  }
+
+  @media screen and (max-width: 855px) {
+    .burger {
+      opacity: 100%;
+    }
+    .main-navbar {
+      display: none;
+  
+    
+    }
+    .main-navbar-burger {
+      ul {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        opacity: 80%;
+        width: 80vw;
+        flex-wrap: nowrap;
+        margin-right: 2em;
+      }
+      li {
+        margin: 2em;
+        text-decoration: none;
+        list-style: none;
+        position: relative;
+      }
+    
+      a {
+        display: inline-block;
+        position: relative;
+        //padding: 1em 2em;
+        text-decoration: none;
+        font-family: "Rubik", sans-serif;
+        color: rgb(61, 61, 61);
+        font-weight: 200;
+    
+        &.active {
+          color: lightskyblue;
+        }
+        &.active:before {
+          opacity: 50%;
+        }
+    
+        
+      }
+    
+      .Home {
+        &::before {
+          content: url(..//assets/phylum.png);
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+          margin-right: 1em;
+        }
+      }
+    
+      .essayer {
+        &::before {
+          content: url(..//assets/famille.png);
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+          margin-right: 1em;
+        }
+      }
+    
+      .apropos {
+        &::before {
+          content: url(..//assets/genre.png);
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+          margin-right: 1em;
+        }
+      }
+    
+      a:hover {
+        height: 100%;
+      }
+    
+    }
+  }
+  // details
+  // idea
+  // why
+  // numbers /*
+  

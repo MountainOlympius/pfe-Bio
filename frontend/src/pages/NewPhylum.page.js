@@ -1,14 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import PhylumForm from '../components/PhylumForm'
 import { createPhylum } from '../utils/api'
 import { translateErrors } from '../utils/Generic'
+import toast, { Toaster } from 'react-hot-toast'
 
 import '../styles/NewPhylumPage.scss'
 
 const NewPhylumPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
+
+    const notifyerr = (toastmsg) => toast.error(`${toastmsg}`)
+    
+    const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
+
+    useEffect(() => {
+        errors.forEach(err => {
+            notifyerr(err);
+        });
+        messages.forEach(msg => {
+            notifymsg(msg)
+        });
+    }, [errors, messages])
 
     const createPhylumCallback = (e) => {
         const elements = e.target.elements
@@ -34,7 +48,9 @@ const NewPhylumPage = () => {
     }
 
 	return (
+        <>
 		<div className="NewPhylumPage">
+            <h3>Ajouter un nouveau Embranchement</h3>
 			<PhylumForm onSubmitCallback={createPhylumCallback} buttonText='Ajouter' />
             
             {errors.length > 0 ? (
@@ -49,6 +65,8 @@ const NewPhylumPage = () => {
                 </div>
             ) : null}
 		</div>
+            <div><Toaster/></div>
+        </>
 	)
 }
 

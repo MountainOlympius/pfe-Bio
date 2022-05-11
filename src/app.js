@@ -23,7 +23,8 @@ const App = (pool) => {
 
     app.use(cors({
         credentials: true,
-        origin: process.env.CORS_ALLOW_ORIGIN?.split(',') || '*'
+        origin: process.env.CORS_ALLOW_ORIGIN?.split(',') || 'http://localhost:3000'
+        
     }))
 
     app.use(
@@ -40,6 +41,7 @@ const App = (pool) => {
     app.use(compression())
     app.use(Authentication(pool))
     app.use('/api', ApiRouter(pool))
+    console.log((process.env.media_local_path));
     app.use('/media', express.static(process.env.media_local_path))
     app.use('/static', express.static(path.resolve(__dirname, '../frontend/build/static')))
 

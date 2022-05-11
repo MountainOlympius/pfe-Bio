@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { cloneObject, translateErrors } from '../utils/Generic'
 import { addGenusCriteria, createGenus } from '../utils/api'
 import GenusForm from '../components/GenusForm'
+import toast, { Toaster } from 'react-hot-toast'
 
 import '../styles/NewGenus.page.scss'
 
@@ -10,12 +11,26 @@ const NewGenusPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
 
+    const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
+    
+    const notifyerr = (toastmsg) => toast.error(`${toastmsg}`)
+
+    useEffect(() => {
+        errors.forEach(err => {
+            notifyerr(err);
+        });
+        messages.forEach(msg => {
+            notifymsg(msg)
+        });
+    }, [errors, messages])
+
     const onSaveCallback = async (data, onSuccessCallback) => {
         const localErrors = []
         const genusData = cloneObject(data)
 
         setErrors([])
         setMessages([])
+
 
         delete genusData['criteria']
 
@@ -41,6 +56,7 @@ const NewGenusPage = () => {
 
     return (
         <div className='NewGenusPage'>
+            <h3>Ajouter un Nouveau Genre</h3>
             <GenusForm onSaveCallback={onSaveCallback} shouldReset />
 
             <div className='errors-div'>
@@ -50,6 +66,7 @@ const NewGenusPage = () => {
             <div className='messages-div'>
                 {messages.map((msg, i) => <p key={i}>{msg}</p>)}
             </div>
+            <div><Toaster/></div>
         </div>
     )
 }

@@ -1,12 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import FamilyForm from '../components/FamilyForm'
 import { addFamilyCriteria, createFamily } from '../utils/api'
 import { translateErrors } from '../utils/Generic'
+import toast, { Toaster } from 'react-hot-toast'
+
+import '../styles/NewFamilyPage.scss'
 
 const NewFamilyPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
+
+    const notifyerr = (toastmsg) => toast.error(`${toastmsg}`)
+    
+    const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
+
+    useEffect(() => {
+        errors.forEach(err => {
+            notifyerr(err);
+        });
+        messages.forEach(msg => {
+            notifymsg(msg)
+        });
+    }, [errors, messages])
 
     const submitCallback = async (data, onSuccessCallback) => {
         const familyData = {...data}
@@ -31,6 +47,7 @@ const NewFamilyPage = () => {
 
     return (
         <div className='NewFamilyPage'>
+            <h3>Ajouter une nouvelle Famille</h3>
             <FamilyForm submitCallback={submitCallback} shouldReset />
 
             <div className='errors-div'>
@@ -40,6 +57,7 @@ const NewFamilyPage = () => {
             <div className='messages-div'>
                 {messages.map((msg, i) => <p key={i}>{msg}</p>)}
             </div>
+            <div><Toaster/></div>
         </div>
     )
 }

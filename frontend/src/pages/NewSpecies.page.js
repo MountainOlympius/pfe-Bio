@@ -1,11 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SpeciesForm from '../components/SpeciesForm'
 import { addSpecies, addSpeciesCriteria, uploadSpeciesImages } from '../utils/api'
 import { cloneObject, translateErrors } from '../utils/Generic'
+import toast, { Toaster } from 'react-hot-toast'
+
+import '../styles/NewSpecies.scss'
 
 const NewSpeciesPage = () => {
     const  [errors, setErrors] = useState([])
     const  [messages, setMessages] = useState([])
+
+    const notifyerr = (toastmsg) => toast.error(`${toastmsg}`)
+    
+    const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
+
+    useEffect(() => {
+        errors.forEach(err => {
+            notifyerr(err);
+        });
+        messages.forEach(msg => {
+            notifymsg(msg)
+        });
+    }, [errors, messages])
 
     const saveSpecies = async (data, onSuccessCallback) => {
         const dataClone = cloneObject(data)
@@ -59,6 +75,7 @@ const NewSpeciesPage = () => {
             <div className='messages-div'>
                 {messages.map((msg, i) => <p key={i}>{msg}</p>)}
             </div>
+            <div><Toaster/></div>
         </div>
     )
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { searchFamily } from '../utils/api'
 import { cloneObject } from '../utils/Generic'
 import InputDropdown from './InputDropdown'
+import { Button } from "@mantine/core";
+
 
 import '../styles/GenusForm.scss'
 
@@ -70,6 +72,7 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
     }
 
     return (
+        <div className="genus-form-container">
         <form className='GenusForm form' onSubmit={saveGenus}>
             <div className="name-fam-desc">
             <div className='form-div'>
@@ -91,15 +94,17 @@ const GenusForm = ({ data = {} , onSaveCallback, shouldReset = false}) => {
                 {criteria.map((cr, i) => (
                     <div key={i} className='criteria-div'>
                         <textarea onChange={(e) => onCriteriaChange(e, i)} value={cr.content} className='criteria' />
-                        <button onClick={() => deleteCriteria(i)} className='delete-criteria' type='button'>supprimer</button>
+                        <Button color="red" onClick={() => deleteCriteria(i)} className='delete-criteria' type='button'>supprimer</Button>
                     </div>                        
                 ))}
 
-                <button onClick={addCriteria} type='button' className='add-criteria-btn'>Ajouter critère</button>
+                <Button variant="outline"
+					 onClick={addCriteria} type='button' className='add-criteria-btn'>Ajouter critère</Button>
             </div>
 
-            <button type='submit' className='submit-btn'>Enregistrer</button>
+            <Button type='submit' className='submit-btn'>Enregistrer</Button>
         </form>
+        </div>
     )
 }
 

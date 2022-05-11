@@ -6,12 +6,12 @@ const SpeciesTable = ({ data , onDeleteCallback }) => {
         <table className='SpeciesTable'>
             <thead>
                 <tr>
-                    <td>#</td>
-                    <td>Le Nom</td>
-                    <td>Description</td>
-                    <td>Nombre des criteres</td>
-                    <td>Date de creation</td>
-                    <td></td>
+                    <th>#</th>
+                    <th>Le Nom</th>
+                    <th>Description</th>
+                    <th>Nombre des criteres</th>
+                    <th>Date de creation</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

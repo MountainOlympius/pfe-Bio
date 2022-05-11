@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { cloneObject } from '../utils/Generic'
+import { Button} from '@mantine/core'
+
+import '../styles/FormImagesInput.scss'
+
 
 const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) => {
     const [images, setImages] = useState(defaultImages || [])
@@ -49,7 +53,7 @@ const FormImagesInput = ({ max = Infinity, defaultImages, onUpdateCallback }) =>
                 {images.map((img, i) => <div className='image-div' key={i} >
                     <img src={img.url} />
                     {/* You can use x icon instead of this delete button */}
-                    <button onClick={() => onDeleteImage(i)} type='button' className='delete-btn'>supprimer image</button>
+                    <Button color="red" onClick={() => onDeleteImage(i)} type='button' className='delete-btn'>supprimer image</Button>
                 </div>)}
             </div>
             <div className='form-div'>
