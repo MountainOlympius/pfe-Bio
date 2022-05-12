@@ -18,7 +18,7 @@ const FamilyPage = () => {
   const [isLastPage, setLastPage] = useState(false);
   const [searchDisplayCount, setDisplayCount] = useState(10);
 
-  useEffect(async () => {
+  const fetchFamily = async () => {
     const response = await getFamilies(currentPage);
 
     if (response && response.ok && response.data)
@@ -26,9 +26,9 @@ const FamilyPage = () => {
 
     if (!response || !response.ok || response.data.length < 10)
       setLastPage(true);
-  }, [currentPage]);
+  }
 
-  useEffect(async () => {
+  const updateSearch = async () => {
     if (searchValue.length <= 0) return;
 
     if (searchValue in searchResult && searchResult[searchValue].length > 0)
@@ -42,6 +42,14 @@ const FamilyPage = () => {
 
       setSearchResult({ ...result });
     }
+  }
+
+  useEffect(() => {
+    fetchFamily()
+  }, [currentPage]);
+
+  useEffect(() => {
+    updateSearch()
   }, [searchValue]);
 
   const onChangeSearch = (e) => {

@@ -7,9 +7,13 @@ export const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
     const [account, setAccount] = useState(undefined)
 
-    useEffect(async () => {
+    const fetchAuthInfo = async () => {
         const accountData = await getAuthenticatedAccount()
         setAccount(accountData)
+    }
+
+    useEffect(() => {
+        fetchAuthInfo()
     }, [])
 
     return (

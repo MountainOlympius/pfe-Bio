@@ -18,7 +18,7 @@ const SpeciesPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [displayCount, setDisplayCount] = useState(10);
 
-  useEffect(async () => {
+  const fetchSpecies = async () => {
     if (isLastPage) return;
 
     const response = await getSpecies(currentPage);
@@ -27,9 +27,9 @@ const SpeciesPage = () => {
 
     if (response.data.length < 10) setLastPage(true);
     setSpecies([...speciesList, ...response.data]);
-  }, [currentPage]);
+  }
 
-  useEffect(async () => {
+  const updateSearch = async () => {
     const query = searchValue;
 
     setDisplayCount(10);
@@ -46,6 +46,14 @@ const SpeciesPage = () => {
       setSearchResult(results);
       console.log(results);
     }
+  }
+
+  useEffect(() => {
+    fetchSpecies()
+  }, [currentPage]);
+
+  useEffect(() => {
+    updateSearch()
   }, [searchValue]);
 
   const onDeleteCallback = async (id) => {

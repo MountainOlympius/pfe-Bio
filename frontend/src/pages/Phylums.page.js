@@ -10,12 +10,16 @@ import "../styles/PhylumsPage.scss";
 const PhylumsPage = () => {
   const [phylumsList, setPhylumsList] = useState([]);
 
-  useEffect(async () => {
+  const fetchPylums = async () => {
     const response = await getPhylums();
 
     if (response && response.ok && response.data) {
       setPhylumsList(response.data);
     }
+  }
+
+  useEffect(() => {
+    fetchPylums()
   }, []);
 
   const deletePhylumCallback = useCallback(

@@ -18,16 +18,16 @@ const GenusPage = () => {
   const [isLastPage, setPage] = useState(false);
   const [searchDisplayCount, setDisplayCount] = useState(10);
 
-  useEffect(async () => {
+  const fetchGenuses = async () => {
     const response = await getGenuses(currentPage);
 
     if (response && response.ok && response.data) {
       setGenusList([...genusList, ...response.data]);
       if (response.data.length < 10) setPage(true);
     }
-  }, [currentPage]);
+  }
 
-  useEffect(async () => {
+  const fetchSearch = async () => {
     if (searchValue.length <= 0) return;
 
     if (searchValue in searchResult && searchResult[searchValue].length > 0)
@@ -40,6 +40,14 @@ const GenusPage = () => {
       result[searchValue] = response.data;
       setSearchResults(result);
     }
+  }
+
+  useEffect(() => {
+    fetchGenuses()
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchSearch()
   }, [searchValue]);
 
   const onSearchChangeCallback = (e) => {

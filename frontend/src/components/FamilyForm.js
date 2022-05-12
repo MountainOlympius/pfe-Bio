@@ -10,12 +10,16 @@ const FamilyForm = ({ data = {}, submitCallback, shouldReset = false}) => {
 	const [phylums, setPhylums] = useState([])
 	const [criteria, setCriteria] = useState(data.criteria || [{}])
 
-	useEffect(async () => {
+	const fetchPylums = async () => {
 		const response = await getPhylums()
 
 		if (response && response.ok && response.data) {
 			setPhylums(response.data)
 		}
+	}
+
+	useEffect(() => {
+		fetchPylums()
 	}, [])
 
 	const addCriteriaCallback = useCallback(() => {

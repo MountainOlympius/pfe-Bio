@@ -18,6 +18,17 @@ const PhylumsEditPage = () => {
     
     const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
 
+	const fetchPylums = async () => {
+		const response = await getPhylum(id)
+
+		if (response && response.ok) {
+			setData({
+				name: response.data.name,
+				description: response.data.description,
+			})
+		}
+	}
+
     useEffect(() => {
         errors.forEach(err => {
             notifyerr(err);
@@ -27,15 +38,8 @@ const PhylumsEditPage = () => {
         });
     }, [errors, messages])
 
-	useEffect(async () => {
-		const response = await getPhylum(id)
-
-		if (response && response.ok) {
-			setData({
-				name: response.data.name,
-				description: response.data.description,
-			})
-		}
+	useEffect(() => {
+		fetchPylums()
 	}, [id])
 
 	const updatePhylumCallback = (e) => {

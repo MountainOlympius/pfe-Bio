@@ -14,7 +14,7 @@ const FamilyEditPage = () => {
     const [errors, setErrors] = useState([])
     const [messages, setMessages] = useState([])
 
-    useEffect(async () => {
+    const fetchFamily = async () => {
         const response = await getFamily(id)
 
         if (response && response.ok && response.data) {
@@ -29,6 +29,10 @@ const FamilyEditPage = () => {
         } else {
             setFamilyData(null)
         }
+    }
+
+    useEffect(() => {
+        fetchFamily()
     }, [id])
 
     const saveFamily = useCallback(async (data) => {

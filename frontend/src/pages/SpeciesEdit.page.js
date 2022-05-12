@@ -14,7 +14,7 @@ const SpeciesEditPage = () => {
     const [messages, setMessages]  = useState([])
     const [errors, setErrors]  = useState([])
 
-    useEffect(async () => {
+    const fetchSpeciesDetails = async () => {
         const response = await getSpeciesDetails(id)
 
         if (!response || !response.ok || !response.data) return setOriginalData(null)
@@ -27,6 +27,10 @@ const SpeciesEditPage = () => {
 
         setOriginalData(dataClone)
         setSpeciesData(cloneObject(response.data))
+    }
+
+    useEffect(() => {
+        fetchSpeciesDetails()
     }, [id])
 
     const saveSpecies = async (data) => {
