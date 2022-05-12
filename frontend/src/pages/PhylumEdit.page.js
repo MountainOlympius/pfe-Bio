@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useMatch, useParams } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 
 import PhylumForm from '../components/PhylumForm'
 import { getPhylum, updatePhylum } from '../utils/api'
@@ -12,6 +13,19 @@ const PhylumsEditPage = () => {
 	const [data, setData] = useState({})
 	const [errors, setErrors] = useState([])
 	const [messages, setMessages] = useState([])
+
+	const notifyerr = (toastmsg) => toast.error(`${toastmsg}`)
+    
+    const notifymsg = (toastmsg) => toast.success(`${toastmsg}`)
+
+    useEffect(() => {
+        errors.forEach(err => {
+            notifyerr(err);
+        });
+        messages.forEach(msg => {
+            notifymsg(msg)
+        });
+    }, [errors, messages])
 
 	useEffect(async () => {
 		const response = await getPhylum(id)
@@ -68,6 +82,7 @@ const PhylumsEditPage = () => {
 					))}
 				</div>
 			) : null}
+			<div><Toaster/></div>
 		</div>
 	)
 }

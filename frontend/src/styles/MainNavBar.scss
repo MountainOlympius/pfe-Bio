@@ -34,6 +34,8 @@
       margin-right: 2em;
     }
     li {
+      font-family: poppins, sans-serif;
+      font-size: 18px;
       margin: 2em;
       text-decoration: none;
       list-style: none;
@@ -144,66 +146,34 @@
         width: 80vw;
         flex-wrap: nowrap;
         margin-right: 2em;
-      }
-      li {
-        margin: 2em;
-        text-decoration: none;
-        list-style: none;
-        position: relative;
-      }
-    
-      a {
-        display: inline-block;
-        position: relative;
-        //padding: 1em 2em;
-        text-decoration: none;
-        font-family: "Rubik", sans-serif;
-        color: rgb(61, 61, 61);
-        font-weight: 200;
-    
-        &.active {
-          color: lightskyblue;
+
+        li {
+          margin: 2em;
+          text-decoration: none;
+          list-style: none;
+          position: relative;
         }
-        &.active:before {
-          opacity: 50%;
-        }
+      
+        .apropos, .essayer, .Home {
+          display: inline-block;
+          position: relative;
+          //padding: 1em 2em;
+          text-decoration: none;
+          font-family: "Rubik", sans-serif;
+          color: rgb(61, 61, 61);
+          font-weight: 200;
+      
+          &.active {
+            color: lightskyblue;
+          }
+          &.active:before {
+            opacity: 50%;
+          }
+      }
     
         
       }
-    
-      .Home {
-        &::before {
-          content: url(..//assets/phylum.png);
-          display: inline-block;
-          height: 100%;
-          vertical-align: middle;
-          margin-right: 1em;
-        }
-      }
-    
-      .essayer {
-        &::before {
-          content: url(..//assets/famille.png);
-          display: inline-block;
-          height: 100%;
-          vertical-align: middle;
-          margin-right: 1em;
-        }
-      }
-    
-      .apropos {
-        &::before {
-          content: url(..//assets/genre.png);
-          display: inline-block;
-          height: 100%;
-          vertical-align: middle;
-          margin-right: 1em;
-        }
-      }
-    
-      a:hover {
-        height: 100%;
-      }
+      
     
     }
   }

@@ -38,7 +38,7 @@ const MainNavBar = () => {
             </NavLink>
           </li>
         </ul>
-        <Button variant="outline" color="green" component={Link} to={'/login'}>Login</Button>
+        <Button variant="outline" color="green" component={Link} to={'/login'}>Admin</Button>
       </nav>
       <div className="burger">
         <ActionIcon onClick={() => setOpened(true)}>
@@ -56,22 +56,22 @@ const MainNavBar = () => {
           <nav className="main-navbar-burger">
         <ul>
           <li>
-            <NavLink className="embranchement" to="/admin/phylum">
+            <NavLink className="Home" to="/">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink className="famille" to="/admin/family">
+            <NavLink className="essayer" to="/essayer">
               essayer
             </NavLink>
           </li>
           <li>
-            <NavLink className="genre" to="/admin/genus">
+            <NavLink className="apropos" to="/apropos">
               à propos
             </NavLink>
           </li>
         </ul>
-        <Button>Login</Button>
+        <Button variant="outline" color="green" component={Link} to={'/login'}>Admin</Button>
       </nav>
       </Drawer>
     </header>

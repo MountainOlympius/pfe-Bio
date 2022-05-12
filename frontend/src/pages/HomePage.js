@@ -8,7 +8,7 @@ function HomePage() {
     <div className="homepage-container">
       <div className="left-container">
         <div className="title-desc">
-          <h1 className="title">L'application Flore du maroc</h1>
+          <h1 className="title">L'application <span>Flore</span> du maroc</h1>
           <h2 className="desc">
             La flore du Maroc est une flore riche et diversifiée, avec environ
             7000 espèces. La flore vasculaire comprend 4200 taxons (espèces et

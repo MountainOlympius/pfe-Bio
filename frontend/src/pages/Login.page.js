@@ -15,7 +15,6 @@ const LoginPage = () => {
 
     const login = async (data, errorsCallback) => {
         const response = await accountLogin(data)
-
         if (response && response.ok && response.data) {
             setAccount({...response.data})
             setTimeout(() => navigate(redirectTo))

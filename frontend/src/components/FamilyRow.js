@@ -4,26 +4,14 @@ import { Link } from "react-router-dom";
 
 import "../styles/FamilyRow.scss";
 import { formatDate } from "../utils/Generic";
-import { ActionIcon, Button, Text, MantineProvider  } from "@mantine/core";
-import { Trash } from "tabler-icons-react";
-import {useModals} from "@mantine/modals"
+import { ActionIcon, Button  } from "@mantine/core";
+
 
 const FamilyRow = ({ id, name, criteria, created_date, deleteCallback }) => {
 
   const RealyWannaDelete = (e) => {
     e.preventDefault()
-    modals.openConfirmModal({
-      title: 'Please confirm your action',
-      children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
-      ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
-      onCancel: () => console.log('Cancel'),
-      onConfirm: () => deleteCallback
-    });
+    
 
   }
 
