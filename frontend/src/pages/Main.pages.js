@@ -13,9 +13,9 @@ const MainPages = () => {
         <div className="App MainPages">
             <MainNavBar />
             <Routes>
-                <Route path='' element={<HomePage to='/' />} />
-                <Route path='' element={<TryDemoPage to='/essayer' />} />
-                <Route path='' element={<AboutPage to='/apropos' />} />
+                <Route index element={<HomePage />} />
+                <Route path='/essayer' element={<TryDemoPage />} />
+                <Route path='/apropos' element={<AboutPage />} />
             </Routes>
         </div>
     )

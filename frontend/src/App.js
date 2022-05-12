@@ -36,7 +36,7 @@ function App() {
         }
       />
       <Route
-        path="/*"
+        path="*"
         element={
           <Suspense
             fallback={
