@@ -1,17 +1,26 @@
 .about-page {
-    width: 100vw;
-    height: 100vh;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
     .title-container {
-        width: 100vw;
-        background-color: blue;
+        
     }
-    .left-container {
+    
+    .section-one {
         display: flex;
-        background-color: red;
-        width: 100vw;
-    }
-    .right-container {
-        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        .left-container {
+            width: 50vw;
+        }
+        .right-container {
+            .img-container {
+                max-width: fit-content;
+            }
+            width: 50vw;
+        }
     }
 }

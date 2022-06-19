@@ -3,7 +3,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 
 
 import flore from "../assets/floredumaroclogo.png";
-import { Drawer, Button, ActionIcon } from "@mantine/core";
+import { Drawer, ActionIcon } from "@mantine/core";
 import { Menu2 } from "tabler-icons-react";
 
 import "../styles/AdminNavBar.scss";

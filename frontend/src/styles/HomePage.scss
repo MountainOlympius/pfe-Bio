@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100vw;
+  width: 100%;
+
   //background-color: red;
   //height: 70vh;
 
@@ -65,12 +66,12 @@
   .homepage-container {
     flex-direction: column;
     .right-container {
-      height: 70vh;
+      height: 100%;
       width: 100vw;
     }
 
     .left-container {
-      height: 70vh;
+      height: 100%;
       width: 100vw;
     }
   }

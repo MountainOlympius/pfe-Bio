@@ -7,6 +7,11 @@ import HomePage from './HomePage'
 import TryDemoPage from './TryDemoPage'
 import AboutPage from './AboutPage'
 
+import ClassifyPhylumPage from './ClassifyPhylum.page'
+import ClassifyFamilyPage from './ClassifyFamily.page'
+
+import '../styles/MainPages.scss';
+
 
 const MainPages = () => {
     return (
@@ -16,6 +21,9 @@ const MainPages = () => {
                 <Route index element={<HomePage />} />
                 <Route path='/essayer' element={<TryDemoPage />} />
                 <Route path='/apropos' element={<AboutPage />} />
+
+                <Route path='/essayer/phylum' element={<ClassifyPhylumPage />} />
+                <Route path='/essayer/family/:phylumId' element={<ClassifyFamilyPage />} />
             </Routes>
         </div>
     )
