@@ -10,9 +10,7 @@ function AboutPage() {
             <h1>à propos</h1>
           </div>
           <div className="section-one">
-          <div className="left-container">
-            <h2>some information about the app</h2>
-          </div>
+
           <div className="right-container">
             <div className="img-container"></div>
             <img src={aproposimage} alt="" className="img" />

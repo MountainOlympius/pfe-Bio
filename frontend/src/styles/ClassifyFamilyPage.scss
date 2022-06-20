@@ -63,10 +63,40 @@
                     width: 100%;
                     height: 50px;
                     background-color: ghostwhite;
+
+                    .activeCriteriaContent {
+                        color: red;
+                      }
+            
+                      .criteria-content {
+                        width: 95vw;
+                        min-height: fit-content;
+                        overflow-wrap: break-word;
+                        word-wrap: break-word;
+                        hyphens: auto;
+                        white-space: normal;
+                      }
                 }
             }
 
 
         }
     }
+    
+    .suivant-btn {
+        position: fixed;
+        bottom:  10px;
+        right: 10px;
+        margin: 20px;
+        align-self: flex-end;
+    }
 }
+
+.family-selected {
+    position: fixed;
+    left: 40px;
+    bottom: 20px;
+    background-color: rgb(143, 255, 173);
+    z-index: 10;
+  }
+  

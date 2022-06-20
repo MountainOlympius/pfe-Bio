@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getPhylum, getFamilies } from "../utils/api";
-import { useParams } from "react-router-dom";
-import { Button, ScrollArea } from "@mantine/core";
+import { useParams, Link } from "react-router-dom";
+import { ActionIcon, Button, ScrollArea } from "@mantine/core";
 import { Check } from "tabler-icons-react";
+
+import FamilyDescription from "../components/FamilyDescription";
 
 import "../styles/ClassifyFamilyPage.scss";
 
@@ -55,11 +57,15 @@ const ClassifyFamilyPage = () => {
         Famille:{" "}
         <span>{selectedFamily.name || "n'est pas encore sélectionné"}</span>
       </h3>
+      <h3 className="family-selected">
+        Famille:{" "}
+        <span>{selectedFamily.name || "n'est pas encore sélectionné"}</span>
+      </h3>
 
       <div className="families-container">
-        {familiesList.map((family) => {
+        {familiesList.map((family, index) => {
           return (
-            <div className="family-container">
+            <div key={index} className="family-container">
               <div className="family-name">
                 <h2
                   className={
@@ -77,16 +83,16 @@ const ClassifyFamilyPage = () => {
                   <Check />
                 </Button>
               </div>
+              <FamilyDescription  familyId={family.id}/>
               <div className="criteria-container">
-                {family.criteria.map((criteria) => {
+                {family.criteria.map((criteria, index) => {
                   return (
-                    <div className="criteria">
-                      <Button
-                        fullWidth
-                        color={
-                          selectedCriteria.id == criteria.id ? "red" : "green"
+                    <div key={index} className="criteria">
+                      <ActionIcon
+                        className={
+                          selectedCriteria.id == criteria.id ? "activeCriteriaContent" : "criteriaContent"
                         }
-                        variant="outline"
+                        component={Button}
                         onClick={() =>
                           setSelectedCriteria({
                             id: criteria.id,
@@ -94,8 +100,10 @@ const ClassifyFamilyPage = () => {
                           })
                         }
                       >
+                        <div className="criteria-content">
                         {criteria.content}
-                      </Button>
+                        </div>
+                      </ActionIcon>
                     </div>
                   );
                 })}
@@ -104,6 +112,17 @@ const ClassifyFamilyPage = () => {
           );
         })}
       </div>
+
+      {selectedFamily.id ? (
+        <Link
+          className="suivant-btn"
+          to={`/essayer/genus/${selectedFamily.id}`}
+        >
+          <Button size="lg">Suivant</Button>
+        </Link>
+      ) : (
+        <Button className="suivant-btn" disabled>Suivant</Button>
+      )}
     </div>
   );
 };

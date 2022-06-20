@@ -11,6 +11,8 @@ import ClassifyPhylumPage from './ClassifyPhylum.page'
 import ClassifyFamilyPage from './ClassifyFamily.page'
 
 import '../styles/MainPages.scss';
+import ClassifyGenusPage from './ClassifyGenus.page'
+import ClassifySpeciesPage from './ClassifySpecies.page'
 
 
 const MainPages = () => {
@@ -24,6 +26,8 @@ const MainPages = () => {
 
                 <Route path='/essayer/phylum' element={<ClassifyPhylumPage />} />
                 <Route path='/essayer/family/:phylumId' element={<ClassifyFamilyPage />} />
+                <Route path='/essayer/genus/:familyId' element={<ClassifyGenusPage />} />
+                <Route path='/essayer/species/:genusId/:familyId/:phylumId' element={<ClassifySpeciesPage />} />
             </Routes>
         </div>
     )

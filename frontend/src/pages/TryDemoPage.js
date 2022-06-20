@@ -8,16 +8,7 @@ function TryDemoPage() {
     <div className="try-demo-page">
       <div className="steps-container">
         <Link to={'/essayer/phylum'}>
-        <button>Embranchement</button>
-        </Link>
-        <Link to={'/essayer/family'}>
-        <button>Famille</button>
-        </Link>
-        <Link to={'/essayer/genus'}>
-        <button>Genre</button>
-        </Link>
-        <Link to={'/essayer/species'}>
-        <button>Espece</button>
+        <button>Commencer</button>
         </Link>
       </div>
     </div>

@@ -28,9 +28,9 @@ const ClassifyPhylumPage = () => {
       <h3>Embranchement: <span>{selectedPhylum.name || "n'est pas encore sélectionné"}</span></h3>
       <div className="phylums-container">
         {
-            phylumsList.map(phylum => {
+            phylumsList.map((phylum, index) => {
                 return (
-                    <div className="phylum-container">
+                    <div key={index} className="phylum-container">
                     <h2 className="title">{phylum.name}</h2>
                     <div className="scroll-and-button">
                         <ScrollArea style={{ height: 100, minWidth: 100 }}>
@@ -45,9 +45,11 @@ const ClassifyPhylumPage = () => {
             })
         }
         <div className="next-btn">
-        <Link to={`/essayer/family/${selectedPhylum.id}`}>
-        <Button>Suivant</Button>
-        </Link>
+        {selectedPhylum.id ? (<Link to={`/essayer/family/${selectedPhylum.id}`}>
+        <Button className="suivant-btn">Suivant</Button>
+        </Link>) : (<Button className="suivant-btn" disabled>Suivant</Button>)
+
+        }
         </div>
       </div>
     </div>
